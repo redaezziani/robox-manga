@@ -4,6 +4,7 @@ import MainPageLayout from "@/components/shared-ui/layouts/main-page-layout";
 import React from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
+import { ArrowDownToLine } from "lucide-react";
 const PageSponsors = () => {
   const { toast } = useToast();
 
@@ -33,15 +34,18 @@ const PageSponsors = () => {
   return (
     <MainPageLayout>
       <section className="flex flex-col  justify-start items-start ">
-        <h2 className=" text-lg font-semibold text-gray-800 ">
+        <h2 className=" text-lg font-semibold text-gray-800 dark:text-gray-50 ">
           Networks Offres
         </h2>
-        <p className=" text-sm text-gray-500">
+        <p className=" text-sm text-gray-500 dark:text-gray-300">
           you can manage and create the Networks Offres
         </p>
         <div className="flex gap-x-2">
-          <Button variant={"default"} onClick={handelNotification}>
-            notification 1
+          <Button
+          className=" flex gap-2"
+          variant={"default"} onClick={handelNotification}>
+             <ArrowDownToLine size={18}/>
+            pull offres 
           </Button>
           <Button variant={"secondary"} onClick={handelNotification2}>
             notification 2

@@ -36,7 +36,7 @@ const MainSideBar = () => {
      <div className="flex gap-2 justify-start items-end">
         <img src="/Spyder_logo.svg" className=" w-32" />
      </div>
-      <nav className="mt-20 h-full overflow-y-auto w-full px-2">
+      <nav className="mt-20 h-full overflow-y-auto scroll-smooth w-full px-2">
         <ul className="space-y-2">
           {Pages.filter((page) => {
             const groupPermission = userPermissions.some(

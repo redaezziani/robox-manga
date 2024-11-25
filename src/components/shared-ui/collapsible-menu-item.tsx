@@ -36,7 +36,7 @@ const CollapsibleMenuItem = ({ item }: { item: MenuItem }) => {
           {item.label}
         </span>
         {isOpen ? (
-          <ChevronUpIcon className="w-4 h-4 text-blue-600" />
+          <ChevronUpIcon className="w-4 h-4 text-primary" />
         ) : (
           <ChevronDownIcon className="w-4 h-4 text-stone-600" />
         )}
@@ -46,7 +46,7 @@ const CollapsibleMenuItem = ({ item }: { item: MenuItem }) => {
         className=" px-6"
         initial={{ height: 0, opacity: 0 }}
         animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
-        transition={{ duration: 0.4, ease: "easeInOut" }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
         style={{ overflow: "hidden" }}
       >
         {item.items.map((subItem, index) => {
