@@ -50,7 +50,9 @@ export default function SideMenu() {
           <span className="sr-only">Open menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="left">
+      <SheetContent
+      className=" bg-muted"
+      side="left">
         <SheetHeader
         className=" flex justify-start items-start gap-2 flex-col"
         >
