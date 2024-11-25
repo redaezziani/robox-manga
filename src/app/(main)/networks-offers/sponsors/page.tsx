@@ -5,6 +5,7 @@ import React from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 import { ArrowDownToLine } from "lucide-react";
+import CardLayout from "@/components/shared-ui/layouts/card-layout";
 const PageSponsors = () => {
   const { toast } = useToast();
 
@@ -40,21 +41,12 @@ const PageSponsors = () => {
         <p className=" text-sm text-gray-500 dark:text-gray-300">
           you can manage and create the Networks Offres
         </p>
-        <div className="flex gap-x-2">
-          <Button
-          className=" flex gap-2"
-          variant={"default"} onClick={handelNotification}>
-             <ArrowDownToLine size={18}/>
-            pull offres 
-          </Button>
-          <Button variant={"secondary"} onClick={handelNotification2}>
-            notification 2
-          </Button>
-          <Button variant={"destructive"} onClick={handelNotification3}>
-            notification 3
-          </Button>
-        </div>
+       
       </section>
+
+      <div className="flex gap-x-2 w-full">
+        <CardLayout className=" min-h-96 w-full"/>
+        </div>
     </MainPageLayout>
   );
 };
