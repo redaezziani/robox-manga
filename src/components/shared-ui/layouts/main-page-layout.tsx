@@ -43,7 +43,7 @@ import React from 'react';
 const MainPageLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
     <main
-      className="px-3 mt-20 overflow-y-auto flex flex-col gap-3 justify-start items-start relative w-full"
+      className="px-3 mt-5 overflow-y-auto flex flex-col gap-3 justify-start items-start relative w-full"
     >
       {children}
     </main>

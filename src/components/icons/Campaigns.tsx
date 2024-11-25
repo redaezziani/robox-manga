@@ -1,12 +1,19 @@
-import React from 'react';
+import React from "react";
 
-const CampaignsIcon = ({ width = 18, height = 18, color = "#000000", fill = "none", ...props }) => (
+const CampaignsIcon = ({
+  width = 18,
+  height = 18,
+  color = "#000000",
+  fill = "none",
+  ...props
+}) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     width={width}
     height={height}
-    fill={fill}
+    className=" text-inherit"
+    fill="none"
     color={color}
     {...props}
   >
@@ -34,4 +41,4 @@ const CampaignsIcon = ({ width = 18, height = 18, color = "#000000", fill = "non
   </svg>
 );
 
-export default CampaignsIcon
+export default CampaignsIcon;

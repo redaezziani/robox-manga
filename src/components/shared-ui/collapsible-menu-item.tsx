@@ -28,10 +28,10 @@ const CollapsibleMenuItem = ({ item }: { item: MenuItem }) => {
   return (
     <div>
       <div
-        className="flex items-center select-none justify-between cursor-pointer py-2 px-4 rounded-md hover:bg-stone-100"
+        className="flex items-center select-none justify-between cursor-pointer py-2 px-4 rounded-md"
         onClick={toggleMenu}
       >
-        <span className="font-semibold capitalize text-sm text-slate-600 flex justify-start items-start gap-x-2">
+        <span className="font-semibold capitalize text-sm  flex justify-start items-start gap-x-2">
           {item.icon}
           {item.label}
         </span>
@@ -43,7 +43,7 @@ const CollapsibleMenuItem = ({ item }: { item: MenuItem }) => {
       </div>
 
       <motion.ul
-        className="space-y-1 pl-4"
+        className=" px-6"
         initial={{ height: 0, opacity: 0 }}
         animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
         transition={{ duration: 0.4, ease: "easeInOut" }}
