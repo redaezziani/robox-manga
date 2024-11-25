@@ -156,23 +156,23 @@ export const Pages = [
     items: [
       {
         title: "Sponsors",
-        href: "/sponsors",
+        href: "/networks-offers/sponsors",
       },
       {
         title: "Offers",
-        href: "/offers",
+        href: "/networks-offers/offers",
       },
       {
         title: "Suppression Manager",
-        href: "/suppression-manager",
+        href: "/networks-offers/suppression-manager",
       },
       {
         title: "Global Suppression List",
-        href: "/global-suppression-list",
+        href: "/networks-offers/global-suppression-list",
       },
       {
         title: "Offers Unsubscribes",
-        href: "/offers-unsubscribes",
+        href: "/networks-offers/offers-unsubscribes",
       },
     ],
   },

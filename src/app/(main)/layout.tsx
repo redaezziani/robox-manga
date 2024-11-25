@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import MainSideBar from "@/components/shared-ui/main-side-bar";
 import MainHeader from "@/components/shared-ui/main-header";
-
+import { Toaster } from "@/components/ui/toaster"
 export const metadata: Metadata = {
   title: "Main App Layout",
   description: "Main App Layout",
@@ -14,6 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <div className={` relative w-full h-screen flex antialiased`}>
+         <Toaster />
       <MainSideBar />
       <div className=" relative h-screen overflow-y-auto w-full flex-col flex gap-3 ">
         <MainHeader />
