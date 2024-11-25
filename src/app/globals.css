@@ -27,7 +27,7 @@ body {
     --border: 240 5.9% 90%;
     --input: 240 4.9% 83.9%;
     --ring: 160  84% 39%;
-    --radius: 0.2rem;
+    --radius: 0.35rem;
   }
   .dark {
     --background: 240 10% 3.9%;
