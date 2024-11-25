@@ -6,7 +6,7 @@ export default function CommandsInput() {
       className="space-y-2 w-96"
       style={{ "--ring": "234 89% 74%" } as React.CSSProperties}
     >
-      <Input id="input-05" placeholder="Email" type="email" />
+      <Input  placeholder="search command ..." type="text" />
     </div>
   );
 }

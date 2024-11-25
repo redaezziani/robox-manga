@@ -12,6 +12,7 @@ const MainHeader = () => {
       <div className="flex gap-x-7 justify-center items-center">
         <div className="space-y-2 lg:flex hidden">
          <CommandsInput/>
+         
         </div>
         <ThemeToggle/>
         <ProfileMenu />
