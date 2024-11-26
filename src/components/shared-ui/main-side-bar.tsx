@@ -33,8 +33,13 @@ const MainSideBar = () => {
     roles.find((role) => role.name === user.role)?.permissions || [];
   return (
     <aside className=" bg-muted sticky top-0 left-0 h-screen  w-96 border-r border-border hidden lg:flex justify-start items-start gap-y-3 flex-col">
-     <div className="flex gap-2 justify-start items-end">
-        <img src="/Spyder_logo.svg" className=" w-32" />
+     <div className="flex  justify-start items-end">
+        <img src="/logo.svg" className=" w-12 mt-2" />
+        <h2
+        className=" font-semibold text-xl"
+        >
+            Mailx.
+        </h2>
      </div>
       <nav className="mt-20 h-full overflow-y-auto scroll-smooth w-full px-2">
         <ul className="space-y-2">

@@ -3,10 +3,11 @@ import MainSideBar from "@/components/shared-ui/main-side-bar";
 import MainHeader from "@/components/shared-ui/main-header";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
+
 export const metadata: Metadata = {
-  title: "Main App Layout",
-  description: "Main App Layout",
-};
+    title: "A Mailx.",
+    description: "a Mailx  is a simple mailer app",
+  };
 
 export default function RootLayout({
   children,
