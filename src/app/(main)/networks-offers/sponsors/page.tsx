@@ -1,34 +1,59 @@
 "use client";
 
-import MainPageLayout from "@/components/shared-ui/layouts/main-page-layout";
 import React from "react";
-import { Button } from "@/components/ui/button";
+import MainPageLayout from "@/components/shared-ui/layouts/main-page-layout";
 import CardLayout from "@/components/shared-ui/layouts/card-layout";
+import { Button } from "@/components/ui/button";
+import { Download } from "lucide-react";
+import DataView from "../ui/sponsors/table-data";
 
-import DataView from "./ui/table-data";
+const PageAffiliate = () => {
+  const handlePullOffers = () => {
+    // Handle pulling offers
+    console.log("Pulling offers...");
+  };
 
-const PageSponsors = () => {
   return (
     <MainPageLayout>
-      <div className="flex w-full justify-between items-end">
-        <section className="flex flex-col  justify-start items-start ">
-          <h2 className=" text-lg font-semibold text-gray-800 dark:text-gray-50 ">
-            Networks Offres
-          </h2>
-          <p className=" text-sm text-gray-500 dark:text-gray-300">
-            you can manage and create the Networks Offres
+      {/* Header Section */}
+      <div className="flex w-full justify-between items-end mb-6">
+        <section className="flex flex-col gap-1">
+          <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
+            Affiliate Networks
+          </h1>
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            Manage your affiliate networks and synchronize offers
           </p>
         </section>
-        <Button>pull offers</Button>
+
+        <div className="flex items-center gap-3">
+          <Button
+            onClick={handlePullOffers}
+            variant="default"
+            className="flex items-center gap-2"
+          >
+            <Download className="h-4 w-4" />
+            Pull Offers
+          </Button>
+        </div>
       </div>
 
-      <div className="flex gap-x-2 w-full">
-        <CardLayout className=" min-h-96 w-full px-0">
-          <DataView/>
+      {/* Main Content */}
+      <div className="w-full">
+        <CardLayout className="min-h-[600px] w-full p-0 overflow-hidden rounded-lg border border-gray-200 dark:border-gray-800">
+          <DataView />
         </CardLayout>
+      </div>
+
+      {/* Status Bar - Optional */}
+      <div className="mt-4 flex items-center justify-end gap-2 text-sm text-gray-500">
+        <span className="flex items-center gap-1">
+          <span className="h-2 w-2 rounded-full bg-green-500"></span>
+          Last synced: 5 minutes ago
+        </span>
       </div>
     </MainPageLayout>
   );
 };
 
-export default PageSponsors;
+export default PageAffiliate;
