@@ -15,6 +15,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Filter, Trash } from "lucide-react";
+import Data from "./ui/table-data";
 
 const PageSponsors = () => {
   return (
@@ -110,6 +111,8 @@ const PageSponsors = () => {
               </div>
             </div>
           </div>
+
+          <Data/>
         </CardLayout>
       </div>
     </MainPageLayout>
