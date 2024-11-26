@@ -73,7 +73,9 @@ const PageSponsors = () => {
                 </Select>
               </span>
 
-              <Button className=" flex gap-x-2 justify-center items-center">
+              <Button
+              
+              className=" flex gap-x-2 justify-center items-center">
                 {" "}
                 <Filter size={16} /> fillter
               </Button>
