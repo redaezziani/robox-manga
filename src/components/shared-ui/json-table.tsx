@@ -168,7 +168,7 @@ export function DataTable<T extends RowData>({
               placeholder={searchPlaceholder}
               value={globalFilter}
               onChange={(e) => setGlobalFilter(e.target.value)}
-              className="w-full border-slate-400/35 bg-white"
+              className="w-full border-slate-400/35 bg-background"
             />
           </div>
         )}
