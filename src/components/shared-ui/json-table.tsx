@@ -112,6 +112,7 @@ export function DataTable<T extends RowData>({
       if (searchableColumns.length > 0) return searchableColumns;
       return columns
         .filter((col) => 'accessorKey' in col && typeof col.accessorKey === 'string')
+        //@ts-ignore
         .map((col) => col.accessorKey as string);
     }, [searchableColumns, columns]);
   
@@ -153,7 +154,7 @@ export function DataTable<T extends RowData>({
         },
       },
     });
-    
+
   return (
     <div className="w-full rounded-lg bg-muted">
       {/* Header Section */}

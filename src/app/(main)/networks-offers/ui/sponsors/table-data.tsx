@@ -139,7 +139,7 @@ function DataView() {
       cell: ({ row }) => {
         const status = row.getValue("status") as string;
         return (
-          <div className={`px-2 py-1 rounded-full text-xs font-medium w-fit ${getStatusColor(status)}`}>
+          <div className={`px-2 py-0.5 rounded-full text-xs font-medium w-fit ${getStatusColor(status)}`}>
             {status}
           </div>
         );
@@ -167,7 +167,7 @@ function DataView() {
     enableSearch: true,
     enableColumnFilters: true,
     enablePagination: true,
-    pageSize: 9,
+    pageSize: 8,
     searchPlaceholder: "Search networks...",
     customStyles: {
       table: "shadow-sm",

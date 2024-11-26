@@ -4,7 +4,7 @@ import React from "react";
 import MainPageLayout from "@/components/shared-ui/layouts/main-page-layout";
 import CardLayout from "@/components/shared-ui/layouts/card-layout";
 import { Button } from "@/components/ui/button";
-import { Download } from "lucide-react";
+import { Download, UserRound } from "lucide-react";
 import DataView from "../ui/sponsors/table-data";
 
 const PageAffiliate = () => {
@@ -32,8 +32,8 @@ const PageAffiliate = () => {
             variant="default"
             className="flex items-center gap-2"
           >
-            <Download className="h-4 w-4" />
-            Pull Offers
+            <UserRound className="h-4 w-4" />
+            add new 
           </Button>
         </div>
       </div>
