@@ -6,6 +6,8 @@ import CardLayout from "@/components/shared-ui/layouts/card-layout";
 import { Button } from "@/components/ui/button";
 import { Download, UserRound } from "lucide-react";
 import DataView from "../ui/sponsors/table-data";
+import Notification from "../ui/sponsors/add-new-sponsor";
+import Sonner from "../ui/sponsors/sonner-test";
 
 const PageAffiliate = () => {
   const handlePullOffers = () => {
@@ -27,6 +29,8 @@ const PageAffiliate = () => {
         </section>
 
         <div className="flex items-center gap-3">
+            <Sonner/>
+            <Notification/>
           <Button
             onClick={handlePullOffers}
             variant="default"
