@@ -10,9 +10,9 @@ interface CardLayoutProps {
 const CardLayout = ({children,className} :CardLayoutProps) => {
     
     return (
-        <Card className={cn("flex flex-col gap-1 border-t-2 border-t-primary",className)}>
+        <Card className={cn("flex flex-col gap-1 p-0 border-t-2 border-t-primary",className)}>
            
-            <CardContent>
+            <CardContent className="p-0">
               {children}
             </CardContent>
         </Card>
