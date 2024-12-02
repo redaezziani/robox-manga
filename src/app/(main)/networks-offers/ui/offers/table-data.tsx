@@ -6,6 +6,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import useSWR from "swr";
 import SaveNewOffer from "./save-new-offer";
 import { Bug } from "lucide-react";
+import axios from "axios";
 import {
   Tooltip,
   TooltipContent,
@@ -34,11 +35,11 @@ interface Offer {
   updated_at: string;
 }
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
+const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
 function DataView() {
   const { data, error } = useSWR(
-    "http://localhost:8000/api/v1/offer/get-cache-offers",
+    `${process.env.API_URL}/api/v1/offer/get-cache-offers`,
     fetcher
   );
 
