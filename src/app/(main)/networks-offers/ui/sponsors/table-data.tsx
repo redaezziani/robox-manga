@@ -1,106 +1,60 @@
-import React from 'react';
+"use client"
+import React, { useEffect, useState } from 'react';
 import { ColumnDef, DataTable } from "@/components/shared-ui/json-table";
 import { Button } from "@/components/ui/button";
 import TableHeader from "./table-header";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
+import useSWR from 'swr'
+import { Edit, Save, Trash } from 'lucide-react';
+import { toast } from 'sonner';
 
-interface AffiliateNetwork {
-  id: number;
+interface Offer {
+  id: string;
+  affiliate_network_name: string;
+  status: string;
+  reference_id: string;
+  campaign_id: number;
   name: string;
-  affiliateNumber: string;
-  platform: string;
-  status: 'Active' | 'Inactive' | 'Pending';
+  countries: string[];
+  description: string;
+  rules: string;
+  expiration_date: string;
+  type: string;
+  payout: number;
+  available_days: number;
+  auto_sup: boolean;
+  default_suppression_link: string;
+  last_suppression_updated_date: string;
+  created_at: string;
+  updated_at: string;
 }
 
-const data: AffiliateNetwork[] = [
-  {
-    id: 1,
-    name: "Lolaleads",
-    affiliateNumber: "AF392847",
-    platform: "cortex.cake",
-    status: "Active",
-  },
-  {
-    id: 2,
-    name: "MaxBounty",
-    affiliateNumber: "MB584937",
-    platform: "maxbounty.com",
-    status: "Active",
-  },
-  {
-    id: 3,
-    name: "ClickDealer",
-    affiliateNumber: "CD738291",
-    platform: "clickdealer.com",
-    status: "Inactive",
-  },
-  {
-    id: 4,
-    name: "MobiFaster",
-    affiliateNumber: "MF847362",
-    platform: "mobifaster.com",
-    status: "Active",
-  },
-  {
-    id: 5,
-    name: "AdCombo",
-    affiliateNumber: "AC294857",
-    platform: "adcombo.com",
-    status: "Pending",
-  },
-  {
-    id: 6,
-    name: "PropellerAds",
-    affiliateNumber: "PA583927",
-    platform: "propellerads.com",
-    status: "Active",
-  },
-  {
-    id: 7,
-    name: "TrafficCompany",
-    affiliateNumber: "TC847593",
-    platform: "trafficcompany.com",
-    status: "Active",
-  },
-  {
-    id: 8,
-    name: "GlobalWide",
-    affiliateNumber: "GW738492",
-    platform: "globalwide.network",
-    status: "Inactive",
-  },
-  {
-    id: 9,
-    name: "MobAds",
-    affiliateNumber: "MA583927",
-    platform: "mobads.com",
-    status: "Active",
-  },
-  {
-    id: 10,
-    name: "AdsBridge",
-    affiliateNumber: "AB294857",
-    platform: "adsbridge.com",
-    status: "Active",
-  }
-];
+const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 function DataView() {
+
+  const { data, error } = useSWR('http://localhost:8000/api/v1/offer/get-cache-offers', fetcher);
+
+  if (error) return <div>Error loading data.</div>;
+  if (!data) return <div>Loading...</div>;
+
+
+
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'Active':
+      case 'active':
         return 'bg-green-100 text-green-800';
-      case 'Inactive':
+      case 'inactive':
         return 'bg-red-100 text-red-800';
-      case 'Pending':
+      case 'pending':
         return 'bg-yellow-100 text-yellow-800';
       default:
         return 'bg-gray-100 text-gray-800';
     }
   };
 
-  const columns: ColumnDef<AffiliateNetwork>[] = [
+  const columns: ColumnDef<Offer>[] = [
     {
       accessorKey: "checkbox",
       header: "",
@@ -116,21 +70,21 @@ function DataView() {
       accessorKey: "name",
       header: "Name",
       cell: ({ row }) => (
-        <div className="font-medium">{row.getValue("name")}</div>
+        <div className=" text-gray-600 lowercase font-medium line-clamp-1">{row.getValue("name")}</div>
       ),
     },
     {
-      accessorKey: "affiliateNumber",
-      header: "Affiliate Number",
-      cell: ({ row }) => <div className="px-4">{row.getValue("affiliateNumber")}</div>,
+      accessorKey: "reference_id",
+      header: "Reference ID",
+      cell: ({ row }) => <div className=" text-gray-600 lowercase font-medium line-clamp-1">{row.getValue("reference_id")}</div>,
     },
     {
-      accessorKey: "platform",
-      header: "Platform",
+      accessorKey: "affiliate_network_name",
+      header: "Affiliate Network",
       cell: ({ row }) => (
-        <Badge variant="secondary" className="font-normal">
-          {row.getValue("platform")}
-        </Badge>
+        <span className=" text-gray-600 lowercase font-medium line-clamp-1">
+          {row.getValue("affiliate_network_name")}
+        </span>
       ),
     },
     {
@@ -148,15 +102,18 @@ function DataView() {
     {
       id: "actions",
       header: "Action",
-      cell: () => (
+      cell: ({row}) => (
         <div className="flex items-center gap-2">
           <Button variant="ghost" size="sm">
             <span className="sr-only">Edit</span>
-            ⚙️
+            <Edit className=' text-gray-400' size={17}/>
           </Button>
-          <Button variant="ghost" size="sm" className="text-red-600">
-            <span className="sr-only">Delete</span>
-            🗑️
+
+          <Button
+          onClick={() => handelSaveOffer(row.getValue("id"))} 
+          variant="ghost" size="sm">
+            <span className="sr-only">save to db </span>
+            <Save className=' text-gray-400' size={17}/>
           </Button>
         </div>
       ),
@@ -168,7 +125,7 @@ function DataView() {
     enableColumnFilters: true,
     enablePagination: true,
     pageSize: 8,
-    searchPlaceholder: "Search networks...",
+    searchPlaceholder: "Search offers...",
     customStyles: {
       table: "shadow-sm",
       row: "hover:bg-slate-50",
@@ -180,15 +137,33 @@ function DataView() {
     searchableColumns: ["name", "status"],
   };
 
+
+  const handelSaveOffer = async (id:string)=>{
+    try {
+        const response = await fetch(`http://localhost:8000/api/v1/offer/save-offer?cache_offer_id=${id}`)
+        const data = await response.json()
+        console.log(data)
+        toast("Offer created successfully!", {
+            description: "Your new offer has been added to the system.",
+          });
+          
+    } catch (error) {
+        
+    }
+  }
+
   return (
-    <DataTable<AffiliateNetwork>
-      data={data}
+    <>
+     {data?.data && <DataTable<Offer>
+      data={data.data}
       columns={columns}
       tableConfig={tableConfig}
       searchConfig={searchConfig}
       headerContent={<TableHeader />}
       onRowClick={(row) => console.log("Clicked row:", row)}
-    />
+    />}
+    </>
+   
   );
 }
 

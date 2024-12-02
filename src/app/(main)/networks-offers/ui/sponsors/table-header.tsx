@@ -1,7 +1,4 @@
 import React from 'react'
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { ArrowRight, Search } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -30,7 +27,7 @@ const TableHeader = () => {
 
       <span className=" w-36">
         <Select defaultValue="s1">
-          <SelectTrigger id="select-19">
+          <SelectTrigger>
             <SelectValue placeholder="Select Sort type" />
           </SelectTrigger>
           <SelectContent>

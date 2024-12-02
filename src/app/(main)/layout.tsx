@@ -5,9 +5,9 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-    title: "A Mailx.",
-    description: "a Mailx  is a simple mailer app",
-  };
+  title: "A Mailx.",
+  description: "a Mailx  is a simple mailer app",
+};
 
 export default function RootLayout({
   children,
@@ -16,8 +16,8 @@ export default function RootLayout({
 }>) {
   return (
     <div className={` relative w-full h-screen flex antialiased`}>
-         <Toaster />
-         <Sonner />
+      <Toaster />
+      <Sonner />
       <MainSideBar />
       <div className=" relative h-screen overflow-y-auto w-full flex-col flex gap-3 ">
         <MainHeader />
@@ -28,4 +28,3 @@ export default function RootLayout({
     </div>
   );
 }
-

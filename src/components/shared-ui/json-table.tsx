@@ -156,7 +156,7 @@ export function DataTable<T extends RowData>({
     });
 
   return (
-    <div className="w-full rounded-lg bg-muted">
+    <div className="w-full rounded-lg ">
       {/* Header Section */}
       <div className="flex flex-wrap items-center justify-between gap-3 bg-muted p-2 md:py-4">
         {enableSearch && (
@@ -178,7 +178,7 @@ export function DataTable<T extends RowData>({
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" className="flex items-center gap-2">
                   <FilterIcon size={16} />
-                  Column Visibility
+                   visibility
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
@@ -212,7 +212,7 @@ export function DataTable<T extends RowData>({
                 {headerGroup.headers.map((header) => (
                   <TableHead
                     key={header.id}
-                    className={` bg-muted text-sm font-semibold capitalize`}
+                    className={`  text-sm font-semibold capitalize`}
                   >
                     {header.isPlaceholder ? null : (
                       <div
@@ -282,6 +282,9 @@ export function DataTable<T extends RowData>({
       </div>
   );
 }
+
+
+
 interface PaginationProps {
   table: TableType<any>;
   className?: string;

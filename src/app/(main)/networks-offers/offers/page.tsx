@@ -2,10 +2,9 @@
 
 import MainPageLayout from "@/components/shared-ui/layouts/main-page-layout";
 import React from "react";
-import { Button } from "@/components/ui/button";
 import CardLayout from "@/components/shared-ui/layouts/card-layout";
 
-import DataView from "../ui/sponsors/table-data";
+import DataView from "../ui/offers/table-data";
 
 const PageSponsors = () => {
   return (
@@ -19,7 +18,6 @@ const PageSponsors = () => {
             you can manage and create the Networks Offres
           </p>
         </section>
-        <Button>pull offers</Button>
       </div>
 
       <div className="flex gap-x-2 w-full">
