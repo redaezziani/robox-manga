@@ -28,17 +28,19 @@ interface StatusInputProps {
 }
 
 const statuses = [
-  { value: "active", label: "Active", color: "text-emerald-600" },
-  { value: "public", label: "Public", color: "text-blue-500" },
-  { value: "apply_to_run", label: "Apply to Run", color: "text-amber-500" },
-  { value: "cancelled", label: "Cancelled", color: "text-red-500" },
+  { value: "Active", label: "Active", color: "text-emerald-600" },
+  { value: "Public", label: "Public", color: "text-blue-500" },
+  { value: "Apply_to_run", label: "Apply to Run", color: "text-amber-500" },
+  { value: "Cancelled", label: "Cancelled", color: "text-red-500" },
 ];
 
 export default function StatusInput({ status }: StatusInputProps) {
   return (
     <div className="space-y-2">
       <Label htmlFor="select-status">Status</Label>
-      <Select value={status}>
+      <Select
+      defaultValue={status}
+      value={status}>
         <SelectTrigger
           id="select-status"
           className="[&>span]:flex [&>span]:items-center [&>span]:gap-2 [&>span_svg]:shrink-0"

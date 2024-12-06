@@ -5,7 +5,6 @@ import MainPageLayout from "@/components/shared-ui/layouts/main-page-layout";
 import CardLayout from "@/components/shared-ui/layouts/card-layout";
 import { Button } from "@/components/ui/button";
 import { UserRound } from "lucide-react";
-import DataView from "../ui/sponsors/table-data";
 
 const PageAffiliate = () => {
   const handlePullOffers = () => {
@@ -39,7 +38,6 @@ const PageAffiliate = () => {
 
       <div className="w-full">
         <CardLayout className="min-h-[600px] w-full p-0 overflow-hidden rounded-lg border border-gray-200 dark:border-gray-800">
-          <DataView />
         </CardLayout>
       </div>
 

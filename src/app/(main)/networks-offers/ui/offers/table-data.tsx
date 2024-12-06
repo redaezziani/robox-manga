@@ -13,13 +13,14 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import CreateOffer from "./create-offer";
 
 interface Offer {
   id: string;
-  affiliate_network_name: string;
+  affiliateNetworkName: string;
   status: string;
-  reference_id: string;
-  campaign_id: number;
+  referenceId: string;
+  campaignId: number;
   name: string;
   countries: string[];
   description: string;
@@ -39,7 +40,7 @@ const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
 function DataView() {
   const { data, error } = useSWR(
-    `${process.env.API_URL}/api/v1/offer/get-cache-offers`,
+    `http://localhost:8080/offer/get-offers-from-db?page=1&limit=50`,
     fetcher
   );
 
@@ -80,28 +81,28 @@ function DataView() {
       ),
     },
     {
-      accessorKey: "reference_id",
+      accessorKey: "referenceId",
       header: "Reference ID",
       cell: ({ row }) => (
         <div className="  lowercase font-medium line-clamp-1">
-          {row.getValue("reference_id")}
+          {row.getValue("referenceId")}
         </div>
       ),
     },
     {
-      accessorKey: "campaign_id",
+      accessorKey: "campaignId",
       header: "Campaign Id",
       cell: ({ row }) => {
-        const campaign_id = row.getValue("campaign_id") as string;
+        const campaign_id = row.getValue("campaignId") as string;
         return <div className="">{campaign_id}</div>;
       },
     },
     {
-      accessorKey: "affiliate_network_name",
+      accessorKey: "affiliateNetworkName",
       header: "Affiliate Network",
       cell: ({ row }) => (
         <span className="  lowercase font-medium line-clamp-1">
-          {row.getValue("affiliate_network_name")}
+          {row.getValue("affiliateNetworkName")}
         </span>
       ),
     },
@@ -179,7 +180,7 @@ function DataView() {
           columns={columns}
           tableConfig={tableConfig}
           searchConfig={searchConfig}
-          headerContent={<TableHeader />}
+          headerContent={<CreateOffer />}
           onRowClick={(row) => console.log("Clicked row:", row)}
         />
       )}

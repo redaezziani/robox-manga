@@ -23,26 +23,25 @@ import { toast } from "sonner";
 import StatusInput from "./status-input";
 
 interface Offer {
-  id: string;
-  affiliate_network_name: string;
-  status: string;
-  reference_id: string;
-  campaign_id: number;
-  name: string;
-  countries: string[];
-  description: string;
-  rules: string;
-  expiration_date: string;
-  type: string;
-  payout: number;
-  available_days: number;
-  auto_sup: boolean;
-  default_suppression_link: string;
-  last_suppression_updated_date: string;
-  created_at: string;
-  updated_at: string;
-}
-
+    id: string;
+    affiliateNetworkName: string;
+    status: string;
+    referenceId: string;
+    campaignId: number;
+    name: string;
+    countries: string[];
+    description: string;
+    rules: string;
+    expiration_date: string;
+    type: string;
+    payout: number;
+    available_days: number;
+    auto_sup: boolean;
+    default_suppression_link: string;
+    last_suppression_updated_date: string;
+    created_at: string;
+    updated_at: string;
+  }
 interface SaveNewOfferProps {
   offer: Offer;
 }
@@ -106,7 +105,7 @@ const SaveNewOffer = ({ offer }: SaveNewOfferProps) => {
                     <Input
                       id="affiliate_network_name"
                       name="affiliate_network_name"
-                      value={formData.affiliate_network_name}
+                      value={formData.affiliateNetworkName}
                       onChange={handleInputChange}
                     />
                   </div>
