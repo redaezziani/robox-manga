@@ -18,6 +18,8 @@ interface MangaDetailsProps {
         status: string
         genres: string[]
         rating: number
+        id : string
+        slug: string
     }
     chapters: {
         id: string
@@ -94,7 +96,9 @@ export default function MangaDetails({ manga, chapters }: MangaDetailsProps) {
                 </div>
                {chapters.length > 0 && ( <div className=" space-y-4 w-full">
                     <h2 className="text-xl font-bold">الفصول</h2>
-                    <ChaptersList chapters={chapters} />
+                    <ChaptersList
+                    mangaId={manga.slug}
+                    chapters={chapters} />
                 </div>
                 )}
                 {chapters.length === 0 && (

@@ -8,6 +8,8 @@ import { CustomPagination } from "@/app/ui/custom-pagination";
 import React, { useEffect } from "react";
 import { RotateCcw } from "lucide-react";
 import { TickSlider } from "./tick-slider";
+import { AnimatePresence } from "framer-motion";
+import { MobileFilters } from "./mobile-filters";
 
 interface MangaGridProps {
     mangas: Manga[];
@@ -116,8 +118,32 @@ export default function MangaGrid({
     };
 
     return (
-        <div className="flex flex-col gap-6">
-            <div className="w-full grid md:grid-cols-4 gap-4 container">
+        <div className="flex w-full flex-col gap-6">
+            <div className="w-full  grid grid-cols-1  md:grid-cols-4 gap-4 container">
+                
+            <div
+                lang="ar"
+                className=" md:hidden   w-full flex justify-between items-end mb-4">
+                   <h3
+                   className="text-lg font-semibold text-gray-600"
+                   >
+                          فلترة المانجا
+                   </h3>
+                   <MobileFilters
+                        genres={genres}
+                        statuses={statuses}
+                        types={types}
+                        selectedGenres={selectedGenres}
+                        selectedStatuses={selectedStatuses}
+                        selectedTypes={selectedTypes}
+                        onGenreChange={handleGenreChange}
+                        onStatusChange={handleStatusChange}
+                        onTypeChange={handleTypeChange}
+                        onRatingChange={handleRatingChange}
+                        onResetFilters={resetFilters}
+                    />
+                </div>
+
                 <section
                     lang="ar"
                     className="w-full col-span-1 hidden md:flex flex-col gap-4 justify-start items-start">
@@ -243,10 +269,14 @@ export default function MangaGrid({
                         </div>
                     ) : (
                         <>
-                            <section className="w-full grid grid-cols-2 lg:grid-cols-6 gap-4">
-                                {mangas.map((manga) => (
-                                    <MangaCard key={manga.id} data={manga} />
-                                ))}
+                            <section className="w-full">
+                                <div className="grid grid-cols-2 lg:grid-cols-6 gap-4">
+                                    <AnimatePresence mode="popLayout">
+                                        {mangas.map((manga) => (
+                                            <MangaCard key={manga.id} data={manga} />
+                                        ))}
+                                    </AnimatePresence>
+                                </div>
                             </section>
                             <div className="w-full flex justify-start mb-4 items-end">
                                 <CustomPagination

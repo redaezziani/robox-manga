@@ -40,8 +40,13 @@ interface MangaStore {
     statuses: string[]
     types: string[]
     manga: Manga | null
+    chapter: {
+        mangaName: string;
+        chapterName: string;
+        chapterNumber: number;
+        pages: string[];
+    } | null
     fetchManga: (id: string) => Promise<void>
-
     fetchAllMangas: (params: MangaQueryParams) => Promise<void>
     fetchSingleManga: (id: string) => Promise<Manga | null>
     fetchPopularMangas: () => Promise<void>
@@ -51,6 +56,7 @@ interface MangaStore {
     fetchGenres: () => Promise<void>
     fetchStatuses: () => Promise<void>
     fetchTypes: () => Promise<void>
+    fetchChapter: (mangaSlug: string, chapterNumber: string) => Promise<void>
     setLoading: (loading: boolean) => void
     setError: (error: string | null) => void
     setSearchQuery: (query: string) => void
@@ -84,6 +90,7 @@ const useMangaStore = create<MangaStore>((set, get) => ({
         types: []
     },
     manga: null,
+    chapter: null,
 
     fetchAllMangas: async (params: MangaQueryParams = {}) => {
             try {
@@ -265,6 +272,27 @@ const useMangaStore = create<MangaStore>((set, get) => ({
                     loadingStates: { ...state.loadingStates, singleManga: false },
                     manga: null
                 }))
+            }
+        },
+
+        fetchChapter: async (mangaSlug: string, chapterNumber: string) => {
+            try {
+                console.log("fetching chapter", mangaSlug, chapterNumber)
+                set(state => ({
+                    loadingStates: { ...state.loadingStates, singleManga: true },
+                    error: null
+                }));
+                const response = await axios.get(`http://localhost:8000/api/manga/manga/${mangaSlug}/chapter/${chapterNumber}`);
+                set(state => ({
+                    chapter: response.data.data,
+                    loadingStates: { ...state.loadingStates, singleManga: false }
+                }));
+            } catch (error) {
+                set(state => ({
+                    error: error instanceof Error ? error.message : 'Failed to fetch chapter',
+                    loadingStates: { ...state.loadingStates, singleManga: false },
+                    chapter: null
+                }));
             }
         },
 

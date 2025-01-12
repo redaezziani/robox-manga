@@ -152,3 +152,12 @@ body {
 .swiper-pagination-bullet {
     background: white !important;
 }
+
+@import 'swiper/css';
+@import 'swiper/css/pagination';
+
+/* Hide default Swiper buttons */
+.swiper-button-prev,
+.swiper-button-next {
+    display: none !important;
+}

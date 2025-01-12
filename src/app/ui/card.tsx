@@ -33,7 +33,18 @@ interface MangaCardProps {
 
 const MangaCard = ({ data }: MangaCardProps) => {
     return (
-        <Link href={`/manga/${data.slug}`} className="block">
+        <motion.a
+            layout
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            transition={{
+                opacity: { duration: 0.2 },
+                layout: { duration: 0.3 }
+            }}
+            href={`/manga/${data.slug}`} 
+            className="block"
+        >
             <Card className="group overflow-hidden shadow-none transition-all border-none duration-300 ">
                 <div className="relative rounded-lg aspect-[10/14] w-full overflow-hidden">
                     <Skeleton
@@ -77,7 +88,7 @@ const MangaCard = ({ data }: MangaCardProps) => {
                     <span className="text-xs text-gray-500">{data.status}</span>
                 </CardFooter>
             </Card>
-        </Link>
+        </motion.a>
     )
 }
 

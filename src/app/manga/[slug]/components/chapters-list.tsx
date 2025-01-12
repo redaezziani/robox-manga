@@ -15,9 +15,10 @@ import { Chapter } from '@/types/manga'
 
 interface ChaptersListProps {
   chapters: Chapter[]
+  mangaId: string
 }
 
-export default function ChaptersList({ chapters }: ChaptersListProps) {
+export default function ChaptersList({ chapters,mangaId }: ChaptersListProps) {
   return (
     <div className="rounded-md border">
       <Table>
@@ -39,7 +40,7 @@ export default function ChaptersList({ chapters }: ChaptersListProps) {
               </TableCell>
               <TableCell className="text-right py-1.5">
                 <Button asChild variant="ghost">
-                  <Link href={`/home/manga/chapter/${chapter.slug}`}>
+                  <Link href={`/manga/${mangaId}/chapter/${chapter.number}`}>
                     قراءة
                   </Link>
                 </Button>
