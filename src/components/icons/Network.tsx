@@ -1,29 +1,24 @@
 import React from 'react';
 
-const NetworkIcon = ({ width = 18, height = 18, color = "#000000", fill = "none", ...props }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" className=" text-inherit" viewBox="0 0 24 24" width={width} height={height} fill="none">
+const NetworkIcon = ({
+  width = 18,
+  height = 18,
+  color = '#000000',
+  fill = 'none',
+  ...props
+}) => (
+  <svg
+    {...props}
+    width={width}
+    height={height}
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path
-      d="M12 11L12 20"
-      stroke={"currentColor"}
-      strokeWidth="1.5"
-      strokeLinecap="round"
-    />
-    <path
-      d="M14 9C14 10.1046 13.1046 11 12 11C10.8954 11 10 10.1046 10 9C10 7.89543 10.8954 7 12 7C13.1046 7 14 7.89543 14 9Z"
-      stroke={"currentColor"}
-      strokeWidth="1.5"
-    />
-    <path
-      d="M16.9588 6C17.6186 6.86961 18 7.89801 18 9C18 10.102 17.6186 11.1304 16.9588 12M7.04117 6C6.38143 6.86961 6 7.89801 6 9C6 10.102 6.38143 11.1304 7.04117 12"
-      stroke={"currentColor"}
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M20.3159 4C21.3796 5.43008 22 7.14984 22 9C22 10.8502 21.3796 12.5699 20.3159 14M3.68409 4C2.62036 5.43008 2 7.14984 2 9C2 10.8502 2.62036 12.5699 3.68409 14"
-      stroke={"currentColor"}
-      strokeWidth="1.5"
+      d="M10.5858 13.4142C9.80474 12.6332 9.80474 11.3668 10.5858 10.5858C11.3668 9.80474 12.6332 9.80474 13.4142 10.5858C14.1953 11.3668 14.1953 12.6332 13.4142 13.4142M7.75736 16.2426C5.41421 13.8995 5.41421 10.1005 7.75736 7.75736C10.1005 5.41421 13.8995 5.41421 16.2426 7.75736C18.5858 10.1005 18.5858 13.8995 16.2426 16.2426M4.92893 19.0711C1.02369 15.1658 1.02369 8.83418 4.92893 4.92893C8.83418 1.02369 15.1658 1.02369 19.0711 4.92893C22.9763 8.83418 22.9763 15.1658 19.0711 19.0711"
+      stroke="currentColor"
+      strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
     />

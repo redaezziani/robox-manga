@@ -1,10 +1,37 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: "Open Sans", sans-serif;
+@font-face {
+  font-family: 'LANTX-Regular';
+  src: url('./assets/font/LANTX-Regular.otf') format('opentype');
+}
+
+
+/* Base styles with more specific font-family declaration */
+@layer base {
+  html {
+    font-family: 'LANTX-Regular', system-ui, sans-serif;
+  }
+  
+  /* Make Arabic text use LANTX-Regular */
+  *:lang(ar) {
+    font-family: 'LANTX-Regular', system-ui, sans-serif !important;
+  }
+  
+  /* Make Latin text use Roboto */
+  *:not(:lang(ar)) {
+    font-family: 'Roboto', system-ui, sans-serif;
+  }
+}
+
+/* Additional utility classes if needed */
+.font-arabic {
+  font-family: 'LANTX-Regular', system-ui, sans-serif !important;
+}
+
+.font-latin {
+  font-family: 'Roboto', system-ui, sans-serif;
 }
 @layer base {
   :root {
@@ -14,7 +41,7 @@ body {
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
-    --primary: 221 48% 60%;
+    --primary: 239 84% 67%;
     --primary-foreground: 0 0% 98%;
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
@@ -26,8 +53,8 @@ body {
     --destructive-foreground: 0 0% 100%;
     --border: 240 5.9% 90%;
     --input: 240 4.9% 83.9%;
-    --ring: 221 48% 60%;
-    --radius: 0.35rem;
+    --ring: 239 84% 67%;
+    --radius: 0.45rem;
   }
   .dark {
     --background: 240 10% 3.9%;
@@ -36,7 +63,7 @@ body {
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
-    --primary: 221 48% 60%;
+    --primary: 239 84% 67%;
     --primary-foreground: 240 5.9% 10%;
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
@@ -48,35 +75,80 @@ body {
     --destructive-foreground: 0 0% 100%;
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
-    --ring: 221 48% 60%;
+    --ring: 239 84% 67%;
   }
 }
 
-.color{
-    color: hsl(221 48% 60%);
+body {
+  direction: rtl;
+  text-align: right;
 }
+
+
 
 ::-webkit-scrollbar {
-    width: 8px; 
-    height: 8px;
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    background-color: #888;
-    border-radius: 10px; 
-    border: 2px solid #fff; 
-  }
-  
-  ::-webkit-scrollbar-thumb:hover {
-    background-color: #555;
-  }
-  
-  ::-webkit-scrollbar-track {
-    background-color: #f1f1f1;
-    border-radius: 10px;
-  }
-  
-  ::-webkit-scrollbar-track:hover {
-    background-color: hsl(var("--primary"));
-  }
-  
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
+  border: 2px solid #fff;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-track:hover {
+  background-color: hsl(var('--primary'));
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    color: white !important;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 50%;
+    width: 15px !important;
+    height: 15px !important;
+}
+
+/* Remove default Swiper navigation styles */
+.swiper-button-next,
+.swiper-button-prev {
+  display: none !important;
+}
+
+/* Custom navigation button hover effects */
+.prev-button,
+.next-button {
+  transition: all 0.2s ease-in-out;
+}
+
+.prev-button:hover,
+.next-button:hover {
+  transform: scale(1.1);
+}
+
+/* Disabled state for navigation buttons */
+.prev-button:disabled,
+.next-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    font-size: 15px !important;
+}
+
+.swiper-pagination-bullet {
+    background: white !important;
+}

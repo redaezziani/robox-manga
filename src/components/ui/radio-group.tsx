@@ -1,15 +1,22 @@
-"use client";
+'use client';
 
-import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
-import * as React from "react";
+import * as React from 'react';
 
-import { cn } from "@/lib/utils";
+import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
+
+import { cn } from '@/lib/utils';
 
 const RadioGroup = React.forwardRef<
   React.ElementRef<typeof RadioGroupPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root>
 >(({ className, ...props }, ref) => {
-  return <RadioGroupPrimitive.Root className={cn("grid gap-3", className)} {...props} ref={ref} />;
+  return (
+    <RadioGroupPrimitive.Root
+      className={cn('grid gap-3', className)}
+      {...props}
+      ref={ref}
+    />
+  );
 });
 RadioGroup.displayName = RadioGroupPrimitive.Root.displayName;
 
@@ -21,8 +28,8 @@ const RadioGroupItem = React.forwardRef<
     <RadioGroupPrimitive.Item
       ref={ref}
       className={cn(
-        "aspect-square size-4 rounded-full border border-input shadow-sm shadow-black/5 ring-offset-background transition-shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:border-primary data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground",
-        className,
+        'border-input ring-offset-background focus-visible:ring-ring data-[state=checked]:border-primary data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground aspect-square size-4 rounded-full border shadow-sm shadow-black/5 transition-shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
+        className
       )}
       {...props}
     >

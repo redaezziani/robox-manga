@@ -1,83 +1,122 @@
-"use client";
-import { useState } from "react";
+'use client';
 
-import CollapsibleMenuItem from "./collapsible-menu-item";
-import { Pages } from "@/lib/route-pages";
+import { useState } from 'react';
+
+import { AnimatePresence, motion } from 'framer-motion';
+
+import { Pages } from '@/lib/route-pages';
+
+import ArrowsIcon from '../icons/Arrows';
+import { Button } from '../ui/button';
+
+import CollapsibleMenuItem from './collapsible-menu-item';
+
 const roles = [
   {
-    name: "Admin",
+    name: 'مسؤول',
     permissions: [
-      { type: "group", name: "campaigns" },
-      { type: "group", name: "subscribers" },
-      { type: "group", name: "deliverability" },
-      { type: "group", name: "networks & offers" },
+      { type: 'group', name: 'الشبكات والعروض' },
+      { type: 'group', name: 'المشتركين' },
+      { type: 'group', name: 'الحملات' },
+      { type: 'group', name: 'التقارير' },
+      { type: 'group', name: 'الإعدادات' },
     ],
   },
   {
-    name: "User",
+    name: 'مستخدم',
     permissions: [
-      { type: "group", name: "subscribers" },
-      { type: "group", name: "campaigns" },
+      { type: 'group', name: 'المشتركين' },
+      { type: 'group', name: 'الحملات' },
     ],
   },
 ];
 
 const MainSideBar = () => {
   const user = {
-    name: "Alyssa",
-    email: "alyssa@test.com",
-    role: "Admin",
-  }
+    name: 'أليسا',
+    email: 'alyssa@test.com',
+    role: 'مسؤول',
+  };
 
   const userPermissions =
     roles.find((role) => role.name === user.role)?.permissions || [];
+  const [open, setOpen] = useState<boolean>(true);
+  const handleOpen = () => setOpen(!open);
+
   return (
-    <aside className=" bg-muted sticky top-0 left-0 h-screen  w-96 border-r border-border hidden lg:flex justify-start items-start gap-y-3 flex-col">
-     <div className="flex  justify-start items-end">
-        <img src="/logo.svg" className=" w-12 mt-2" />
-        <h2
-        className=" font-semibold text-xl"
+    <motion.aside
+    lang='ar'
+      initial={false}
+      animate={{
+        width: open ? 384 : 40, // w-96 = 384px, w-10 = 40px
+      }}
+      transition={{
+        duration: 0.3,
+        ease: 'easeInOut',
+      }}
+      className="bg-muted sticky left-0 top-0 hidden h-screen flex-col border-r border-slate-400/35 lg:flex"
+    >
+      <Button
+        size="icon"
+        variant="outline"
+        onClick={handleOpen}
+        className="absolute -left-3 top-4 flex size-6 items-center justify-center rounded-full border border-slate-400/45"
+      >
+        <motion.div
+          animate={{ rotate: open ? 0 : 180 }}
+          transition={{ duration: 0.3 }}
         >
-            Mailx.
-        </h2>
-     </div>
-      <nav className="mt-20 h-full overflow-y-auto scroll-smooth w-full px-2">
+          <ArrowsIcon />
+        </motion.div>
+      </Button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="flex w-full items-center justify-start gap-x-2 border-b border-slate-400/35 py-3"
+          >
+            <img src="/logo.png" className="w-[3.2rem]" alt="Logo" />
+            <h2 className="text-primary text-lg font-semibold">
+              إدارة المخزون
+            </h2>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <motion.nav
+        animate={{
+          x: open ? 0 : -10,
+          opacity: open ? 1 : 0,
+        }}
+        transition={{
+          duration: 0.2,
+          delay: open ? 0.1 : 0,
+        }}
+        className="mt-20 size-full overflow-y-auto px-2"
+      >
         <ul className="space-y-2">
           {Pages.filter((page) => {
             const groupPermission = userPermissions.some(
-              (perm) => perm.type === "group" && perm.name === page.title
+              (perm) => perm.type === 'group' && perm.name === page.title
             );
-            const routePermission = page.items.some((item) =>
+            const routePermission = page.items?.some((item) =>
               userPermissions.some(
-                (perm) => perm.type === "route" && perm.name === item.href
+                (perm) => perm.type === 'route' && perm.name === item.href
               )
             );
             return groupPermission || routePermission;
           }).map((page) => (
             <li key={page.title}>
-              <CollapsibleMenuItem
-                item={{
-                  label: page.title,
-                  icon: page.icon, // Pass the icon to CollapsibleMenuItem
-                  items: page.items
-                    .filter((item) =>
-                      userPermissions.some(
-                        (perm) =>
-                          (perm.type === "group" && perm.name === page.title) ||
-                          (perm.type === "route" && perm.name === item.href)
-                      )
-                    )
-                    .map((item) => ({
-                      label: item.title,
-                      href: item.href,
-                    })),
-                }}
-              />
+              <CollapsibleMenuItem item={page} />
             </li>
           ))}
         </ul>
-      </nav>
-    </aside>
+      </motion.nav>
+    </motion.aside>
   );
 };
 

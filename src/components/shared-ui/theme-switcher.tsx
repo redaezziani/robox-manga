@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useTheme } from "next-themes";
+import { useTheme } from 'next-themes';
 
 export default function ThemeToggle() {
   const { theme, setTheme } = useTheme();
@@ -12,21 +12,29 @@ export default function ThemeToggle() {
         name="theme-toggle"
         id="theme-toggle"
         className="peer sr-only"
-        checked={theme === "light"}
-        onChange={() => setTheme(theme === "dark" ? "light" : "dark")}
+        checked={theme === 'light'}
+        onChange={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
         aria-label="Toggle dark mode"
       />
       <label
-        className="relative inline-flex size-9 cursor-pointer items-center justify-center rounded-full bg-muted transition-colors hover:bg-accent peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-ring/70"
+        className="bg-muted hover:bg-accent peer-focus-visible:outline-ring/70 relative inline-flex size-9 cursor-pointer items-center justify-center rounded-full transition-colors peer-focus-visible:outline peer-focus-visible:outline-2"
         htmlFor="theme-toggle"
         aria-hidden="true"
       >
-        <svg className="dark:hidden" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+        <svg
+          className="dark:hidden"
+          width="16"
+          height="16"
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <path
             className="fill-zinc-400"
             d="M7 0h2v2H7zM12.88 1.637l1.414 1.415-1.415 1.413-1.413-1.414zM14 7h2v2h-2zM12.95 14.433l-1.414-1.413 1.413-1.415 1.415 1.414zM7 14h2v2H7zM2.98 14.364l-1.413-1.415 1.414-1.414 1.414 1.415zM0 7h2v2H0zM3.05 1.706 4.463 3.12 3.05 4.535 1.636 3.12z"
           />
-          <path className="fill-zinc-500" d="M8 4C5.8 4 4 5.8 4 8s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4Z" />
+          <path
+            className="fill-zinc-500"
+            d="M8 4C5.8 4 4 5.8 4 8s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4Z"
+          />
         </svg>
         <svg
           className="hidden dark:block"

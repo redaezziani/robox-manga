@@ -1,28 +1,30 @@
-import { useState, useMemo } from "react";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { useMemo, useState } from 'react';
+
 import {
-  SortingState,
+  ColumnDef,
   ColumnFiltersState,
-  VisibilityState,
   flexRender,
-  useReactTable,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  ColumnDef,
-  Table as TableType,
   RowData,
-} from "@tanstack/react-table";
+  SortingState,
+  Table as TableType,
+  useReactTable,
+  VisibilityState,
+} from '@tanstack/react-table';
+import { FilterIcon, SearchIcon } from 'lucide-react';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/dropdown-menu';
+import { Input } from '@/components/ui/input';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import {
   Table,
   TableBody,
@@ -30,8 +32,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { FilterIcon, MoveLeft, SearchIcon } from "lucide-react";
+} from '@/components/ui/table';
 
 // Generic type for table data
 export type DataItem<T extends RowData> = T;
@@ -78,107 +79,111 @@ interface DataTableProps<T extends RowData> {
 }
 
 export function DataTable<T extends RowData>({
+  data,
+  columns,
+  loading = false,
+  total = 0,
+  tableConfig = {},
+  searchConfig = {},
+  headerContent,
+  footerContent,
+  onRowClick,
+  renderCustomCell,
+}: DataTableProps<T>) {
+  const {
+    enableSearch = true,
+    enableColumnFilters = true,
+    enablePagination = true,
+    enableSorting = true,
+    pageSize = 10,
+    searchPlaceholder = 'بحث...',
+    noDataMessage = 'لا توجد بيانات متاحة',
+    customStyles = {},
+  } = tableConfig;
+
+  const { searchableColumns = [], customSearchFunction } = searchConfig;
+
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const [globalFilter, setGlobalFilter] = useState('');
+
+  // Memoized searchable columns
+  const searchableColumnIds = useMemo(() => {
+    if (searchableColumns.length > 0) return searchableColumns;
+    return (
+      columns
+        .filter(
+          (col) => 'accessorKey' in col && typeof col.accessorKey === 'string'
+        )
+        //@ts-ignore
+        .map((col) => col.accessorKey as string)
+    );
+  }, [searchableColumns, columns]);
+
+  // Global filter function using searchableColumnIds
+  const globalFilterFn = (row: any) => {
+    if (globalFilter === '') return true;
+
+    return searchableColumnIds.some((columnId) => {
+      const value = row.getValue(columnId);
+      if (value == null) return false;
+      return String(value).toLowerCase().includes(globalFilter.toLowerCase());
+    });
+  };
+
+  const table = useReactTable({
     data,
     columns,
-    loading = false,
-    total = 0,
-    tableConfig = {},
-    searchConfig = {},
-    headerContent,
-    footerContent,
-    onRowClick,
-    renderCustomCell,
-  }: DataTableProps<T>) {
-    const {
-      enableSearch = true,
-      enableColumnFilters = true,
-      enablePagination = true,
-      enableSorting = true,
-      pageSize = 10,
-      searchPlaceholder = "Search...",
-      noDataMessage = "No data available",
-      customStyles = {},
-    } = tableConfig;
-  
-    const { searchableColumns = [], customSearchFunction } = searchConfig;
-  
-    const [sorting, setSorting] = useState<SortingState>([]);
-    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-    const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-    const [globalFilter, setGlobalFilter] = useState("");
-  
-    // Memoized searchable columns
-    const searchableColumnIds = useMemo(() => {
-      if (searchableColumns.length > 0) return searchableColumns;
-      return columns
-        .filter((col) => 'accessorKey' in col && typeof col.accessorKey === 'string')
-        //@ts-ignore
-        .map((col) => col.accessorKey as string);
-    }, [searchableColumns, columns]);
-  
-    // Global filter function using searchableColumnIds
-    const globalFilterFn = (row: any) => {
-      if (globalFilter === "") return true;
-  
-      return searchableColumnIds.some((columnId) => {
-        const value = row.getValue(columnId);
-        if (value == null) return false;
-        return String(value)
-          .toLowerCase()
-          .includes(globalFilter.toLowerCase());
-      });
-    };
-  
-    const table = useReactTable({
-      data,
-      columns,
-      getCoreRowModel: getCoreRowModel(),
-      getPaginationRowModel: enablePagination ? getPaginationRowModel() : undefined,
-      getSortedRowModel: enableSorting ? getSortedRowModel() : undefined,
-      getFilteredRowModel: getFilteredRowModel(),
-      onColumnVisibilityChange: setColumnVisibility,
-      state: {
-        sorting,
-        columnFilters,
-        columnVisibility,
-        globalFilter,
+    getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: enablePagination
+      ? getPaginationRowModel()
+      : undefined,
+    getSortedRowModel: enableSorting ? getSortedRowModel() : undefined,
+    getFilteredRowModel: getFilteredRowModel(),
+    onColumnVisibilityChange: setColumnVisibility,
+    state: {
+      sorting,
+      columnFilters,
+      columnVisibility,
+      globalFilter,
+    },
+    onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters,
+    onGlobalFilterChange: setGlobalFilter,
+    enableSorting,
+    globalFilterFn,
+    initialState: {
+      pagination: {
+        pageSize,
       },
-      onSortingChange: setSorting,
-      onColumnFiltersChange: setColumnFilters,
-      onGlobalFilterChange: setGlobalFilter,
-      enableSorting,
-      globalFilterFn,
-      initialState: {
-        pagination: {
-          pageSize,
-        },
-      },
-    });
+    },
+  });
 
   return (
     <div className="w-full rounded-lg ">
       {/* Header Section */}
-      <div className="flex flex-wrap items-center justify-between gap-3 bg-muted p-2 md:py-4">
+      <div className="bg-muted flex flex-wrap items-center justify-between gap-3 p-2 md:py-4">
         {enableSearch && (
           <div className="relative flex w-full max-w-xs items-start justify-center">
-            <SearchIcon className="absolute right-3 top-1/2 size-5 -translate-y-1/2 transform text-slate-400 dark:text-slate-50" />
+            <SearchIcon className="absolute left-3 top-1/2 size-5 -translate-y-1/2 text-slate-400 dark:text-slate-50" />
             <Input
               placeholder={searchPlaceholder}
               value={globalFilter}
               onChange={(e) => setGlobalFilter(e.target.value)}
-              className="w-full border-slate-400/35 bg-background"
+              className="bg-background w-full border-slate-400/35"
             />
           </div>
         )}
 
-        <div className="flex items-center  flex-wrap justify-between gap-4">
+        <div className="flex flex-wrap  items-center justify-between gap-4">
           {headerContent}
           {enableColumnFilters && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" className="flex items-center gap-2">
                   <FilterIcon size={16} />
-                   visibility
+                  الرؤية
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
@@ -204,7 +209,7 @@ export function DataTable<T extends RowData>({
       </div>
 
       {/* Table Section */}
-      <div className={`border-t bg-background ${customStyles.table || ""}`}>
+      <div className={`bg-background border-t ${customStyles.table || ''}`}>
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -218,8 +223,8 @@ export function DataTable<T extends RowData>({
                       <div
                         className={`flex items-center gap-2 ${
                           enableSorting && header.column.getCanSort()
-                            ? "cursor-pointer select-none"
-                            : ""
+                            ? 'cursor-pointer select-none'
+                            : ''
                         }`}
                         onClick={header.column.getToggleSortingHandler()}
                       >
@@ -239,15 +244,13 @@ export function DataTable<T extends RowData>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  className={`${customStyles.row || ""} ${
-                    onRowClick ? "cursor-pointer" : ""
-                  }`}
+                  className={`${customStyles.row || ''} ${onRowClick ? 'cursor-pointer' : ''}`}
                   onClick={() => onRowClick?.(row.original)}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell
                       key={cell.id}
-                      className={customStyles.cell || ""}
+                      className={customStyles.cell || ''}
                     >
                       {renderCustomCell
                         ? renderCustomCell(row.original, cell.column.id)
@@ -265,7 +268,7 @@ export function DataTable<T extends RowData>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  {loading ? "Loading..." : noDataMessage}
+                  {loading ? 'جار التحميل...' : noDataMessage}
                 </TableCell>
               </TableRow>
             )}
@@ -274,16 +277,14 @@ export function DataTable<T extends RowData>({
       </div>
 
       {/* Footer Section */}
-        {enablePagination && (
-          <div className="flex items-center justify-end p-4">
-            <Pagination table={table} className={customStyles?.pagination} />
-          </div>
-        )}
-      </div>
+      {enablePagination && (
+        <div className="flex items-center justify-end p-4">
+          <Pagination table={table} className={customStyles?.pagination} />
+        </div>
+      )}
+    </div>
   );
 }
-
-
 
 interface PaginationProps {
   table: TableType<any>;
@@ -310,7 +311,7 @@ const Pagination = ({ table, className }: PaginationProps) => {
         {getPageNumbers().map((number) => (
           <label
             key={number}
-            className="relative bg-background flex size-9 flex-1 cursor-pointer flex-col items-center justify-center gap-3 border border-input text-center text-sm font-medium outline-offset-2 transition-colors first:rounded-s-lg last:rounded-e-lg has-[[data-state=checked]]:z-10 has-[[data-disabled]]:cursor-not-allowed has-[[data-state=checked]]:border-ring has-[[data-state=checked]]:bg-background has-[[data-disabled]]:opacity-50 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-ring/70"
+            className="bg-background border-input has-[[data-state=checked]]:border-ring has-[[data-state=checked]]:bg-background has-[:focus-visible]:outline-ring/70 relative flex size-9 flex-1 cursor-pointer flex-col items-center justify-center gap-3 border text-center text-sm font-medium outline-offset-2 transition-colors first:rounded-s-lg last:rounded-e-lg has-[[data-state=checked]]:z-10 has-[[data-disabled]]:cursor-not-allowed has-[[data-disabled]]:opacity-50 has-[:focus-visible]:outline has-[:focus-visible]:outline-2"
           >
             <RadioGroupItem
               id={`page-${number}`}

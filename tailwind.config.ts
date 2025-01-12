@@ -11,6 +11,7 @@ export default {
     extend: {
         fontFamily: {
           sans: ["var(--font-sans)"],
+            lantx: ['var(--font-lantx)'],
         },
         borderRadius: {
           lg: "var(--radius)",
