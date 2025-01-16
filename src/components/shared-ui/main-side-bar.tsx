@@ -38,14 +38,13 @@ const MainSideBar = () => {
     role: 'مسؤول',
   };
 
-  const userPermissions =
-    roles.find((role) => role.name === user.role)?.permissions || [];
+  const userPermissions = roles.find((role) => role.name === user.role)?.permissions || [];
   const [open, setOpen] = useState<boolean>(true);
   const handleOpen = () => setOpen(!open);
 
   return (
     <motion.aside
-    lang='ar'
+      lang="ar"
       initial={false}
       animate={{
         width: open ? 384 : 40, // w-96 = 384px, w-10 = 40px
@@ -62,10 +61,7 @@ const MainSideBar = () => {
         onClick={handleOpen}
         className="absolute -left-3 top-4 flex size-6 items-center justify-center rounded-full border border-slate-400/45"
       >
-        <motion.div
-          animate={{ rotate: open ? 0 : 180 }}
-          transition={{ duration: 0.3 }}
-        >
+        <motion.div animate={{ rotate: open ? 0 : 180 }} transition={{ duration: 0.3 }}>
           <ArrowsIcon />
         </motion.div>
       </Button>
@@ -80,9 +76,7 @@ const MainSideBar = () => {
             className="flex w-full items-center justify-start gap-x-2 border-b border-slate-400/35 py-3"
           >
             <img src="/logo.png" className="w-[3.2rem]" alt="Logo" />
-            <h2 className="text-primary text-lg font-semibold">
-              إدارة المخزون
-            </h2>
+            <h2 className="text-primary text-lg font-semibold">إدارة المخزون</h2>
           </motion.div>
         )}
       </AnimatePresence>
@@ -104,9 +98,7 @@ const MainSideBar = () => {
               (perm) => perm.type === 'group' && perm.name === page.title
             );
             const routePermission = page.items?.some((item) =>
-              userPermissions.some(
-                (perm) => perm.type === 'route' && perm.name === item.href
-              )
+              userPermissions.some((perm) => perm.type === 'route' && perm.name === item.href)
             );
             return groupPermission || routePermission;
           }).map((page) => (

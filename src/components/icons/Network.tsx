@@ -1,12 +1,6 @@
 import React from 'react';
 
-const NetworkIcon = ({
-  width = 18,
-  height = 18,
-  color = '#000000',
-  fill = 'none',
-  ...props
-}) => (
+const NetworkIcon = ({ width = 18, height = 18, color = '#000000', fill = 'none', ...props }) => (
   <svg
     {...props}
     width={width}

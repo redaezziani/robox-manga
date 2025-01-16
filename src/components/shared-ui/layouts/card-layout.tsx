@@ -9,12 +9,7 @@ interface CardLayoutProps {
 }
 const CardLayout = ({ children, className }: CardLayoutProps) => {
   return (
-    <Card
-      className={cn(
-        'border-t-primary flex  flex-col border-t-2 p-0',
-        className
-      )}
-    >
+    <Card className={cn('border-t-primary flex  flex-col border-t-2 p-0', className)}>
       <CardContent className="w-full p-0">{children}</CardContent>
     </Card>
   );

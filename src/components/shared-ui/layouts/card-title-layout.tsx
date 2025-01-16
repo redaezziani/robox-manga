@@ -8,18 +8,9 @@ interface CardLayoutProps {
   children?: React.ReactNode;
   className?: string;
 }
-const CardTitle = ({
-  title = 'Defalut Card',
-  children,
-  className,
-}: CardLayoutProps) => {
+const CardTitle = ({ title = 'Defalut Card', children, className }: CardLayoutProps) => {
   return (
-    <Card
-      className={cn(
-        'border-t-primary flex flex-col gap-1 border-t-2',
-        className
-      )}
-    >
+    <Card className={cn('border-t-primary flex flex-col gap-1 border-t-2', className)}>
       <span>
         <div className="p-2.5">
           <h2>{title}</h2>

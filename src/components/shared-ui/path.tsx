@@ -11,9 +11,7 @@ import {
 
 export default function BreadcrumbDemo() {
   return (
-    <Breadcrumb
-    className=' '
-    >
+    <Breadcrumb className=" ">
       <BreadcrumbList>
         <BreadcrumbItem>
           <BreadcrumbLink href="#">

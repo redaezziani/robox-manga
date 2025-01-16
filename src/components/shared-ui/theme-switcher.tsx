@@ -1,58 +1,46 @@
 'use client';
 
+import { useId } from 'react';
 import { useTheme } from 'next-themes';
 
-export default function ThemeToggle() {
+import { Moon, Sun } from 'lucide-react';
+
+export default function ThemeSwitcher() {
+  const id = useId();
   const { theme, setTheme } = useTheme();
 
   return (
-    <div className="flex flex-col justify-center">
-      <input
-        type="checkbox"
-        name="theme-toggle"
-        id="theme-toggle"
-        className="peer sr-only"
-        checked={theme === 'light'}
-        onChange={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-        aria-label="Toggle dark mode"
-      />
-      <label
-        className="bg-muted hover:bg-accent peer-focus-visible:outline-ring/70 relative inline-flex size-9 cursor-pointer items-center justify-center rounded-full transition-colors peer-focus-visible:outline peer-focus-visible:outline-2"
-        htmlFor="theme-toggle"
-        aria-hidden="true"
-      >
-        <svg
-          className="dark:hidden"
-          width="16"
-          height="16"
-          xmlns="http://www.w3.org/2000/svg"
+    <div className="space-y-4">
+      <div className="flex flex-col justify-center">
+        <input
+          type="checkbox"
+          name={id}
+          id={id}
+          className="peer sr-only"
+          checked={theme === 'dark'}
+          onChange={() => setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))}
+        />
+        <label
+          className="border-input bg-background text-foreground hover:bg-accent hover:text-accent-foreground peer-focus-visible:outline-ring/70 group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-lg border shadow-sm shadow-black/5 transition-colors peer-focus-visible:outline peer-focus-visible:outline-2"
+          htmlFor={id}
+          aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
         >
-          <path
-            className="fill-zinc-400"
-            d="M7 0h2v2H7zM12.88 1.637l1.414 1.415-1.415 1.413-1.413-1.414zM14 7h2v2h-2zM12.95 14.433l-1.414-1.413 1.413-1.415 1.415 1.414zM7 14h2v2H7zM2.98 14.364l-1.413-1.415 1.414-1.414 1.414 1.415zM0 7h2v2H0zM3.05 1.706 4.463 3.12 3.05 4.535 1.636 3.12z"
+          {/* Note: After dark mode implementation, rely on dark: prefix rather than peer-checked:group-[]: */}
+          <span className="group-[]:hidden">Light</span>
+          <Moon
+            size={16}
+            strokeWidth={2}
+            className="shrink-0 scale-0 opacity-0 transition-all peer-checked:group-[]:scale-100 peer-checked:group-[]:opacity-100"
+            aria-hidden="true"
           />
-          <path
-            className="fill-zinc-500"
-            d="M8 4C5.8 4 4 5.8 4 8s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4Z"
+          <Sun
+            size={16}
+            strokeWidth={2}
+            className="absolute shrink-0 scale-100 opacity-100 transition-all peer-checked:group-[]:scale-0 peer-checked:group-[]:opacity-0"
+            aria-hidden="true"
           />
-        </svg>
-        <svg
-          className="hidden dark:block"
-          width="16"
-          height="16"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            className="fill-zinc-500"
-            d="M6.2 1C3.2 1.8 1 4.6 1 7.9 1 11.8 4.2 15 8.1 15c3.3 0 6-2.2 6.9-5.2C9.7 11.2 4.8 6.3 6.2 1Z"
-          />
-          <path
-            className="fill-zinc-600"
-            d="M12.5 5a.625.625 0 0 1-.625-.625 1.252 1.252 0 0 0-1.25-1.25.625.625 0 1 1 0-1.25 1.252 1.252 0 0 0 1.25-1.25.625.625 0 1 1 1.25 0c.001.69.56 1.249 1.25 1.25a.625.625 0 1 1 0 1.25c-.69.001-1.249.56-1.25 1.25A.625.625 0 0 1 12.5 5Z"
-          />
-        </svg>
-        <span className="sr-only">Switch to light / dark version</span>
-      </label>
+        </label>
+      </div>
     </div>
   );
 }

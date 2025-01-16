@@ -1,137 +1,18 @@
 {
-    "extends": [
-      "next/core-web-vitals",
-      "eslint:recommended",
-      "plugin:@typescript-eslint/recommended",
-      "plugin:prettier/recommended",
-      "plugin:tailwindcss/recommended",
-      "plugin:import/recommended",
-      "plugin:import/typescript"
-    ],
-    "plugins": [
-      "@typescript-eslint",
-      "unused-imports",
-      "import",
-      "react-hooks",
-      "tailwindcss",
-      "simple-import-sort"
-    ],
-    "root": true,
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-      "ecmaVersion": 2023,
-      "sourceType": "module",
-      "project": "./tsconfig.json",
-      "tsconfigRootDir": "."
-    },
-    "settings": {
-      "next": {
-        "rootDir": ["./"]
-      },
-      "tailwindcss": {
-        "callees": ["cn", "cva"],
-        "config": "tailwind.config.js"
-      },
-      "import/resolver": {
-        "typescript": true,
-        "node": true
-      }
-    },
-    "rules": {
-      // Tailwind CSS
-      "tailwindcss/classnames-order": "error",
-      "tailwindcss/enforces-negative-arbitrary-values": "error",
-      "tailwindcss/enforces-shorthand": "error",
-      "tailwindcss/no-contradicting-classname": "error",
-      "tailwindcss/no-custom-classname": "warn",
-  
-      // Import sorting
-      "simple-import-sort/imports": [
-        "error",
-        {
-          "groups": [
-            // React and Next.js related imports
-            ["^react$", "^next", "^@next"],
-            // External libraries
-            ["^@?\\w"],
-            // Internal modules (customize these patterns based on your project)
-            ["^@/components/", "^@/hooks/", "^@/utils/", "^@/lib/", "^@/styles/"],
-            // Parent imports
-            ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
-            // Same-folder imports
-            ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
-            // Style imports
-            ["^.+\\.s?css$"],
-            // Type imports
-            ["^@/types"]
-          ]
-        }
-      ],
-      "simple-import-sort/exports": "error",
-      "import/first": "error",
-      "import/newline-after-import": "error",
-      "import/no-duplicates": "error",
-  
-      // Fixing specific issues from your codebase
-      "no-console": "warn",
-      "@typescript-eslint/no-explicit-any": "off",
-      "@next/next/no-img-element": "warn",
-  
-      // Unused variables handling
-      "no-unused-vars": "off",
-      "@typescript-eslint/no-unused-vars": [
-        "error",
-        {
-          "argsIgnorePattern": "^_",
-          "varsIgnorePattern": "^_",
-          "caughtErrorsIgnorePattern": "^_",
-          "destructuredArrayIgnorePattern": "^_"
-        }
-      ],
-      "unused-imports/no-unused-imports": "error",
-      "unused-imports/no-unused-vars": [
-        "warn",
-        {
-          "vars": "all",
-          "varsIgnorePattern": "^_",
-          "args": "after-used",
-          "argsIgnorePattern": "^_"
-        }
-      ],
-  
-      // React Hooks
-      "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": [
-        "warn",
-        {
-          "additionalHooks": "(useRecoilCallback|useRecoilTransaction_UNSTABLE)"
-        }
-      ],
-  
-      // Next.js specific
-      "@next/next/no-html-link-for-pages": "off",
-  
-      // Prettier
-      "prettier/prettier": [
-        "error",
-        {
-          "endOfLine": "auto",
-          "semi": true,
-          "tabWidth": 2,
-          "singleQuote": true,
-          "printWidth": 100,
-          "trailingComma": "es5"
-        }
-      ]
-    },
-    "ignorePatterns": [
-      "node_modules/",
-      ".next/",
-      "build/",
-      "dist/",
-      "*.config.js",
-      "*.config.ts",
-      "coverage/",
-      "public/"
-    ]
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "@typescript-eslint/no-unused-vars": "warn",
+    "import/no-anonymous-default-export": "off"
   }
+}

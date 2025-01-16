@@ -1,12 +1,6 @@
 import React from 'react';
 
-const SettingsIcons = ({
-  width = 18,
-  height = 18,
-  color = '#000000',
-  fill = 'none',
-  ...props
-}) => (
+const SettingsIcons = ({ width = 18, height = 18, color = '#000000', fill = 'none', ...props }) => (
   <svg
     width={width}
     height={height}

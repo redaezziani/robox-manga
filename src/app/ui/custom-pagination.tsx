@@ -1,14 +1,15 @@
-"use client";
+'use client';
 
-import { usePagination } from "@/hooks/use-pagination";
+import { ChevronFirst, ChevronLast, ChevronLeft, ChevronRight } from 'lucide-react';
+
 import {
   Pagination,
   PaginationContent,
+  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
-  PaginationEllipsis,
-} from "@/components/ui/pagination";
-import { ChevronFirst, ChevronLast, ChevronLeft, ChevronRight } from "lucide-react";
+} from '@/components/ui/pagination';
+import { usePagination } from '@/hooks/use-pagination';
 
 interface CustomPaginationProps {
   currentPage: number;
@@ -31,85 +32,81 @@ export function CustomPagination({
 
   if (totalPages <= 1) return null;
 
-  return(
-    <div
-    className=" flex w-full  items-end justify-end  "
-    >
-    <Pagination
-    className=" w-full flex items-end justify-end"
-    dir="rtl">
-      <PaginationContent className="flex flex-row-reverse gap-2">
-        {/* Last Page */}
-        <PaginationItem className="inline-block">
-          <PaginationLink
-            className="min-w-[40px] h-[40px] flex items-center justify-center rounded-md cursor-pointer hover:bg-accent aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
-            onClick={() => onPageChange(totalPages)}
-            aria-disabled={currentPage === totalPages}
-          >
-            <ChevronFirst className="h-4 w-4 " />
-          </PaginationLink>
-        </PaginationItem>
-
-        {/* Next Page */}
-        <PaginationItem>
-          <PaginationLink
-            className="min-w-[40px] h-[40px] flex items-center justify-center rounded-md cursor-pointer hover:bg-accent aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
-            onClick={() => onPageChange(currentPage + 1)}
-            aria-disabled={currentPage === totalPages}
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </PaginationLink>
-        </PaginationItem>
-
-        {showRightEllipsis && (
-          <PaginationItem>
-            <PaginationEllipsis className="min-w-[40px] h-[40px] flex items-center justify-center" />
-          </PaginationItem>
-        )}
-
-        {pages.toReversed().map((page) => (
-          <PaginationItem key={page}>
+  return (
+    <div className=" flex w-full  items-end justify-end  ">
+      <Pagination className=" flex w-full items-end justify-end" dir="rtl">
+        <PaginationContent className="flex flex-row-reverse gap-2">
+          {/* Last Page */}
+          <PaginationItem className="inline-block">
             <PaginationLink
-              className={`min-w-[35px] h-[35px] flex items-center justify-center rounded-md cursor-pointer hover:bg-accent ${
-                page === currentPage ? 'bg-accent text-accent-foreground' : ''
-              }`}
-              onClick={() => onPageChange(page)}
-              isActive={page === currentPage}
+              className="hover:bg-accent flex h-[40px] min-w-[40px] cursor-pointer items-center justify-center rounded-md aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
+              onClick={() => onPageChange(totalPages)}
+              aria-disabled={currentPage === totalPages}
             >
-              {page}
+              <ChevronFirst className="size-4 " />
             </PaginationLink>
           </PaginationItem>
-        ))}
 
-        {showLeftEllipsis && (
+          {/* Next Page */}
           <PaginationItem>
-            <PaginationEllipsis className="min-w-[35px] h-[35px] flex items-center justify-center" />
+            <PaginationLink
+              className="hover:bg-accent flex h-[40px] min-w-[40px] cursor-pointer items-center justify-center rounded-md aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
+              onClick={() => onPageChange(currentPage + 1)}
+              aria-disabled={currentPage === totalPages}
+            >
+              <ChevronLeft className="size-4" />
+            </PaginationLink>
           </PaginationItem>
-        )}
 
-        {/* Previous Page */}
-        <PaginationItem>
-          <PaginationLink
-            className="min-w-[35px] h-[35px] flex items-center justify-center rounded-md cursor-pointer hover:bg-accent aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
-            onClick={() => onPageChange(currentPage - 1)}
-            aria-disabled={currentPage === 1}
-          >
-            <ChevronRight className="h-4 w-4" />
-          </PaginationLink>
-        </PaginationItem>
+          {showRightEllipsis && (
+            <PaginationItem>
+              <PaginationEllipsis className="flex h-[40px] min-w-[40px] items-center justify-center" />
+            </PaginationItem>
+          )}
 
-        {/* First Page */}
-        <PaginationItem className="inline-block">
-          <PaginationLink
-            className="min-w-[40px] h-[40px] flex items-center justify-center rounded-md cursor-pointer hover:bg-accent aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
-            onClick={() => onPageChange(1)}
-            aria-disabled={currentPage === 1}
-          >
-            <ChevronLast className="h-4 w-4" />
-          </PaginationLink>
-        </PaginationItem>
-      </PaginationContent>
-    </Pagination>
+          {pages.toReversed().map((page) => (
+            <PaginationItem key={page}>
+              <PaginationLink
+                className={`hover:bg-accent flex h-[35px] min-w-[35px] cursor-pointer items-center justify-center rounded-md ${
+                  page === currentPage ? 'bg-accent text-accent-foreground' : ''
+                }`}
+                onClick={() => onPageChange(page)}
+                isActive={page === currentPage}
+              >
+                {page}
+              </PaginationLink>
+            </PaginationItem>
+          ))}
+
+          {showLeftEllipsis && (
+            <PaginationItem>
+              <PaginationEllipsis className="flex h-[35px] min-w-[35px] items-center justify-center" />
+            </PaginationItem>
+          )}
+
+          {/* Previous Page */}
+          <PaginationItem>
+            <PaginationLink
+              className="hover:bg-accent flex h-[35px] min-w-[35px] cursor-pointer items-center justify-center rounded-md aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
+              onClick={() => onPageChange(currentPage - 1)}
+              aria-disabled={currentPage === 1}
+            >
+              <ChevronRight className="size-4" />
+            </PaginationLink>
+          </PaginationItem>
+
+          {/* First Page */}
+          <PaginationItem className="inline-block">
+            <PaginationLink
+              className="hover:bg-accent flex h-[40px] min-w-[40px] cursor-pointer items-center justify-center rounded-md aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
+              onClick={() => onPageChange(1)}
+              aria-disabled={currentPage === 1}
+            >
+              <ChevronLast className="size-4" />
+            </PaginationLink>
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
     </div>
-  )
+  );
 }

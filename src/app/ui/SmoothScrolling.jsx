@@ -1,5 +1,5 @@
-"use client";
-import { ReactLenis } from "@studio-freight/react-lenis";
+'use client';
+import { ReactLenis } from '@studio-freight/react-lenis';
 
 function SmoothScrolling({ children }) {
   return (

@@ -27,11 +27,7 @@ const SelectTrigger = React.forwardRef<
   >
     {children}
     <SelectPrimitive.Icon asChild>
-      <ChevronDown
-        size={16}
-        strokeWidth={2}
-        className="text-muted-foreground/80 shrink-0"
-      />
+      <ChevronDown size={16} strokeWidth={2} className="text-muted-foreground/80 shrink-0" />
     </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
 ));
@@ -43,10 +39,7 @@ const SelectScrollUpButton = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SelectPrimitive.ScrollUpButton
     ref={ref}
-    className={cn(
-      'flex cursor-default items-center justify-center py-1',
-      className
-    )}
+    className={cn('flex cursor-default items-center justify-center py-1', className)}
     {...props}
   >
     <ChevronUp size={16} strokeWidth={2} />
@@ -60,17 +53,13 @@ const SelectScrollDownButton = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SelectPrimitive.ScrollDownButton
     ref={ref}
-    className={cn(
-      'flex cursor-default items-center justify-center py-1',
-      className
-    )}
+    className={cn('flex cursor-default items-center justify-center py-1', className)}
     {...props}
   >
     <ChevronDown size={16} strokeWidth={2} />
   </SelectPrimitive.ScrollDownButton>
 ));
-SelectScrollDownButton.displayName =
-  SelectPrimitive.ScrollDownButton.displayName;
+SelectScrollDownButton.displayName = SelectPrimitive.ScrollDownButton.displayName;
 
 const SelectContent = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Content>,
@@ -90,10 +79,7 @@ const SelectContent = React.forwardRef<
     >
       <SelectScrollUpButton />
       <SelectPrimitive.Viewport
-        className={cn(
-          'p-1',
-          position === 'popper' && 'h-[var(--radix-select-trigger-height)]'
-        )}
+        className={cn('p-1', position === 'popper' && 'h-[var(--radix-select-trigger-height)]')}
       >
         {children}
       </SelectPrimitive.Viewport>
@@ -109,10 +95,7 @@ const SelectLabel = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SelectPrimitive.Label
     ref={ref}
-    className={cn(
-      'text-muted-foreground py-1.5 pe-2 ps-8 text-xs font-medium',
-      className
-    )}
+    className={cn('text-muted-foreground py-1.5 pe-2 ps-8 text-xs font-medium', className)}
     {...props}
   />
 ));

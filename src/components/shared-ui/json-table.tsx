@@ -58,11 +58,7 @@ export interface TableConfig {
 // Search configuration
 export interface SearchConfig {
   searchableColumns?: string[];
-  customSearchFunction?: (
-    row: any,
-    columnId: string,
-    filterValue: string
-  ) => boolean;
+  customSearchFunction?: (row: any, columnId: string, filterValue: string) => boolean;
 }
 
 interface DataTableProps<T extends RowData> {
@@ -113,9 +109,7 @@ export function DataTable<T extends RowData>({
     if (searchableColumns.length > 0) return searchableColumns;
     return (
       columns
-        .filter(
-          (col) => 'accessorKey' in col && typeof col.accessorKey === 'string'
-        )
+        .filter((col) => 'accessorKey' in col && typeof col.accessorKey === 'string')
         //@ts-ignore
         .map((col) => col.accessorKey as string)
     );
@@ -136,9 +130,7 @@ export function DataTable<T extends RowData>({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: enablePagination
-      ? getPaginationRowModel()
-      : undefined,
+    getPaginationRowModel: enablePagination ? getPaginationRowModel() : undefined,
     getSortedRowModel: enableSorting ? getSortedRowModel() : undefined,
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
@@ -195,9 +187,7 @@ export function DataTable<T extends RowData>({
                       key={column.id}
                       className="capitalize"
                       checked={column.getIsVisible()}
-                      onCheckedChange={(value) =>
-                        column.toggleVisibility(!!value)
-                      }
+                      onCheckedChange={(value) => column.toggleVisibility(!!value)}
                     >
                       {column.id}
                     </DropdownMenuCheckboxItem>
@@ -215,10 +205,7 @@ export function DataTable<T extends RowData>({
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id} className={customStyles.header}>
                 {headerGroup.headers.map((header) => (
-                  <TableHead
-                    key={header.id}
-                    className={`  text-sm font-semibold capitalize`}
-                  >
+                  <TableHead key={header.id} className={`  text-sm font-semibold capitalize`}>
                     {header.isPlaceholder ? null : (
                       <div
                         className={`flex items-center gap-2 ${
@@ -228,10 +215,7 @@ export function DataTable<T extends RowData>({
                         }`}
                         onClick={header.column.getToggleSortingHandler()}
                       >
-                        {flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
+                        {flexRender(header.column.columnDef.header, header.getContext())}
                       </div>
                     )}
                   </TableHead>
@@ -248,26 +232,17 @@ export function DataTable<T extends RowData>({
                   onClick={() => onRowClick?.(row.original)}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell
-                      key={cell.id}
-                      className={customStyles.cell || ''}
-                    >
+                    <TableCell key={cell.id} className={customStyles.cell || ''}>
                       {renderCustomCell
                         ? renderCustomCell(row.original, cell.column.id)
-                        : flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext()
-                          )}
+                        : flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                   ))}
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
+                <TableCell colSpan={columns.length} className="h-24 text-center">
                   {loading ? 'جار التحميل...' : noDataMessage}
                 </TableCell>
               </TableRow>

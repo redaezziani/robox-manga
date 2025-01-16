@@ -1,8 +1,10 @@
-'use client'
-import Link from 'next/link'
-import { format } from 'date-fns'
-import { ar } from 'date-fns/locale'
-import { Button } from '@/components/ui/button'
+'use client';
+import Link from 'next/link';
+
+import { format } from 'date-fns';
+import { ar } from 'date-fns/locale';
+
+import { Button } from '@/components/ui/button';
 import {
   Table,
   TableBody,
@@ -10,15 +12,16 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
-import { Chapter } from '@/types/manga'
+} from '@/components/ui/table';
+
+import { Chapter } from '@/types/manga';
 
 interface ChaptersListProps {
-  chapters: Chapter[]
-  mangaId: string
+  chapters: Chapter[];
+  mangaId: string;
 }
 
-export default function ChaptersList({ chapters,mangaId }: ChaptersListProps) {
+export default function ChaptersList({ chapters, mangaId }: ChaptersListProps) {
   return (
     <div className="rounded-md border">
       <Table>
@@ -35,14 +38,10 @@ export default function ChaptersList({ chapters,mangaId }: ChaptersListProps) {
             <TableRow key={chapter.id}>
               <TableCell>الفصل {chapter.number}</TableCell>
               <TableCell>{chapter.title}</TableCell>
-              <TableCell>
-                {format(new Date(chapter.releaseDate), 'PP', { locale: ar })}
-              </TableCell>
-              <TableCell className="text-right py-1.5">
+              <TableCell>{format(new Date(chapter.releaseDate), 'PP', { locale: ar })}</TableCell>
+              <TableCell className="py-1.5 text-right">
                 <Button asChild variant="ghost">
-                  <Link href={`/manga/${mangaId}/chapter/${chapter.number}`}>
-                    قراءة
-                  </Link>
+                  <Link href={`/manga/${mangaId}/chapter/${chapter.number}`}>قراءة</Link>
                 </Button>
               </TableCell>
             </TableRow>
@@ -50,5 +49,5 @@ export default function ChaptersList({ chapters,mangaId }: ChaptersListProps) {
         </TableBody>
       </Table>
     </div>
-  )
+  );
 }

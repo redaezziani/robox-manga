@@ -36,13 +36,7 @@ export function capitalizeFirstLetter(string: string): string {
 
 export function generateRandomOffers(count: number) {
   const statuses = ['نشط', 'غير نشط', 'معلق'];
-  const countriesList = [
-    'الولايات المتحدة',
-    'المملكة المتحدة',
-    'كندا',
-    'فرنسا',
-    'ألمانيا',
-  ];
+  const countriesList = ['الولايات المتحدة', 'المملكة المتحدة', 'كندا', 'فرنسا', 'ألمانيا'];
   const offers = [];
 
   for (let i = 1; i <= count; i++) {
@@ -51,9 +45,7 @@ export function generateRandomOffers(count: number) {
       { length: Math.floor(Math.random() * 3) + 1 },
       () => countriesList[Math.floor(Math.random() * countriesList.length)]
     );
-    const randomDate = new Date(
-      Date.now() + Math.floor(Math.random() * 365 * 24 * 60 * 60 * 1000)
-    )
+    const randomDate = new Date(Date.now() + Math.floor(Math.random() * 365 * 24 * 60 * 60 * 1000))
       .toISOString()
       .split('T')[0];
 

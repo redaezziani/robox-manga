@@ -17,13 +17,7 @@ interface MenuItem {
   items?: MenuItem[];
 }
 
-const CollapsibleMenuItem = ({
-  item,
-  depth = 0,
-}: {
-  item: MenuItem;
-  depth?: number;
-}) => {
+const CollapsibleMenuItem = ({ item, depth = 0 }: { item: MenuItem; depth?: number }) => {
   const router = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 

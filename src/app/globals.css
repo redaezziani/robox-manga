@@ -7,18 +7,17 @@
   src: url('./assets/font/LANTX-Regular.otf') format('opentype');
 }
 
-
 /* Base styles with more specific font-family declaration */
 @layer base {
   html {
     font-family: 'LANTX-Regular', system-ui, sans-serif;
   }
-  
+
   /* Make Arabic text use LANTX-Regular */
   *:lang(ar) {
     font-family: 'LANTX-Regular', system-ui, sans-serif !important;
   }
-  
+
   /* Make Latin text use Roboto */
   *:not(:lang(ar)) {
     font-family: 'Roboto', system-ui, sans-serif;
@@ -33,6 +32,10 @@
 .font-latin {
   font-family: 'Roboto', system-ui, sans-serif;
 }
+
+.color {
+  color: hsl(348 100% 56%);
+}
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -41,7 +44,7 @@
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
-    --primary: 239 84% 67%;
+    --primary: 348 100% 56%;
     --primary-foreground: 0 0% 98%;
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
@@ -53,7 +56,7 @@
     --destructive-foreground: 0 0% 100%;
     --border: 240 5.9% 90%;
     --input: 240 4.9% 83.9%;
-    --ring: 239 84% 67%;
+    --ring: 348 100% 56%;
     --radius: 0.45rem;
   }
   .dark {
@@ -63,7 +66,7 @@
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
-    --primary: 239 84% 67%;
+    --primary: 348 100% 56%;
     --primary-foreground: 240 5.9% 10%;
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
@@ -75,7 +78,7 @@
     --destructive-foreground: 0 0% 100%;
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
-    --ring: 239 84% 67%;
+    --ring: 348 100% 56%;
   }
 }
 
@@ -83,8 +86,6 @@ body {
   direction: rtl;
   text-align: right;
 }
-
-
 
 ::-webkit-scrollbar {
   width: 8px;
@@ -112,12 +113,12 @@ body {
 
 .swiper-button-next,
 .swiper-button-prev {
-    color: white !important;
-    background: rgba(0, 0, 0, 0.5);
-    padding: 20px;
-    border-radius: 50%;
-    width: 15px !important;
-    height: 15px !important;
+  color: white !important;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  border-radius: 50%;
+  width: 15px !important;
+  height: 15px !important;
 }
 
 /* Remove default Swiper navigation styles */
@@ -146,11 +147,11 @@ body {
 
 .swiper-button-next::after,
 .swiper-button-prev::after {
-    font-size: 15px !important;
+  font-size: 15px !important;
 }
 
 .swiper-pagination-bullet {
-    background: white !important;
+  background: white !important;
 }
 
 @import 'swiper/css';
@@ -159,5 +160,5 @@ body {
 /* Hide default Swiper buttons */
 .swiper-button-prev,
 .swiper-button-next {
-    display: none !important;
+  display: none !important;
 }

@@ -1,6 +1,5 @@
-import { cn } from "@/lib/utils";
-import { Label } from "@/components/ui/label";
-import { Slider } from "@/components/ui/slider";
+import { Slider } from '@/components/ui/slider';
+import { cn } from '@/lib/utils';
 
 interface TickSliderProps {
   min: number;
@@ -26,7 +25,7 @@ export function TickSlider({
   const ticks = [...Array(max - min + 1)].map((_, i) => min + i);
 
   return (
-    <div className={cn("space-y-4", className)} dir={direction}>
+    <div className={cn('space-y-4', className)} dir={direction}>
       <div>
         <Slider
           defaultValue={[defaultValue]}
@@ -38,12 +37,12 @@ export function TickSlider({
           aria-label={labelText}
         />
         <span
-          className="mt-3 flex w-full items-center justify-between px-2.5 text-xs font-medium text-muted-foreground"
+          className="text-muted-foreground mt-3 flex w-full items-center justify-between px-2.5 text-xs font-medium"
           aria-hidden="true"
         >
           {ticks.map((tick) => (
             <span key={tick} className="flex w-0 flex-col items-center justify-center gap-2">
-              <span className="h-1 w-px bg-muted-foreground/70" />
+              <span className="bg-muted-foreground/70 h-1 w-px" />
               <span>{tick}</span>
             </span>
           ))}
