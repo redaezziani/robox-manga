@@ -19,6 +19,7 @@ import { Input } from '@/components/ui/input';
 import { useDebounce } from '@/hooks/useDebounce';
 
 import useMangaStore from '@/zustand/data/store';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 export default function SearchManga() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -110,8 +111,12 @@ export default function SearchManga() {
 
           <AnimatePresence mode="wait">
             {filteredMangas.length > 0 && (
+                <ScrollArea
+                dir='rtl'
+                className=' h-[600px] md:max-h-[400px] '
+                >
               <motion.div
-                className="mt-4 grid h-[600px] grid-cols-2 overflow-y-auto md:max-h-[400px]"
+                className="mt-4 grid  grid-cols-2  "
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
@@ -154,6 +159,7 @@ export default function SearchManga() {
                   </motion.div>
                 ))}
               </motion.div>
+              </ScrollArea>
             )}
           </AnimatePresence>
         </div>

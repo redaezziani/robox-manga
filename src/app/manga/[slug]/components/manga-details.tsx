@@ -49,7 +49,7 @@ export default function MangaDetails({ manga, chapters }: MangaDetailsProps) {
             )}
           </div>
 
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 max-w-lg">
             {manga.genres.slice(1).map((genre) => (
               <Badge key={genre} variant="secondary">
                 {genre}
@@ -57,7 +57,8 @@ export default function MangaDetails({ manga, chapters }: MangaDetailsProps) {
             ))}
           </div>
 
-          <div className="space-y-2">
+         <section className="w-full grid grid-cols-2 md:grid-cols-1 gap-4 items-start justify-start content-start">
+         <div className="space-y-2">
             <p className="text-muted-foreground text-sm">النوع: {manga.type}</p>
             <p className="text-muted-foreground text-sm">
               تاريخ الإصدار: {format(new Date(manga.releaseDate), 'PP', { locale: ar })}
@@ -66,6 +67,7 @@ export default function MangaDetails({ manga, chapters }: MangaDetailsProps) {
             <p className="text-muted-foreground text-sm">التقييم: {manga.rating.toFixed(1)} / 5</p>
           </div>
 
+          <div className="flex w-full justify-start -mt-1 items-start flex-col gap-2">
           {manga.authors.length > 0 && (
             <div>
               <h3 className="font-semibold">المؤلفون</h3>
@@ -79,6 +81,8 @@ export default function MangaDetails({ manga, chapters }: MangaDetailsProps) {
               <p className="text-muted-foreground text-sm">{manga.artists.join('، ')}</p>
             </div>
           )}
+         </div>
+          </section>
 
           <div>
             <h3 className="font-semibold">القصة</h3>
