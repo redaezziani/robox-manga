@@ -16,12 +16,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { removeCookies } from '@/lib/cookies';
 
 interface UserData {
   name: string;
   email: string;
   profile: string;
 }
+
 
 export default function ProfileMenu() {
   const [user, setUser] = useState<UserData | null>(null);
@@ -35,15 +37,14 @@ export default function ProfileMenu() {
   }, []);
 
   const handleLogout = async () => {
-    const res = await axios.delete('http://localhost:8000/api/v1/auth/logout');
-    if (res.status === 200) {
-      const userData = sessionStorage.getItem('user');
-      if (userData) {
-        sessionStorage.removeItem('user');
-        setUser(null);
-      }
-      document.cookie = 'user-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-      router.push('/login');
+    try {
+     const remove = await removeCookies();
+            sessionStorage.removeItem('user');
+            setUser(null);
+            router.push('/login');
+
+    } catch (error) {
+      console.error('Failed to logout', error);
     }
   };
 
@@ -55,7 +56,7 @@ export default function ProfileMenu() {
             <AvatarImage
               src={
                 user?.profile ||
-                'https://i.pinimg.com/236x/74/f1/ce/74f1ce7c4ad30541384ffb6415ea2745.jpg'
+                ''
               }
               alt="صورة الملف الشخصي"
             />

@@ -1,8 +1,7 @@
 'use client';
 import React, { useEffect } from 'react';
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { AnimatePresence } from 'framer-motion';
-import { ArrowRight, RotateCcw, Search, X } from 'lucide-react';
+import { ScrollArea } from "@/components/ui/scroll-area";
+import {  RotateCcw, Search, X } from 'lucide-react';
 
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
@@ -48,11 +47,8 @@ export default function MangaGrid({
   searchQuery,
   onSearch,
 }: MangaGridProps) {
-  useEffect(() => {
-    console.log('MangaGrid received types:', types);
-  }, [types]);
+  
 
-  console.log(types);
   const [selectedGenres, setSelectedGenres] = React.useState<string[]>([]);
   const [selectedStatuses, setSelectedStatuses] = React.useState<string[]>([]);
   const [selectedTypes, setSelectedTypes] = React.useState<string[]>([]);
@@ -133,9 +129,9 @@ export default function MangaGrid({
   };
 
   return (
-    <div className="flex w-full flex-col gap-6">
-      <div className="container  grid w-full  grid-cols-1 gap-4 md:grid-cols-4">
-        <div lang="ar" className=" mb-4   flex w-full items-end justify-between md:hidden">
+    <div className="flex w-full flex-col min-h-[80vh] gap-6">
+      <div className="container  md:grid w-full   grid-cols-1 gap-4 md:grid-cols-4">
+        <div lang="ar" className=" mb-8    flex w-full items-start justify-between md:hidden">
           <h3 className="text-lg font-semibold text-gray-600">فلترة المانجا</h3>
           <MobileFilters
             genres={genres}
@@ -281,11 +277,9 @@ export default function MangaGrid({
             <>
               <section className="w-full">
                 <div className="grid grid-cols-2 gap-4 lg:grid-cols-6">
-                  <AnimatePresence mode="popLayout">
-                    {mangas.map((manga) => (
-                      <MangaCard key={manga.id} data={manga} />
-                    ))}
-                  </AnimatePresence>
+                  {mangas.map((manga) => (
+                    <MangaCard key={manga.id} data={manga} />
+                  ))}
                 </div>
               </section>
               <div className="mb-4 flex w-full items-end justify-start">

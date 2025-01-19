@@ -21,6 +21,7 @@ import {
 import { Input } from '@/components/ui/input';
 
 import PasswordInput from '../ui-sections/password-input';
+import { setCookies } from '@/lib/cookies';
 // Define the validation schema
 const loginSchema = z.object({
     email: z
@@ -76,10 +77,7 @@ const Page = () => {
             sessionStorage.setItem('user', JSON.stringify(data.user));
 
             const token = data.access_token;
-            document.cookie = `access_token=${token}; path=/;`;
-
-
-
+            const res = await setCookies(token);
             router.push('/');
         } catch (err: any) {
             setError(err.response?.data?.message || 'حدث خطأ أثناء تسجيل الدخول');

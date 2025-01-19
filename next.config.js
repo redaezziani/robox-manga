@@ -9,7 +9,12 @@ const nextConfig = {
       },
     ],
   },
-  // ...existing code...
+  webpack: (config) => {
+    config.ignoreWarnings = [
+      { module: /node_modules/, message: /Critical dependency/ },
+    ];
+    return config;
+  },
 }
 
 module.exports = nextConfig

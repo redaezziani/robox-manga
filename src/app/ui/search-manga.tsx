@@ -79,7 +79,7 @@ export default function SearchManga() {
     <Dialog>
       <DialogTrigger asChild>
         <Search
-          size={24}
+          size={18}
           className="hover:text-primary cursor-pointer transition-colors"
           aria-label="بحث عن المانجا"
         />

@@ -3,30 +3,30 @@ import { Home } from 'lucide-react';
 import {
   Breadcrumb,
   BreadcrumbItem,
-  BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
+import Link from 'next/link';
 
 interface DetailsPathProps {
   title?: string;
 }
 export default function DetailsPath({ title }: DetailsPathProps) {
   return (
-    <Breadcrumb className=" ">
+    <Breadcrumb className=" w-full truncate">
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbLink href="/" className="flex gap-x-1">
+          <Link href="/" className="flex gap-x-1">
             <Home size={16} strokeWidth={2} aria-hidden="true" />
             <span className="">الرئيسية</span>
-          </BreadcrumbLink>
+          </Link>
         </BreadcrumbItem>
         <BreadcrumbSeparator>/</BreadcrumbSeparator>
         <BreadcrumbItem>
-          <BreadcrumbLink href="/all" className="flex gap-x-1">
+          <Link href="/all" className="flex gap-x-1">
             <span className="">جميع المانجا</span>
-          </BreadcrumbLink>
+          </Link>
         </BreadcrumbItem>
 
         <BreadcrumbSeparator>/</BreadcrumbSeparator>
@@ -34,8 +34,10 @@ export default function DetailsPath({ title }: DetailsPathProps) {
           <BreadcrumbPage>التفاصيل</BreadcrumbPage>
         </BreadcrumbItem>
         <BreadcrumbSeparator>/</BreadcrumbSeparator>
-        <BreadcrumbItem className="text-primary">
-          <BreadcrumbPage className="text-primary">{title}</BreadcrumbPage>
+        <BreadcrumbItem className=" truncate">
+          <BreadcrumbPage className="text-primary truncate">
+          {title?.replace(/-/g, ' ').split(' ').slice(0, 4).join(' ')}
+          </BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
