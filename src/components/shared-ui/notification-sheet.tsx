@@ -8,7 +8,6 @@ import { io, Socket } from 'socket.io-client';
 import Cookies from 'js-cookie';
 
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 
 import { Notification, NotificationPriority, NotificationStatus } from '@/types/notification';
@@ -27,36 +26,25 @@ const NotificationSheet = () => {
             return;
         }
 
-        const SERVER_URL = 'http://localhost:8000/notifications'; // Your server URL
+        const SERVER_URL = 'http://localhost:8000/notifications';
 
-        // Connect to the WebSocket server and include the token as query parameter
         const socket = io(SERVER_URL, {
-            query: { auth_token: tokenFromCookies }, // Pass the token as query
+            query: { auth_token: tokenFromCookies },
         });
 
-        // Handle connection
         socket.on('connect', () => {
-            console.log('Connected to WebSocket server:', socket.id);
-
-            // Subscribe to notifications
             socket.emit('subscribe', (response: any) => {
                 if (response.status === 'subscribed') {
-                    console.log('Successfully subscribed to notifications');
                 } else {
-                    console.error('Subscription failed:', response);
                 }
             });
         });
 
-        // Listen for new notifications
         socket.on('notification', (data: any) => {
-            console.log('Received notification:', data);
-            // Add new notification to state
             setNotifications((prev) => [data, ...prev]);
-            setUnreadCount((prev) => prev + 1); // Increment unread count
+            setUnreadCount((prev) => prev + 1);
         });
 
-        // Handle socket errors
         socket.on('error', (error: any) => {
             console.error('Error from server:', error);
         });

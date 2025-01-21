@@ -17,8 +17,6 @@ interface MangaQueryParams {
 interface MangaStore {
   originalMangas: Manga[];
   filteredMangas: Manga[];
-  popularMangas: Manga[];
-  latestMangas: Manga[];
   isLoading: boolean;
   searchQuery: string;
   error: string | null;
@@ -29,8 +27,6 @@ interface MangaStore {
   };
   loadingStates: {
     allMangas: boolean;
-    popularMangas: boolean;
-    latestMangas: boolean;
     singleManga: boolean;
     searchMangas: boolean;
     filters: boolean;
@@ -50,8 +46,6 @@ interface MangaStore {
   fetchManga: (id: string) => Promise<void>;
   fetchAllMangas: (params: MangaQueryParams) => Promise<void>;
   fetchSingleManga: (id: string) => Promise<Manga | null>;
-  fetchPopularMangas: () => Promise<void>;
-  fetchLatestMangas: () => Promise<void>;
   fetchMangasByGenre: (genre: string, page?: number, limit?: number) => Promise<void>;
   searchAutocomplete: (search: string) => Promise<string[]>;
   fetchGenres: () => Promise<void>;
@@ -67,15 +61,11 @@ interface MangaStore {
 const useMangaStore = create<MangaStore>((set, get) => ({
   originalMangas: [],
   filteredMangas: [],
-  popularMangas: [],
-  latestMangas: [],
   isLoading: false,
   searchQuery: '',
   error: null,
   loadingStates: {
     allMangas: false,
-    popularMangas: false,
-    latestMangas: false,
     singleManga: false,
     searchMangas: false,
     filters: false,
@@ -146,46 +136,6 @@ const useMangaStore = create<MangaStore>((set, get) => ({
         loadingStates: { ...state.loadingStates, singleManga: false },
       }));
       return null;
-    }
-  },
-
-  fetchPopularMangas: async () => {
-    try {
-      set((state) => ({
-        loadingStates: { ...state.loadingStates, popularMangas: true },
-        error: null,
-      }));
-      // made a fake delay to show the loading state
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      const response = await axios.get(`http://localhost:8000/api/manga/popular`);
-      set((state) => ({
-        popularMangas: response.data,
-        loadingStates: { ...state.loadingStates, popularMangas: false },
-      }));
-    } catch (error) {
-      set((state) => ({
-        error: error instanceof Error ? error.message : 'Failed to fetch popular mangas',
-        loadingStates: { ...state.loadingStates, popularMangas: false },
-      }));
-    }
-  },
-
-  fetchLatestMangas: async () => {
-    try {
-      set((state) => ({
-        loadingStates: { ...state.loadingStates, latestMangas: true },
-        error: null,
-      }));
-      const response = await axios.get(`http://localhost:8000/api/manga/latest`);
-      set((state) => ({
-        latestMangas: response.data,
-        loadingStates: { ...state.loadingStates, latestMangas: false },
-      }));
-    } catch (error) {
-      set((state) => ({
-        error: error instanceof Error ? error.message : 'Failed to fetch latest mangas',
-        loadingStates: { ...state.loadingStates, latestMangas: false },
-      }));
     }
   },
 

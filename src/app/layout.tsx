@@ -9,6 +9,7 @@ import SmoothScrolling from './ui/SmoothScrolling';
 
 import './globals.css';
 import Footer from '@/components/shared-ui/footer';
+import { ThemeProvider } from '@/components/shared-ui/theme-provider';
 
 const lantx = localFont({
   src: './assets/font/LANTX-Regular.otf',
@@ -25,18 +26,26 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body
         className={`${lantx.variable} font-lantx relative flex  min-h-screen w-full flex-col antialiased`}
       >
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
        
           <div  className="relative">
-            {/* <Toaster /> */}
-            {/* <Sonner /> */}
+            <Toaster />
+            <Sonner />
             <MainHeader />
           </div>
           <main >
             <SmoothScrolling>
+
                 {children}
                 </SmoothScrolling>
           </main>
           <Footer />
+          </ThemeProvider>
       </body>
     </html>
   );

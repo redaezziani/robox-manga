@@ -54,7 +54,7 @@ export default function ImageViewer({ images }: ImageViewerProps) {
       style={{ height: '80vh' }} // Set height for scrolling
     >
       {images.map((image, index) => (
-        <div key={index} className="relative border-x border-border border-b w-full max-w-3xl">
+        <div key={index} className="relative border-x border-border border-b w-full max-w-6xl">
           <img
             
             src={image}
@@ -118,7 +118,7 @@ export default function ImageViewer({ images }: ImageViewerProps) {
   return (
     <div className="w-full">
       <div className="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-20 py-2 backdrop-blur">
-        <div className="mx-auto mb-4 flex max-w-3xl justify-between items-center gap-2">
+        <div className="mx-auto mb-4 flex max-w-6xl justify-between items-center gap-2">
           <div
           className='flex gap-2'
           >

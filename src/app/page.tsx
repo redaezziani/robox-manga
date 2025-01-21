@@ -1,20 +1,24 @@
 'use client';
-import React, { useEffect } from 'react';
-
+import React, { useEffect, useState } from 'react';
 import MainPageLayout from '@/components/shared-ui/layouts/main-page-layout';
-
 import MangaList from './ui/card-list';
-
-import useMangaStore from '@/zustand/data/store';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { usePopularMangaSWR, useLatestMangaSWR, useGenresSWR, useMangaByGenreSWR } from './store/data';
 
 const HomePage = () => {
-  const { popularMangas, latestMangas, loadingStates, fetchPopularMangas, fetchLatestMangas } =
-    useMangaStore();
+  const { popularMangas, isLoading: popularLoading } = usePopularMangaSWR();
+  const { latestMangas, isLoading: latestLoading } = useLatestMangaSWR();
+  const { genres, isLoading: genresLoading } = useGenresSWR();
+  const [selectedGenre, setSelectedGenre] = useState('');
+  
+  const { mangasByGenre, isLoading: genreMangaLoading } = useMangaByGenreSWR(selectedGenre);
 
+  
   useEffect(() => {
-    fetchPopularMangas();
-    fetchLatestMangas();
-  }, [fetchPopularMangas, fetchLatestMangas]);
+    if (genres && genres.length > 0 && !selectedGenre) {
+      setSelectedGenre(genres[0]);
+    }
+  }, [genres]);
 
   return (
     <MainPageLayout>
@@ -34,13 +38,37 @@ const HomePage = () => {
         <MangaList
           title="المانجا الشائعة"
           mangas={popularMangas}
-          isLoading={loadingStates.popularMangas}
+          isLoading={popularLoading}
         />
         <MangaList
           title="آخر الإضافات"
           mangas={latestMangas}
-          isLoading={loadingStates.latestMangas}
+          isLoading={latestLoading}
         />
+        <div className="container mx-auto px-4">
+          <Select value={selectedGenre} onValueChange={setSelectedGenre}>
+            <SelectTrigger className="w-[280px]">
+              <SelectValue placeholder="اختر نوع المانجا" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                {genres?.map((genre) => (
+                  <SelectItem key={genre} value={genre}>
+                    {genre}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
+
+        {selectedGenre  &&  mangasByGenre.length > 0 && (
+          <MangaList
+            title={`مانجا ${selectedGenre}`}
+            mangas={mangasByGenre}
+            isLoading={genreMangaLoading}
+          />
+        )}
       </div>
     </MainPageLayout>
   );
