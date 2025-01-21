@@ -1,9 +1,9 @@
-import axios from 'axios';
+import { axiosInstance } from '@/lib/axios';
 import { create } from 'zustand';
-import useSWR from 'swr';
+import { useQuery } from '@tanstack/react-query';
 import { Manga } from '@/types/manga';
 
-const fetcher = (url: string) => axios.get(url).then((res) => res.data);
+const fetcher = (url: string) => axiosInstance.get(url).then((res) => res.data);
 
 interface MangaQueryParams {
     page?: number;
@@ -54,7 +54,7 @@ const useMangaStore = create<MangaStore>((set, get) => ({
         params.types?.forEach((type) => queryParams.append('types', type));
 
         try {
-            const response = await axios.get(`http://localhost:8000/api/manga/all?${queryParams}`);
+            const response = await axiosInstance.get(`/manga/all?${queryParams}`);
             const data = response.data.data;
             set({
                 originalMangas: data.items,
@@ -76,17 +76,31 @@ const useMangaStore = create<MangaStore>((set, get) => ({
     },
 }));
 
-// SWR hooks for filters
 export function useGenresSWR() {
-  return useSWR('http://localhost:8000/api/manga/genres', fetcher);
+  const { data, error, isLoading } = useQuery({
+    queryKey: ['genres'],
+    queryFn: () => fetcher('/manga/genres')
+  });
+
+  return { data, error, isLoading };
 }
 
 export function useStatusesSWR() {
-  return useSWR('http://localhost:8000/api/manga/status', fetcher);
+  const { data, error, isLoading } = useQuery({
+    queryKey: ['statuses'],
+    queryFn: () => fetcher('/manga/status')
+  });
+
+  return { data, error, isLoading };
 }
 
 export function useTypesSWR() {
-  return useSWR('http://localhost:8000/api/manga/types', fetcher);
+  const { data, error, isLoading } = useQuery({
+    queryKey: ['types'],
+    queryFn: () => fetcher('/manga/types')
+  });
+
+  return { data, error, isLoading };
 }
 
 export default useMangaStore;

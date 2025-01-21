@@ -11,6 +11,13 @@ import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 const MainHeader = async () => {
     const token: RequestCookie | undefined = await getCookies();
     
+    const navigationItems = [
+        { name: 'الرئيسية', href: '/' },
+        { name: 'جميع المانجا', href: '/all' },
+        { name: 'المفضلة', href: '/favorites' },
+        { name: 'قراءة لاحقاً', href: '/read-later' },
+        { name: 'الإعدادات', href: '/settings' },
+    ];
     
     return (
         <nav lang="ar" className="bg-muted fixed container md:max-w-full left-0 top-0 z-50 w-full border-b border-slate-400/35 px-4 py-2">
@@ -25,16 +32,16 @@ const MainHeader = async () => {
                 <div className="flex items-center gap-6">
                     {/* Navigation Links */}
                     <ul className="hidden items-center gap-6 md:flex">
-                        <li>
-                            <Link href="/" className="text-sm text-gray-500 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-50">
-                                الرئيسية
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/all" className="text-sm text-gray-500 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-50">
-                                جميع المانجا
-                            </Link>
-                        </li>
+                        {navigationItems.map((item) => (
+                            <li key={item.href}>
+                                <Link 
+                                    href={item.href} 
+                                    className="text-sm text-gray-500 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-50"
+                                >
+                                    {item.name}
+                                </Link>
+                            </li>
+                        ))}
                     </ul>
 
                     {/* Right Side Items */}

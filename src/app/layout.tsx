@@ -10,43 +10,45 @@ import SmoothScrolling from './ui/SmoothScrolling';
 import './globals.css';
 import Footer from '@/components/shared-ui/footer';
 import { ThemeProvider } from '@/components/shared-ui/theme-provider';
+import { Providers } from './providers';
 
 const lantx = localFont({
-  src: './assets/font/LANTX-Regular.otf',
-  variable: '--font-lantx',
+    src: './assets/font/LANTX-Regular.otf',
+    variable: '--font-lantx',
 });
 
 
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html
-    suppressHydrationWarning
-    lang="ar" >
-      <body
-        className={`${lantx.variable} font-lantx relative flex  min-h-screen w-full flex-col antialiased`}
-      >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-       
-          <div  className="relative">
-            <Toaster />
-            <Sonner />
-            <MainHeader />
-          </div>
-          <main >
-            <SmoothScrolling>
+    return (
+        <html
+            suppressHydrationWarning
+            lang="ar" >
+            <body
+                className={`${lantx.variable} font-lantx relative flex  min-h-screen w-full flex-col antialiased`}
+            >
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="system"
+                    enableSystem
+                    disableTransitionOnChange
+                >
 
-                {children}
-                </SmoothScrolling>
-          </main>
-          <Footer />
-          </ThemeProvider>
-      </body>
-    </html>
-  );
+                    <div className="relative">
+                        <Toaster />
+                        <Sonner />
+                        <MainHeader />
+                    </div>
+                    <main >
+                        <SmoothScrolling>
+                            <Providers>
+                                {children}
+                            </Providers>
+                        </SmoothScrolling>
+                    </main>
+                    <Footer />
+                </ThemeProvider>
+            </body>
+        </html>
+    );
 }

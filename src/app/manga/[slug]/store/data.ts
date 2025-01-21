@@ -1,18 +1,17 @@
-import axios from 'axios';
-import useSWR from 'swr';
+import { axiosInstance } from '@/lib/axios';
+import { useQuery } from '@tanstack/react-query';
 import { MangaResponse } from '@/types/manga';
 
 const fetcher = async (url: string) => {
-  const response = await axios.get<MangaResponse>(url);
+  const response = await axiosInstance.get<MangaResponse>(url);
   return response.data.data;
 };
 
-// SWR hook for manga details
 export function useMangaDetailsSWR(slug: string) {
-  const { data, error, isLoading } = useSWR(
-    `http://localhost:8000/api/manga/info/${slug}`,
-    fetcher
-  );
+  const { data, error, isLoading } = useQuery({
+    queryKey: ['mangaDetails', slug],
+    queryFn: () => fetcher(`/manga/info/${slug}`)
+  });
 
   return {
     manga: data,

@@ -1,5 +1,5 @@
-import axios from 'axios';
-import useSWR from 'swr';
+import { axiosInstance } from '@/lib/axios';
+import { useQuery } from '@tanstack/react-query';
 import { MangaResponse } from '@/types/manga';
 
 interface ChapterResponse {
@@ -12,16 +12,15 @@ interface ChapterResponse {
 }
 
 const fetcher = async (url: string) => {
-  const response = await axios.get(url);
+  const response = await axiosInstance.get(url);
   return response.data.data;
 };
 
-// SWR hook for manga details
 export function useMangaDetailsSWR(slug: string) {
-  const { data, error, isLoading } = useSWR(
-    `http://localhost:8000/api/manga/info/${slug}`,
-    fetcher
-  );
+  const { data, error, isLoading } = useQuery({
+    queryKey: ['mangaDetails', slug],
+    queryFn: () => fetcher(`/manga/info/${slug}`)
+  });
 
   return {
     manga: data,
@@ -31,12 +30,11 @@ export function useMangaDetailsSWR(slug: string) {
   };
 }
 
-// SWR hook for chapter pages
 export function useChapterPagesSWR(mangaSlug: string, chapterNumber: string) {
-  const { data, error, isLoading } = useSWR<ChapterResponse['data']>(
-    `http://localhost:8000/api/manga/manga/${mangaSlug}/chapter/${chapterNumber}`,
-    fetcher
-  );
+  const { data, error, isLoading } = useQuery({
+    queryKey: ['chapterPages', mangaSlug, chapterNumber],
+    queryFn: () => fetcher(`/manga/manga/${mangaSlug}/chapter/${chapterNumber}`)
+  });
 
   return {
     chapter: data,

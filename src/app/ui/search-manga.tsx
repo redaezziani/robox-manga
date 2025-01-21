@@ -18,12 +18,13 @@ import {
 import { Input } from '@/components/ui/input';
 import { useDebounce } from '@/hooks/useDebounce';
 
-import useMangaStore from '@/zustand/data/store';
+
 import { ScrollArea } from '@/components/ui/scroll-area';
+import useSearchStore from '../store/search-store';
 
 export default function SearchManga() {
   const [searchQuery, setSearchQuery] = useState('');
-  const { fetchAllMangas, filteredMangas, loadingStates } = useMangaStore();
+  const { fetchAllMangas, filteredMangas, loadingStates } = useSearchStore();
 
   const debouncedSearch = useCallback(
     useDebounce(async (query: string) => {

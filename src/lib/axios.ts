@@ -9,11 +9,13 @@ import axios from 'axios';
  * const response = await api.get("/offers");
  * console.log(response.data);
  */
-const api = axios.create({
-  baseURL: process.env.API_URL,
+const baseURL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
+
+export const axiosInstance = axios.create({
+  baseURL,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-export default api;
+export default axiosInstance;
