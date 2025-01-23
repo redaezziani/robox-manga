@@ -97,7 +97,7 @@ export default function SearchManga() {
             <Input
               value={searchQuery}
               onChange={handleSearch}
-              className="peer pe-9 text-right"
+              className="peer pe-9 text-right bg-muted"
               placeholder="ابحث عن المانجا..."
               autoComplete="off"
             />

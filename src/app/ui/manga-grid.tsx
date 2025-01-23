@@ -171,7 +171,7 @@ export default function MangaGrid({
         <Input
             value={searchQuery}
             onChange={(e) => onSearch(e.target.value)}
-        className="peer pe-9 ps-9" 
+        className="peer pe-9 ps-9 bg-muted" 
         placeholder="ابحث عن مانجا..."
          type="search" />
          {searchQuery && (

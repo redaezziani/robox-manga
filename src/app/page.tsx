@@ -4,6 +4,7 @@ import MainPageLayout from '@/components/shared-ui/layouts/main-page-layout';
 import MangaList from './ui/card-list';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { usePopularMangaSWR, useLatestMangaSWR, useGenresSWR, useMangaByGenreSWR } from './store/data';
+import { Tabs } from '@/components/ui/tabs';
 
 const HomePage = () => {
   const { popularMangas, isLoading: popularLoading } = usePopularMangaSWR();
@@ -32,6 +33,7 @@ const HomePage = () => {
             احترافية،
           </p>
         </section>
+      
       </div>
 
       <div className="flex w-full flex-col gap-y-4">

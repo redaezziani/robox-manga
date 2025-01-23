@@ -24,7 +24,7 @@ const MainHeader = async () => {
             <div className="container mx-auto flex w-full items-center justify-between">
                 <div className="flex items-center gap-2">
                     <img src="/images/logo.png" alt="MangaHeaven" className="h-6 dark:invert" />
-                    <h1 className="bg-gradient-to-bl from-sky-500 to-sky-300 bg-clip-text text-lg font-bold text-transparent md:text-2xl">
+                    <h1 className="bg-gradient-to-bl from-blue-600 to-blue-400 bg-clip-text text-lg font-bold text-transparent md:text-2xl">
                         روبوكس
                     </h1>
                 </div>
