@@ -282,7 +282,7 @@ export default function MangaGrid({
                   ))}
                 </div>
               </section>
-              <div className="mb-4 flex w-full items-end justify-start">
+              <div className="my-4  flex w-full items-center   justify-center ">
                 <CustomPagination
                   currentPage={currentPage}
                   totalPages={totalPages}
