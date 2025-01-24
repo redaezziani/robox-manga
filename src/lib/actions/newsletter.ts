@@ -3,18 +3,48 @@
 import axios from 'axios'
 import { newsletterSchema } from "../validations/newsletter"
 
+const API_URL =  'http://localhost:8000'
+
 export async function subscribeToNewsletter(email: string) {
     try {
-        const validatedFields = newsletterSchema.parse({ email })
-        const response = await axios.post('YOUR_API_ENDPOINT/subscribe', validatedFields, {
-            headers: { 'Content-Type': 'application/json' }
-        })
-
-        return { success: true }
-    } catch (error) {
-        if (axios.isAxiosError(error)) {
-            return { error: error.response?.data?.message || 'حدث خطأ أثناء الاشتراك' }
+        const requestBody = {
+            email,
+            topics: ["manga", "chapters"]
         }
-        return { error: 'حدث خطأ غير متوقع' }
+
+        const validatedFields = newsletterSchema.parse(requestBody)
+
+        const response = await axios.post(
+            `${API_URL}/api/subscriptions`,
+            validatedFields,
+            {
+                headers: {
+                    'Accept': '*/*',
+                    'Content-Type': 'application/json'
+                }
+            }
+        )
+
+        if (response.status === 200 || response.status === 201) {
+            return { 
+                success: true,
+                message: "تم الاشتراك بنجاح في النشرة الإخبارية! 🎉" 
+            }
+        }
+
+        throw new Error(response.data?.message || 'حدث خطأ أثناء الاشتراك')
+
+    } catch (error) {
+        console.error('Subscription error:', error)
+        if (axios.isAxiosError(error)) {
+            return { 
+                success: false,
+                error: error.response?.data?.message || 'فشل الاشتراك في النشرة الإخبارية' 
+            }
+        }
+        return { 
+            success: false,
+            error: 'حدث خطأ غير متوقع' 
+        }
     }
 }

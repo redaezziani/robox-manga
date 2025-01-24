@@ -72,7 +72,7 @@ const useMangaStore = create<MangaStore>((set, get) => ({
 
     handleSearch: (query: string) => {
         set({ searchQuery: query });
-        get().fetchAllMangas({ search: query, page: 1, limit: 12 });
+        get().fetchAllMangas({ search: query, page: 1, limit: 18 });
     },
 }));
 

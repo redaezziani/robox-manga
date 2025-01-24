@@ -4,6 +4,17 @@ import Image from 'next/image';
 import { format } from 'date-fns';
 import { ar } from 'date-fns/locale';
 import { Badge } from '@/components/ui/badge';
+import {
+  Eye,
+  BookOpen,
+  Calendar,
+  Activity,
+  Star,
+  Users,
+  Paintbrush,
+  ScrollText,
+  Layers
+} from 'lucide-react';
 import ChaptersList from './chapters-list';
 import { useMangaDetailsSWR } from '../store/data';
 import MangaDetailsSkeleton from './MangaSkeleton';
@@ -55,25 +66,38 @@ export default function MangaDetails({ slug }: MangaDetailsProps) {
 
          <section className="w-full grid grid-cols-2 md:grid-cols-1 gap-4 items-start justify-start content-start">
          <div className="space-y-2">
-            <p className="text-muted-foreground text-sm">النوع: {manga.type}</p>
-            <p className="text-muted-foreground text-sm">
-              تاريخ الإصدار: {format(new Date(manga.releaseDate), 'PP', { locale: ar })}
+            <p className="text-muted-foreground text-sm flex items-center gap-2">
+              <Eye className="w-4 h-4" /> المشاهدات: {manga.views}
             </p>
-            <p className="text-muted-foreground text-sm">الحالة: {manga.status}</p>
-            <p className="text-muted-foreground text-sm">التقييم: {manga.rating.toFixed(1)} / 5</p>
+            <p className="text-muted-foreground text-sm flex items-center gap-2">
+              <BookOpen className="w-4 h-4" /> النوع: {manga.type}
+            </p>
+            <p className="text-muted-foreground text-sm flex items-center gap-2">
+              <Calendar className="w-4 h-4" /> تاريخ الإصدار: {format(new Date(manga.releaseDate), 'PP', { locale: ar })}
+            </p>
+            <p className="text-muted-foreground text-sm flex items-center gap-2">
+              <Activity className="w-4 h-4" /> الحالة: {manga.status}
+            </p>
+            <p className="text-muted-foreground text-sm flex items-center gap-2">
+              <Star className="w-4 h-4" /> التقييم: {manga.rating.toFixed(1)} / 5
+            </p>
           </div>
 
           <div className="flex w-full justify-start -mt-1 items-start flex-col gap-2">
           {manga.authors.length > 0 && (
             <div>
-              <h3 className="font-semibold">المؤلفون</h3>
+              <h3 className="font-semibold flex items-center gap-2">
+                <Users className="w-4 h-4" /> المؤلفون
+              </h3>
               <p className="text-muted-foreground text-sm">{manga.authors.join('، ')}</p>
             </div>
           )}
 
           {manga.artists.length > 0 && (
             <div>
-              <h3 className="font-semibold">الرسامون</h3>
+              <h3 className="font-semibold flex items-center gap-2">
+                <Paintbrush className="w-4 h-4" /> الرسامون
+              </h3>
               <p className="text-muted-foreground text-sm">{manga.artists.join('، ')}</p>
             </div>
           )}
@@ -81,13 +105,17 @@ export default function MangaDetails({ slug }: MangaDetailsProps) {
           </section>
 
           <div>
-            <h3 className="font-semibold">القصة</h3>
+            <h3 className="font-semibold flex items-center gap-2">
+              <ScrollText className="w-4 h-4" /> القصة
+            </h3>
             <p className="text-muted-foreground max-w-2xl text-sm">{manga.description}</p>
           </div>
         </div>
         {manga.chapters.length > 0 && (
-          <div className=" w-full space-y-4">
-            <h2 className="text-xl font-bold">الفصول</h2>
+          <div className="w-full space-y-4">
+            <h2 className="text-xl font-bold flex items-center gap-2">
+              <Layers className="w-5 h-5" /> الفصول
+            </h2>
             <ChaptersList mangaId={manga.slug} chapters={manga.chapters} />
           </div>
         )}

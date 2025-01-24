@@ -4,20 +4,21 @@ import { useForm } from "react-hook-form"
 import { newsletterSchema, type NewsletterInput } from "@/lib/validations/newsletter"
 import { subscribeToNewsletter } from "@/lib/actions/newsletter"
 import { useState } from "react"
-import { toast } from "sonner"
 import Link from 'next/link'
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { getCookies } from '@/lib/cookies'
-import { Loader, Loader2 } from "lucide-react";
+import { Loader } from "lucide-react";
+import { title } from "process";
+import { showToast } from "./toast.tsx/normal";
 
 export default function Footer() {
     const [isPending, setIsPending] = useState(false)
-    
+
     const form = useForm<NewsletterInput>({
         resolver: zodResolver(newsletterSchema),
         defaultValues: {
             email: "",
+            topics: ["manga", "chapters"]
         },
     })
 
@@ -25,12 +26,14 @@ export default function Footer() {
         setIsPending(true)
         try {
             const result = await subscribeToNewsletter(data.email)
-            if (result.error) {
-                toast.error('حدث خطأ أثناء الاشتراك')
-                return
+            showToast({
+                title: result.success ? "تم الاشتراك بنجاح ✅" : "خطأ في الاشتراك ❌",
+                description: result.success ? result.message : result.error,
+                type: result.success ? 'success' : 'error'
+            })
+            if (result.success) {
+                form.reset()
             }
-            toast.success("تم الاشتراك بنجاح!")
-            form.reset()
         } finally {
             setIsPending(false)
         }
@@ -61,8 +64,8 @@ export default function Footer() {
                         <h3 className="text-lg font-semibold mb-2 text-center md:text-left">
                             اشترك في النشرة الإخبارية
                         </h3>
-                        <form 
-                            onSubmit={form.handleSubmit(onSubmit)} 
+                        <form
+                            onSubmit={form.handleSubmit(onSubmit)}
                             className="flex flex-col sm:flex-row gap-2"
                         >
                             <div className="flex-1">
@@ -79,8 +82,8 @@ export default function Footer() {
                                     </p>
                                 )}
                             </div>
-                            <Button 
-                                type="submit" 
+                            <Button
+                                type="submit"
                                 disabled={isPending}
                             >
                                 {isPending ? (
@@ -96,8 +99,8 @@ export default function Footer() {
                     </div>
                 </div>
 
-                {/* Copyright */}
                 <div className="mt-8 text-center text-sm">
+
                     <p>© {new Date().getFullYear()} Robox. جميع الحقوق محفوظة.</p>
                 </div>
             </div>

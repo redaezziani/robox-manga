@@ -90,7 +90,7 @@ const NotificationSheet = () => {
             case NotificationPriority.URGENT:
                 return 'bg-destructive text-destructive-foreground';
             case NotificationPriority.HIGH:
-                return 'bg-yellow-500 text-yellow-50';
+                return 'bg-red-500 text-white';
             case NotificationPriority.MEDIUM:
                 return 'bg-blue-500 text-blue-50';
             default:

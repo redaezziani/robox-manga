@@ -22,7 +22,7 @@ const debounce = <T extends (...args: any[]) => any>(
     };
 };
 
-const ITEMS_PER_PAGE = 12;
+const ITEMS_PER_PAGE = 18;
 
 const MangaClientWrapper = () => {
     const initialFilters = useMemo(() => ({
