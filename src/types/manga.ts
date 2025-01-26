@@ -4,9 +4,9 @@ export interface Manga {
   slug: string;
   rating: number;
   coverThumbnail: string;
+  cover: string;
   otherTitles: string[];
   description: string;
-  cover: string;
   authors: string[];
   artists: string[];
   platform: string;
@@ -17,7 +17,15 @@ export interface Manga {
   views: number;
   createdAt: string;
   updatedAt: string;
-  chapters: Chapter[];
+  // Add chapters property
+  chapters?: Array<{
+    id: string;
+    title: string;
+    slug: string;
+    number: number;
+    releaseDate: string;
+    mangaId: string;
+  }>;
 }
 
 export interface Chapter {

@@ -29,26 +29,26 @@ interface MangaCardProps {
 const MangaCard = ({ data }: MangaCardProps) => {
     return (
         <Link
-        prefetch={true}
+            prefetch={true}
             href={`/manga/${data.slug}`}
             className="block"
+
+
         >
-            <Card className="group overflow-hidden border-none shadow-none transition-all duration-300 ">
+            <Card className="group overflow-hidden border-none shadow-none  ">
                 <div className="relative aspect-[10/14] w-full overflow-hidden rounded-lg">
                     <Skeleton />
 
                     <Image
-                        src={data.cover} 
-                        alt={data.title}
-                        layout="fill"
+                        src={data.coverThumbnail}
+                        alt={"cover"}
                         objectFit="cover"
-                        sizes="(min-width: 340px) 320px, 70vw"
-                        quality={10}
                         loading='lazy'
-                        priority={false} 
+                        priority={false}
                         placeholder='blur'
                         blurDataURL={data.coverThumbnail}
-                        className="transition-all duration-300"
+                        quality={100}
+                        layout="fill"
                     />
 
                     <div className="absolute right-2 top-2">

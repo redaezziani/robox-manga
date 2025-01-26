@@ -1,16 +1,9 @@
-import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 
-import MainHeader from '@/components/shared-ui/main-header';
-import { Toaster as Sonner } from '@/components/ui/sonner';
-import { Toaster } from '@/components/ui/toaster';
 
-import SmoothScrolling from './ui/SmoothScrolling';
 
 import './globals.css';
-import Footer from '@/components/shared-ui/footer';
 import { ThemeProvider } from '@/components/shared-ui/theme-provider';
-import { Providers } from './providers';
 
 const lantx = localFont({
     src: './assets/font/LANTX-Regular.otf',
@@ -34,19 +27,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     disableTransitionOnChange
                 >
 
-                    <div className="relative">
-                        <Toaster />
-                        <Sonner />
-                        <MainHeader />
-                    </div>
-                    <main >
-                        <SmoothScrolling>
-                            <Providers>
-                                {children}
-                            </Providers>
-                        </SmoothScrolling>
-                    </main>
-                    <Footer />
+
+                    {children}
                 </ThemeProvider>
             </body>
         </html>

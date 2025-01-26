@@ -41,7 +41,6 @@ export default function UserSettings() {
                 headers: {
                     'accept': '*/*',
                     'Authorization': `Bearer ${token?.value}`,
-                    'Content-Type': 'multipart/form-data',
                 },
                 body: formData,
             });

@@ -24,6 +24,16 @@
   }
 }
 
+@layer base {
+  :root[dir="rtl"] {
+    --direction: rtl;
+  }
+  
+  body[dir="rtl"] {
+    text-align: right;
+  }
+}
+
 /* Additional utility classes if needed */
 .font-arabic {
   font-family: 'LANTX-Regular', system-ui, sans-serif !important;

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import useMangaStore, { useGenresSWR, useStatusesSWR, useTypesSWR } from '../store/data';
-import MangaGrid from '../../ui/manga-grid';
+import MangaGrid from '../../../ui/manga-grid';
 import MangaSkeletonLoader from './MangaSkeleton';
 
 interface Filters {

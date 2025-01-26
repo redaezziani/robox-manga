@@ -2,6 +2,7 @@ import { axiosInstance } from '@/lib/axios';
 import { create } from 'zustand';
 import { useQuery } from '@tanstack/react-query';
 import { Manga } from '@/types/manga';
+import axios from 'axios';
 
 const fetcher = (url: string) => axiosInstance.get(url).then((res) => res.data);
 
@@ -54,7 +55,7 @@ const useMangaStore = create<MangaStore>((set, get) => ({
         params.types?.forEach((type) => queryParams.append('types', type));
 
         try {
-            const response = await axiosInstance.get(`/manga/all?${queryParams}`);
+            const response = await axios.get(`http://localhost:8000/api/manga/all?${queryParams}`);
             const data = response.data.data;
             set({
                 originalMangas: data.items,
@@ -76,6 +77,7 @@ const useMangaStore = create<MangaStore>((set, get) => ({
     },
 }));
 
+// Update the SWR fetcher endpoints if needed
 export function useGenresSWR() {
   const { data, error, isLoading } = useQuery({
     queryKey: ['genres'],
