@@ -1,7 +1,7 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
-import { ChevronLeft, ChevronRight, Images, Layout } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Images, Layout, Play, Pause } from 'lucide-react';
 import { Keyboard, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -11,19 +11,52 @@ import { Button } from '@/components/ui/button';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-
+import { Slider } from '../ui/slider';
+import Image from 'next/image';
 interface ImageViewerProps {
   images: string[];
 }
 
 export default function ImageViewer({ images }: ImageViewerProps) {
   const [viewMode, setViewMode] = useState<'vertical' | 'slider'>('vertical');
+  const [autoScroll, setAutoScroll] = useState(false);
+  const [scrollSpeed, setScrollSpeed] = useState(3000); // Default scroll speed
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+
+  const handleAutoScroll = () => {
+    if (!scrollContainerRef.current || !autoScroll) return;
+
+    const interval = setInterval(() => {
+      if (scrollContainerRef.current) {
+        scrollContainerRef.current.scrollBy(0, 1); // Scroll vertically
+      }
+    }, 100 / (scrollSpeed / 10)); // Adjust speed: lower interval = faster scrolling
+
+    return () => clearInterval(interval);
+  };
+
+  useEffect(() => {
+    if (!autoScroll) return;
+
+    const scrollHandler = handleAutoScroll();
+    return scrollHandler;
+  }, [autoScroll, scrollSpeed]);
+
+  const handleTouchStart = () => setAutoScroll(false);
+  const handleTouchEnd = () => setAutoScroll(true);
 
   const VerticalMode = () => (
-    <div className="flex flex-col items-center gap-4">
+    <div
+      ref={scrollContainerRef}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      className="flex flex-col items-center gap-4 overflow-auto"
+      style={{ height: '80vh' }} // Set height for scrolling
+    >
       {images.map((image, index) => (
-        <div key={index} className="relative w-full max-w-3xl">
+        <div key={index} className="relative border-x border-border border-b w-full max-w-6xl">
           <img
+            
             src={image}
             alt={`Page ${index + 1}`}
             loading={index < 3 ? 'eager' : 'lazy'}
@@ -85,23 +118,46 @@ export default function ImageViewer({ images }: ImageViewerProps) {
   return (
     <div className="w-full">
       <div className="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-20 py-2 backdrop-blur">
-        <div className="mx-auto mb-4 flex max-w-3xl justify-end gap-2">
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={() => setViewMode('vertical')}
-            className={viewMode === 'vertical' ? 'bg-primary text-primary-foreground' : ''}
+        <div className="mx-auto mb-4 flex max-w-6xl justify-between items-center gap-2">
+          <div
+          className='flex gap-2'
           >
-            <Layout className="size-4" />
-          </Button>
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={() => setViewMode('slider')}
-            className={viewMode === 'slider' ? 'bg-primary text-primary-foreground' : ''}
-          >
-            <Images className="size-4" />
-          </Button>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => setViewMode('vertical')}
+              className={viewMode === 'vertical' ? 'bg-primary text-primary-foreground' : ''}
+            >
+              <Layout className="size-4" />
+            </Button>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => setViewMode('slider')}
+              className={viewMode === 'slider' ? 'bg-primary text-primary-foreground' : ''}
+            >
+              <Images className="size-4" />
+            </Button>
+          </div>
+          {viewMode === 'vertical' && (
+            <>
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => setAutoScroll(!autoScroll)}
+              >
+                {autoScroll ? <Pause className="size-4" /> : <Play className="size-4" />}
+              </Button>
+              <Slider
+                defaultValue={[25]}
+                max={100}
+                step={10}
+                className="[&>:last-child>span]:rounded w-32"
+                aria-label="Slider with square thumb"
+                onChange={(e) => setScrollSpeed(Number(e))}
+              />
+            </>
+          )}
         </div>
       </div>
       {viewMode === 'vertical' ? <VerticalMode /> : <SliderMode />}

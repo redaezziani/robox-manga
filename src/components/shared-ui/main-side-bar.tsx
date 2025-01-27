@@ -1,44 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-
 import { AnimatePresence, motion } from 'framer-motion';
-
 import { Pages } from '@/lib/route-pages';
-
 import ArrowsIcon from '../icons/Arrows';
 import { Button } from '../ui/button';
-
 import CollapsibleMenuItem from './collapsible-menu-item';
 
-const roles = [
-  {
-    name: 'مسؤول',
-    permissions: [
-      { type: 'group', name: 'الشبكات والعروض' },
-      { type: 'group', name: 'المشتركين' },
-      { type: 'group', name: 'الحملات' },
-      { type: 'group', name: 'التقارير' },
-      { type: 'group', name: 'الإعدادات' },
-    ],
-  },
-  {
-    name: 'مستخدم',
-    permissions: [
-      { type: 'group', name: 'المشتركين' },
-      { type: 'group', name: 'الحملات' },
-    ],
-  },
-];
-
 const MainSideBar = () => {
-  const user = {
-    name: 'أليسا',
-    email: 'alyssa@test.com',
-    role: 'مسؤول',
-  };
-
-  const userPermissions = roles.find((role) => role.name === user.role)?.permissions || [];
   const [open, setOpen] = useState<boolean>(true);
   const handleOpen = () => setOpen(!open);
 
@@ -47,13 +16,13 @@ const MainSideBar = () => {
       lang="ar"
       initial={false}
       animate={{
-        width: open ? 384 : 40, // w-96 = 384px, w-10 = 40px
+        width: open ? 384 : 40,
       }}
       transition={{
         duration: 0.3,
         ease: 'easeInOut',
       }}
-      className="bg-muted sticky left-0 top-0 hidden h-screen flex-col border-r border-slate-400/35 lg:flex"
+      className="bg-muted sticky left-0 top-0 hidden h-screen flex-col border-l border-slate-400/35 lg:flex"
     >
       <Button
         size="icon"
@@ -93,15 +62,7 @@ const MainSideBar = () => {
         className="mt-20 size-full overflow-y-auto px-2"
       >
         <ul className="space-y-2">
-          {Pages.filter((page) => {
-            const groupPermission = userPermissions.some(
-              (perm) => perm.type === 'group' && perm.name === page.title
-            );
-            const routePermission = page.items?.some((item) =>
-              userPermissions.some((perm) => perm.type === 'route' && perm.name === item.href)
-            );
-            return groupPermission || routePermission;
-          }).map((page) => (
+          {Pages.map((page) => (
             <li key={page.title}>
               <CollapsibleMenuItem item={page} />
             </li>

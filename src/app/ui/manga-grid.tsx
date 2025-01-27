@@ -1,8 +1,7 @@
 'use client';
 import React, { useEffect } from 'react';
-
-import { AnimatePresence } from 'framer-motion';
-import { RotateCcw } from 'lucide-react';
+import { ScrollArea } from "@/components/ui/scroll-area";
+import {  RotateCcw, Search, X } from 'lucide-react';
 
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
@@ -14,6 +13,7 @@ import { TickSlider } from './tick-slider';
 import { Manga } from '@/types/manga';
 
 import { CustomPagination } from '@/app/ui/custom-pagination';
+import { Input } from '@/components/ui/input';
 
 interface MangaGridProps {
   mangas: Manga[];
@@ -47,11 +47,8 @@ export default function MangaGrid({
   searchQuery,
   onSearch,
 }: MangaGridProps) {
-  useEffect(() => {
-    console.log('MangaGrid received types:', types);
-  }, [types]);
+  
 
-  console.log(types);
   const [selectedGenres, setSelectedGenres] = React.useState<string[]>([]);
   const [selectedStatuses, setSelectedStatuses] = React.useState<string[]>([]);
   const [selectedTypes, setSelectedTypes] = React.useState<string[]>([]);
@@ -132,9 +129,9 @@ export default function MangaGrid({
   };
 
   return (
-    <div className="flex w-full flex-col gap-6">
-      <div className="container  grid w-full  grid-cols-1 gap-4 md:grid-cols-4">
-        <div lang="ar" className=" mb-4   flex w-full items-end justify-between md:hidden">
+    <div className="flex w-full flex-col min-h-[80vh] gap-6">
+      <div className="container  md:grid w-full   grid-cols-1 gap-4 md:grid-cols-4">
+        <div lang="ar" className=" mb-8    flex w-full items-start justify-between md:hidden">
           <h3 className="text-lg font-semibold text-gray-600">فلترة المانجا</h3>
           <MobileFilters
             genres={genres}
@@ -167,23 +164,27 @@ export default function MangaGrid({
           </div>
 
           {/* Add Search Input */}
-          <div className="relative mb-4 w-full">
-            <input
-              type="text"
-              placeholder="ابحث عن المانجا..."
-              value={searchQuery}
-              onChange={(e) => onSearch(e.target.value)}
-              className="border-input bg-background w-full rounded-md border p-2 pl-8"
-            />
-            {searchQuery && (
-              <button
-                onClick={clearSearch}
-                className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
-              >
-                ✕
-              </button>
-            )}
-          </div>
+          <div className="relative w-full">
+          <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 text-muted-foreground/80 peer-disabled:opacity-50">
+          <Search size={16} strokeWidth={2} />
+        </div>
+        <Input
+            value={searchQuery}
+            onChange={(e) => onSearch(e.target.value)}
+        className="peer pe-9 ps-9 bg-muted" 
+        placeholder="ابحث عن مانجا..."
+         type="search" />
+         {searchQuery && (
+        <button
+            onClick={clearSearch}
+          className="absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-lg text-muted-foreground/80 outline-offset-2 transition-colors hover:text-foreground focus:z-10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring/70 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
+          aria-label="Submit search"
+          type="submit"
+        >
+          <X size={16} strokeWidth={2} aria-hidden="true" />
+        </button>
+        )}
+      </div>
 
           <div className="flex w-full flex-col gap-6">
             <div className="grid  w-full grid-cols-2 gap-4">
@@ -244,7 +245,10 @@ export default function MangaGrid({
             {/* Genre Filters */}
             <div className="flex flex-col items-start justify-start gap-4">
               <h3>التصنيفات</h3>
-              <div className="grid grid-cols-3 gap-3 ">
+              <ScrollArea
+              className='h-60 w-full'
+              >
+              <div className="grid   grid-cols-3 gap-3 ">
                 {genres.map((genre) => (
                   <div key={genre} className="flex items-center gap-2">
                     <Checkbox
@@ -256,6 +260,7 @@ export default function MangaGrid({
                   </div>
                 ))}
               </div>
+              </ScrollArea>
             </div>
           </div>
         </section>
@@ -272,14 +277,12 @@ export default function MangaGrid({
             <>
               <section className="w-full">
                 <div className="grid grid-cols-2 gap-4 lg:grid-cols-6">
-                  <AnimatePresence mode="popLayout">
-                    {mangas.map((manga) => (
-                      <MangaCard key={manga.id} data={manga} />
-                    ))}
-                  </AnimatePresence>
+                  {mangas.map((manga) => (
+                    <MangaCard key={manga.id} data={manga} />
+                  ))}
                 </div>
               </section>
-              <div className="mb-4 flex w-full items-end justify-start">
+              <div className="my-4  flex w-full items-center   justify-center ">
                 <CustomPagination
                   currentPage={currentPage}
                   totalPages={totalPages}

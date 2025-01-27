@@ -226,7 +226,7 @@ const RegisterPage = () => {
       </div>
 
       <div className="relative hidden h-full w-[45%] items-center justify-center overflow-hidden bg-slate-200 md:flex">
-        <img src="/auth/bg.jpg" className="size-full object-cover" alt="background" />
+        <img src="/auth/bg.png" className="size-full object-cover" alt="background" />
       </div>
     </div>
   );

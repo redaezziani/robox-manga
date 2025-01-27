@@ -68,7 +68,7 @@ const MangaList = ({ title, mangas, isLoading, skeletonCount = 7 }: MangaListPro
           480: { slidesPerView: 2, spaceBetween: 15 },
           768: { slidesPerView: 2, spaceBetween: 15 },
           1024: { slidesPerView: 3, spaceBetween: 20 },
-          1280: { slidesPerView: 7, spaceBetween: 20 },
+          1280: { slidesPerView: 8, spaceBetween: 20 },
         }}
         className="py-8"
       >

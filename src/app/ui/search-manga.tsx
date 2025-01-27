@@ -18,11 +18,13 @@ import {
 import { Input } from '@/components/ui/input';
 import { useDebounce } from '@/hooks/useDebounce';
 
-import useMangaStore from '@/zustand/data/store';
+
+import { ScrollArea } from '@/components/ui/scroll-area';
+import useSearchStore from '../store/search-store';
 
 export default function SearchManga() {
   const [searchQuery, setSearchQuery] = useState('');
-  const { fetchAllMangas, filteredMangas, loadingStates } = useMangaStore();
+  const { fetchAllMangas, filteredMangas, loadingStates } = useSearchStore();
 
   const debouncedSearch = useCallback(
     useDebounce(async (query: string) => {
@@ -78,7 +80,7 @@ export default function SearchManga() {
     <Dialog>
       <DialogTrigger asChild>
         <Search
-          size={24}
+          size={18}
           className="hover:text-primary cursor-pointer transition-colors"
           aria-label="بحث عن المانجا"
         />
@@ -95,7 +97,7 @@ export default function SearchManga() {
             <Input
               value={searchQuery}
               onChange={handleSearch}
-              className="peer pe-9 text-right"
+              className="peer pe-9 text-right bg-muted"
               placeholder="ابحث عن المانجا..."
               autoComplete="off"
             />
@@ -110,8 +112,12 @@ export default function SearchManga() {
 
           <AnimatePresence mode="wait">
             {filteredMangas.length > 0 && (
+                <ScrollArea
+                dir='rtl'
+                className=' h-[600px] md:max-h-[400px] '
+                >
               <motion.div
-                className="mt-4 grid h-[600px] grid-cols-2 overflow-y-auto md:max-h-[400px]"
+                className="mt-4 grid  grid-cols-2  "
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
@@ -154,6 +160,7 @@ export default function SearchManga() {
                   </motion.div>
                 ))}
               </motion.div>
+              </ScrollArea>
             )}
           </AnimatePresence>
         </div>
