@@ -15,10 +15,8 @@ import { Providers } from '../providers';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html
-            suppressHydrationWarning
-            lang="ar" >
-            <body
+        
+            <div
                 className={`$ font-lantx relative flex  min-h-screen w-full flex-col antialiased`}
             >
                 <ThemeProvider
@@ -42,7 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     </main>
                     <Footer />
                 </ThemeProvider>
-            </body>
-        </html>
+            </div>
+       
     );
 }

@@ -40,7 +40,9 @@ export default function Footer() {
     }
 
     return (
-        <footer lang='ar' className="py-8 mt-14 border border-border">
+        <footer
+        aria-label="Main Footer"
+        lang='ar' className="py-8 mt-14 border border-border">
             <div className="container mx-auto px-4">
                 <div className="flex flex-wrap justify-between items-center">
                     {/* Logo and App Name */}
@@ -101,7 +103,7 @@ export default function Footer() {
 
                 <div className="mt-8 text-center text-sm">
 
-                    <p>© {new Date().getFullYear()} Robox. جميع الحقوق محفوظة.</p>
+                    <p>©  Robox. جميع الحقوق محفوظة.</p>
                 </div>
             </div>
         </footer>
