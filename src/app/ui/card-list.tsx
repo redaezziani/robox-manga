@@ -42,7 +42,7 @@ const MangaList = ({ title, mangas, isLoading, skeletonCount = 7 }: MangaListPro
     <div lang="ar" className="container relative mx-auto flex-col space-y-1 px-4">
       {title && <h3 className="text-xl font-bold text-gray-700">{title}</h3>}
       <div className="flex w-full items-end justify-between pb-4">
-        <Link href={'/all'} lang="ar" className="text-sm text-gray-500">
+        <Link href={'/app/all'} lang="ar" className="text-sm text-gray-500">
           عرض الكل
         </Link>
         <div className="flex gap-4">

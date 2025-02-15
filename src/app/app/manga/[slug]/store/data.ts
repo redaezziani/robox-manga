@@ -10,8 +10,10 @@ const fetcher = async (url: string) => {
 export function useMangaDetailsSWR(slug: string) {
   const { data, error, isLoading } = useQuery({
     queryKey: ['manga', slug],
-    queryFn: () => fetcher(`/manga/${slug}`) // Using axiosInstance with baseURL
+    queryFn: () => fetcher(`/manga/${slug}`)
   });
+
+  console.log(data)
 
   return { manga: data, error, isLoading };
 }

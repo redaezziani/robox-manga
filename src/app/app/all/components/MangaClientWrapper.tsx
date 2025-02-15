@@ -49,14 +49,15 @@ const MangaClientWrapper = () => {
     const { data: statuses, error: statusesError, isLoading: statusesLoading } = useStatusesSWR();
     const { data: types, error: typesError, isLoading: typesLoading } = useTypesSWR();
 
-    // Simplified initial data fetch
     useEffect(() => {
+        console.log("Starting initial fetch...");
         fetchAllMangas({
             page: 1,
             limit: ITEMS_PER_PAGE,
             ...initialFilters
-        });
-    }, []);
+        })
+       
+    }, [fetchAllMangas, initialFilters]);
 
     const handleFilterChange = useCallback((filters: Partial<Filters>) => {
         const newFilters = {

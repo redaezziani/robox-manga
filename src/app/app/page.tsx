@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import MainPageLayout from '@/components/shared-ui/layouts/main-page-layout';
 import MangaList from '../ui/card-list';
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { usePopularMangaSWR, useLatestMangaSWR, useGenresSWR, useMangaByGenreSWR } from '../store/data';
+import GenreSwiper from '../ui/genres';
 
 const HomePage = () => {
     const { popularMangas, isLoading: popularLoading } = usePopularMangaSWR();
@@ -16,7 +16,7 @@ const HomePage = () => {
 
     useEffect(() => {
         if (genres && genres.length > 0 && !selectedGenre) {
-            setSelectedGenre(genres[0]);
+            setSelectedGenre(genres[1]);
         }
     }, [genres]);
 
@@ -46,22 +46,7 @@ const HomePage = () => {
                     mangas={latestMangas}
                     isLoading={latestLoading}
                 />
-                <div className="container mx-auto px-4">
-                    <Select value={selectedGenre} onValueChange={setSelectedGenre}>
-                        <SelectTrigger className="w-[280px]">
-                            <SelectValue placeholder="اختر نوع المانجا" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                                {genres?.map((genre) => (
-                                    <SelectItem key={genre} value={genre}>
-                                        {genre}
-                                    </SelectItem>
-                                ))}
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
-                </div>
+               <GenreSwiper genres={genres?? []}/>
 
                 {selectedGenre && mangasByGenre.length > 0 && (
                     <MangaList

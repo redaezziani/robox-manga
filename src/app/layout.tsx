@@ -20,16 +20,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <body
                 className={`${lantx.variable} font-lantx relative flex  min-h-screen w-full flex-col antialiased`}
             >
-                <ThemeProvider
-                    attribute="class"
-                    defaultTheme="system"
-                    enableSystem
-                    disableTransitionOnChange
-                >
 
 
-                    {children}
-                </ThemeProvider>
+
+                {children}
             </body>
         </html>
     );

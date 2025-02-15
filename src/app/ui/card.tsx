@@ -30,7 +30,7 @@ const MangaCard = ({ data }: MangaCardProps) => {
     return (
         <Link
             prefetch={true}
-            href={`/manga/${data.slug}`}
+            href={`/app/manga/${data.slug}`}
             className="block"
 
 
@@ -42,7 +42,7 @@ const MangaCard = ({ data }: MangaCardProps) => {
                     <Image
                         src={data.coverThumbnail}
                         alt={"cover"}
-                        objectFit="cover"
+                        style={{ objectFit: "cover" }}
                         loading='lazy'
                         priority={false}
                         placeholder='blur'
