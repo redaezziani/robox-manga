@@ -28,7 +28,7 @@ const VerifyEmailPage = () => {
 
       try {
         await axios.post(
-          'http://localhost:8000/api/v1/auth/verify-email',
+          'http://192.168.31.181:8000/api/v1/auth/verify-email',
           {
             verificationToken: token,
           },

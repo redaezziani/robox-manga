@@ -9,7 +9,7 @@ import { toast } from "sonner"
 import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
-import Image from "next/image"
+import Image from "next/legacy/image"
 import { Card, CardContent } from "@/components/ui/card"
 
 interface MangaChapterConfig {
@@ -66,7 +66,7 @@ export function BatchChapterSheet() {
                         (_, i) => i + config.startChapter
                     ).map(chapterNumber =>
                         fetch(
-                            `http://localhost:8000/api/manga/chapter?mangaId=${config.mangaId}&chapterNumber=${chapterNumber}`,
+                            `http://192.168.31.181:8000/api/manga/chapter?mangaId=${config.mangaId}&chapterNumber=${chapterNumber}`,
                             {
                                 method: 'POST',
                                 headers: { 'accept': '*/*' },
@@ -76,7 +76,7 @@ export function BatchChapterSheet() {
                 } else if (!config.isRange && config.singleChapter) {
                     return [
                         fetch(
-                            `http://localhost:8000/api/manga/chapter?mangaId=${config.mangaId}&chapterNumber=${config.singleChapter}`,
+                            `http://192.168.31.181:8000/api/manga/chapter?mangaId=${config.mangaId}&chapterNumber=${config.singleChapter}`,
                             {
                                 method: 'POST',
                                 headers: { 'accept': '*/*' },
@@ -108,7 +108,10 @@ export function BatchChapterSheet() {
             if (newOpen) initializeMangaConfigs();
         }}>
             <SheetTrigger asChild>
-                <Button variant="outline" disabled={selectedManga.length === 0}>
+                <Button
+                className={`${selectedManga.length === 0 && "hidden"}`}
+                variant="outline" 
+                disabled={selectedManga.length === 0}>
                     إضافة فصول للمحدد ({selectedManga.length})
                 </Button>
             </SheetTrigger>
@@ -133,7 +136,7 @@ export function BatchChapterSheet() {
                                                 <Image
                                                     src={manga.coverThumbnail || manga.cover || '/placeholder.png'}
                                                     alt={manga.title}
-                                                    fill
+                                                    layout="fill"
                                                     className="object-cover"
                                                     onError={() => setImageError(prev => ({ ...prev, [manga.id]: true }))}
                                                 />

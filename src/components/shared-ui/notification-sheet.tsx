@@ -26,7 +26,7 @@ const NotificationSheet = () => {
             return;
         }
 
-        const SERVER_URL = 'http://localhost:8000/notifications';
+        const SERVER_URL = 'http://192.168.31.181:8000/notifications';
 
         const socket = io(SERVER_URL, {
             query: { auth_token: tokenFromCookies },

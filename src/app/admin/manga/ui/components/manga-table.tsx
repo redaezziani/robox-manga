@@ -10,11 +10,13 @@ interface MangaTableProps {
 
 export function MangaTable({ table }: MangaTableProps) {
   return (
-    <div className="overflow-hidden rounded-lg border border-border bg-background">
-      <Table className="table-fixed">
-        <TableHeader>
+    <div className=" overflow-y-auto rounded-lg border border-border bg-background">
+      <Table className="table-fixed ">
+        <TableHeader
+        className=" bg-muted"
+        >
           {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id} className="hover:bg-transparent">
+            <TableRow key={headerGroup.id} className="hover:bg-transparent text-slate-500">
               {headerGroup.headers.map((header) => (
                 <TableHead
                   key={header.id}
@@ -67,7 +69,9 @@ export function MangaTable({ table }: MangaTableProps) {
             </TableRow>
           ))}
         </TableHeader>
-        <TableBody>
+        <TableBody
+        className=" "
+        >
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>

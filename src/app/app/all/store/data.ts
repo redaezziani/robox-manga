@@ -55,8 +55,7 @@ const useMangaStore = create<MangaStore>((set, get) => ({
         params.types?.forEach((type) => queryParams.append('types', type));
 
         try {
-            const response = await axios.get(`http://localhost:8000/api/manga/all?${queryParams}`);
-
+            const response = await axios.get(`http://192.168.1.23:8000/api/manga/all?${queryParams}`);
             const data = response.data.data;
             set({
                 originalMangas: data.items,

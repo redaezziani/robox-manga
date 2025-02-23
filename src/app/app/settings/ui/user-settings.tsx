@@ -36,7 +36,7 @@ export default function UserSettings() {
 
         try {
             const token = await getCookies();
-            const response = await fetch('http://localhost:8000/api/profiles/image', {
+            const response = await fetch('http://192.168.31.181:8000/api/profiles/image', {
                 method: 'PATCH',
                 headers: {
                     'accept': '*/*',

@@ -22,6 +22,7 @@ import { Input } from '@/components/ui/input';
 
 import PasswordInput from '../ui-sections/password-input';
 import { setCookies } from '@/lib/cookies';
+import Image from 'next/image';
 // Define the validation schema
 const loginSchema = z.object({
     email: z
@@ -65,7 +66,7 @@ const Page = () => {
     const onSubmit = async (values: LoginFormValues) => {
         try {
             setError('');
-            const response = await axios.post('http://localhost:8000/api/auth/login', values, {
+            const response = await axios.post('http://192.168.31.181:8000/api/auth/login', values, {
                 withCredentials: true,
                 headers: {
                     'Content-Type': 'application/json',
@@ -78,6 +79,7 @@ const Page = () => {
 
             const token = data.access_token;
             const res = await setCookies(token);
+           
             router.push('/');
         } catch (err: any) {
             setError(err.response?.data?.message || 'حدث خطأ أثناء تسجيل الدخول');
@@ -94,7 +96,11 @@ const Page = () => {
             <div className="relative flex size-full flex-col items-center justify-between p-3 md:w-1/2">
                 <header className="flex w-full items-start justify-between">
                     <Link href={'/'}>
-                        <img src="/logo.png" className="hue-rotate-120 w-12" alt="logo" />
+                        <Image
+                        fill
+                        height={100}
+                        width={100}
+                        src="/logo.png" className="hue-rotate-120 w-12" alt="logo" />
                     </Link>
                     <Link className="flex items-center justify-start gap-x-1 font-medium" href={'/'}>
                         <span className="sr-only">العودة إلى الصفحة الرئيسية</span>

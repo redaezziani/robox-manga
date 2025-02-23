@@ -4,7 +4,7 @@ export default function Banner() {
     return (
         <div
         aria-label="New Manga Banner"
-        className="dark bg-background px-4 py-3 text-white">
+        className="dark bg-[#0d0d27] px-4 py-3 text-white">
             <p className="flex justify-center text-sm" dir="rtl">
                 <a href="#" className="group">
                     <span className="me-1 text-base leading-none">🎭</span>

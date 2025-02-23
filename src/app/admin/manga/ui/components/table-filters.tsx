@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
-import { Filter, SearchIcon, Columns3 } from "lucide-react";
+import { Filter, SearchIcon, Columns3, DotSquare, EllipsisVertical, Menu } from "lucide-react";
 import type { Table } from "@tanstack/react-table";
 import type { Manga } from "@/types/manga";
 import { AddMangaDialog } from "../dialogs/add-manga-dialog";
@@ -34,19 +34,25 @@ export function TableFilters({
   handleStatusChange 
 }: TableFiltersProps) {
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3">
-      <div className="flex items-center gap-3">
+    <div className="flex flex-wrap w-full items-center justify-between gap-3">
+      <div className="flex flex-wrap justify-between md:justify-start w-full md:w-fit items-center gap-3">
         {/* Search */}
         <div className="relative">
           <Input
-            className="min-w-60 pr-9 text-right"
+            className="min-w-80 pr-9 text-right"
             value={(table.getColumn("title")?.getFilterValue() ?? "") as string}
             onChange={(e) => table.getColumn("title")?.setFilterValue(e.target.value)}
             placeholder="ابحث عن مانجا..."
           />
           <SearchIcon className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
         </div>
-
+        <Button
+        variant={"outline"}
+        size={"icon"}
+        >
+            <Menu className=" size-5"/>
+        </Button>
+        <div className="md:flex hidden gap-x-2 justify-start items-center ">
         {/* Status Filter */}
         <Popover>
           <PopoverTrigger asChild>
@@ -101,6 +107,8 @@ export function TableFilters({
             ))}
           </DropdownMenuContent>
         </DropdownMenu>
+        </div>
+
       </div>
 
       {/* Actions */}

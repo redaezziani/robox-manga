@@ -8,7 +8,7 @@ const AllMangaPage = () => {
         <MainPageLayout
 
         >
-            <div className="container relative mx-auto  flex w-full flex-col gap-2" dir="rtl">
+            <div className="container  relative mx-auto  flex w-full flex-col gap-2" dir="rtl">
                 <section className=" flex flex-col items-start justify-start">
                     <h3 lang="ar" className="text-lg font-semibold text-gray-600 dark:text-gray-200">
                         عالمك المفضل للمانجا العربية
@@ -17,7 +17,8 @@ const AllMangaPage = () => {
                         انضم إلينا في رحلة استكشاف عالم المانجا الساحر
                     </p>
                 </section>
-                <div className="flex flex-col mt-5 gap-4">
+                
+                <div className="flex flex-col mt-5  gap-4">
                     <MangaList />
                 </div>
             </div>

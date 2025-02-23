@@ -1,14 +1,8 @@
 'use client';
 import React from 'react';
-import Image from 'next/image';
-
+import Image from "next/legacy/image";
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
-
 import Skeleton from './skelton-card';
-
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
 import Link from 'next/link';
 
 interface MangaCardProps {
@@ -27,10 +21,11 @@ interface MangaCardProps {
 }
 
 const MangaCard = ({ data }: MangaCardProps) => {
+    
     return (
-        <Link
+        (<Link
             prefetch={true}
-            href={`/app/manga/${data.slug}`}
+            href={`/app/manga/${data.id}`}
             className="block"
 
 
@@ -91,7 +86,7 @@ const MangaCard = ({ data }: MangaCardProps) => {
                     <span className="text-xs text-gray-500">{data.status}</span>
                 </CardFooter>
             </Card>
-        </Link>
+        </Link>)
     );
 };
 

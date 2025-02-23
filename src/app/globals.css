@@ -44,7 +44,7 @@
 }
 
 .color {
-  color: hsl(219 78% 50%);
+  color: hsl(220, 68%, 49%);
 }
 @layer base {
   :root {
@@ -54,7 +54,7 @@
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
-    --primary: 219 78% 50%;
+    --primary: 220 68% 49%;
     --primary-foreground: 0 0% 98%;
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
@@ -66,8 +66,8 @@
     --destructive-foreground: 0 0% 100%;
     --border: 240 5.9% 90%;
     --input: 240 4.9% 83.9%;
-    --ring: 219 78% 50%;
-    --radius: 0.45rem;
+    --ring: 220 68% 49%;
+    --radius: 0.35rem;
   }
   .dark {
     --background: 240 10% 3.9%;
@@ -76,7 +76,7 @@
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
-    --primary: 219 78% 50%;
+    --primary: 220 68% 49%;
     --primary-foreground: 240 5.9% 10%;
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
@@ -88,7 +88,7 @@
     --destructive-foreground: 0 0% 100%;
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
-    --ring: 219 78% 50%;
+    --ring: 220 68% 49%;
   }
 }
 

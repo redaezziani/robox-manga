@@ -9,7 +9,7 @@ import { Providers } from '../providers';
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
     return (
         <div
-        className=" w-full relative flex justify-start items-start h-screen overflow-hidden "
+        className=" w-full relative bg-muted flex justify-start items-start h-screen overflow-hidden "
         >
             <MainSideBar/>
             <ThemeProvider
@@ -18,10 +18,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 enableSystem
                 disableTransitionOnChange
             >
-                <div className="relative w-full">
+                <div className="relative w-full h-screen overscroll-y-auto">
                     <Toaster />
                     <Sonner />
-                    <main className="w-full">
+                    <main className="w-full ">
                         <Providers>
                             {children}
                         </Providers>
