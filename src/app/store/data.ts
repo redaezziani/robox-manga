@@ -1,13 +1,14 @@
 import { axiosInstance } from '@/lib/axios';
 import { useQuery } from '@tanstack/react-query';
 import { Manga, MangaResponse } from '@/types/manga';
+import { getCookies } from '@/lib/cookies';
 
 const fetcher = (url: string) => axiosInstance.get(url).then((res) => res.data);
 
 export function usePopularMangaSWR() {
   const { data, error, isLoading } = useQuery({
     queryKey: ['popularManga'],
-    queryFn: () => fetcher('http://192.168.31.181:8000/api/manga/popular')
+    queryFn: () => fetcher('http://localhost:8000/api/manga/popular')
   });
 
   return {
@@ -20,7 +21,7 @@ export function usePopularMangaSWR() {
 export function useLatestMangaSWR() {
   const { data, error, isLoading } = useQuery({
     queryKey: ['latestManga'],
-    queryFn: () => fetcher('http://192.168.31.181:8000/api/manga/latest')
+    queryFn: () => fetcher('http://localhost:8000/api/manga/latest')
   });
 
   return {
@@ -33,7 +34,7 @@ export function useLatestMangaSWR() {
 export function useGenresSWR() {
   const { data, error, isLoading } = useQuery({
     queryKey: ['genres'],
-    queryFn: () => fetcher('http://192.168.31.181:8000/api/manga/genres')
+    queryFn: () => fetcher('http://localhost:8000/api/manga/genres')
   });
 
   return {
@@ -46,7 +47,7 @@ export function useGenresSWR() {
 export function useMangaByGenreSWR(genre: string, page: number = 1, limit: number = 10) {
   const { data, error, isLoading } = useQuery({
     queryKey: ['mangaByGenre', genre, page, limit],
-    queryFn: () => fetcher(`http://192.168.31.181:8000/api/manga/genre/${encodeURIComponent(genre)}?page=${page}&limit=${limit}`),
+    queryFn: () => fetcher(`http://localhost:8000/api/manga/genre/${encodeURIComponent(genre)}?page=${page}&limit=${limit}`),
     enabled: !!genre
   });
 
@@ -57,3 +58,54 @@ export function useMangaByGenreSWR(genre: string, page: number = 1, limit: numbe
     error
   };
 }
+
+
+interface KeepReadingResponse {
+    data: {
+      items: Array<{
+        manga: {
+          id: string;
+          title: string;
+          cover: string;
+          slug: string;
+        };
+        chapter: {
+          id: string;
+          number: number;
+          name: string;
+        };
+        page: number;
+        updatedAt: string;
+      }>;
+      meta?: {
+        currentPage: number;
+        lastPage: number;
+        total: number;
+      };
+    };
+}
+  
+  export function useKeepReadingSWR() {
+    const { data, error, isLoading } = useQuery({
+      queryKey: ['keepReading'],
+      queryFn: async () => {
+        const token = await getCookies();
+        if (!token?.value) return [];
+        console.log('Fetching keep reading...');
+        console.log(token.value);
+        const response = await axiosInstance.get<KeepReadingResponse>('/manga/keep-reading', {
+          headers: {
+            Authorization: `Bearer ${token.value}`
+          }
+        });
+        
+        return response.data.data.items;
+      }
+    });
+  
+    return {
+      keepReading: data,
+      isLoading,
+      error 
+    };
+  }

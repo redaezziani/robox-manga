@@ -3,18 +3,27 @@ import { flexRender, type Table as TableType } from "@tanstack/react-table";
 import type { Manga } from "@/types/manga";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useState, useEffect } from "react";
 
 interface MangaTableProps {
   table: TableType<Manga>;
 }
 
 export function MangaTable({ table }: MangaTableProps) {
+  const [isSorting, setIsSorting] = useState(false);
+  
+  const sortingState = table.getState().sorting;
+  
+  useEffect(() => {
+    setIsSorting(true);
+    const timer = setTimeout(() => setIsSorting(false), 300);
+    return () => clearTimeout(timer);
+  }, [sortingState]);
+  
   return (
-    <div className=" overflow-y-auto rounded-lg border border-border bg-background">
-      <Table className="table-fixed ">
-        <TableHeader
-        className=" bg-muted"
-        >
+    <div className="overflow-y-auto rounded-lg border border-border bg-background">
+      <Table className="table-fixed">
+        <TableHeader className="bg-muted">
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id} className="hover:bg-transparent text-slate-500">
               {headerGroup.headers.map((header) => (
@@ -69,14 +78,16 @@ export function MangaTable({ table }: MangaTableProps) {
             </TableRow>
           ))}
         </TableHeader>
-        <TableBody
-        className=" "
-        >
+        <TableBody className={cn("transition-all duration-300", isSorting ? "opacity-70 blur-[0.5px]" : "")}>
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+              <TableRow 
+                key={row.id} 
+                data-state={row.getIsSelected() && "selected"}
+                className="transition-colors"
+              >
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id} className="last:py-0">
+                  <TableCell key={cell.id} className="last:py-0 transition-all">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}

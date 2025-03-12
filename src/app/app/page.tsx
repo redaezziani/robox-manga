@@ -2,13 +2,16 @@
 import React, { useEffect, useState } from 'react';
 import MainPageLayout from '@/components/shared-ui/layouts/main-page-layout';
 import MangaList from '../ui/card-list';
-import { usePopularMangaSWR, useLatestMangaSWR, useGenresSWR, useMangaByGenreSWR } from '../store/data';
+import { usePopularMangaSWR, useLatestMangaSWR, useGenresSWR, useMangaByGenreSWR, useKeepReadingSWR } from '../store/data';
 import GenreSwiper from '../ui/genres';
+import KeepReadingSlider from '../ui/keep-reading-slider';
 
 const HomePage = () => {
     const { popularMangas, isLoading: popularLoading } = usePopularMangaSWR();
     const { latestMangas, isLoading: latestLoading } = useLatestMangaSWR();
     const { genres, isLoading: genresLoading } = useGenresSWR();
+    const { keepReading, isLoading: keepReadingLoading } = useKeepReadingSWR();
+
     const [selectedGenre, setSelectedGenre] = useState('');
 
     const { mangasByGenre, isLoading: genreMangaLoading } = useMangaByGenreSWR(selectedGenre);
@@ -22,7 +25,7 @@ const HomePage = () => {
 
     return (
         <MainPageLayout>
-            <div className="container relative mx-auto mt-10 flex w-full flex-col gap-2 px-4">
+            <div className="container relative mx-auto mt-24 flex w-full flex-col gap-2 px-4">
                 <section className="my-6 flex flex-col items-start justify-start">
                     <h3 lang="ar" className="mt-2 text-lg font-semibold text-gray-600">
                         عالمك المفضل للمانجا العربية
@@ -36,6 +39,13 @@ const HomePage = () => {
             </div>
 
             <div className="flex w-full flex-col gap-y-4">
+                {keepReading &&   (
+                    <KeepReadingSlider
+                        items={keepReading}
+                        isLoading={keepReadingLoading}
+                    />
+                )}
+                
                 <MangaList
                     title="المانجا الشائعة"
                     mangas={popularMangas}

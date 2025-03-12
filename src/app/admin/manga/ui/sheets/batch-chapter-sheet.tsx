@@ -66,7 +66,7 @@ export function BatchChapterSheet() {
                         (_, i) => i + config.startChapter
                     ).map(chapterNumber =>
                         fetch(
-                            `http://192.168.31.181:8000/api/manga/chapter?mangaId=${config.mangaId}&chapterNumber=${chapterNumber}`,
+                            `http://localhost:8000/api/manga/chapter?mangaId=${config.mangaId}&chapterNumber=${chapterNumber}`,
                             {
                                 method: 'POST',
                                 headers: { 'accept': '*/*' },
@@ -76,7 +76,7 @@ export function BatchChapterSheet() {
                 } else if (!config.isRange && config.singleChapter) {
                     return [
                         fetch(
-                            `http://192.168.31.181:8000/api/manga/chapter?mangaId=${config.mangaId}&chapterNumber=${config.singleChapter}`,
+                            `http://localhost:8000/api/manga/chapter?mangaId=${config.mangaId}&chapterNumber=${config.singleChapter}`,
                             {
                                 method: 'POST',
                                 headers: { 'accept': '*/*' },

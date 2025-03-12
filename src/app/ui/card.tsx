@@ -30,7 +30,7 @@ const MangaCard = ({ data }: MangaCardProps) => {
 
 
         >
-            <Card className="group overflow-hidden border-none shadow-none  ">
+            <Card className="group bg-transparent dark:bg-transparent overflow-hidden border-none shadow-none  ">
                 <div className="relative aspect-[10/14] w-full overflow-hidden rounded-lg">
                     <Skeleton />
 
@@ -78,7 +78,7 @@ const MangaCard = ({ data }: MangaCardProps) => {
                 <CardFooter lang="ar" className="flex items-center justify-between p-3">
                     <div className="flex flex-wrap gap-1">
                         {data.genres.slice(1, 2).map((genre) => (
-                            <span key={genre} className="rounded bg-gray-100 px-2 py-1 text-xs text-gray-600">
+                            <span key={genre} className="rounded bg-gray-100 dark:bg-transparent dark:border dark:border-border px-2 py-1 text-xs text-gray-600 dark:text-gray-300">
                                 {genre}
                             </span>
                         ))}

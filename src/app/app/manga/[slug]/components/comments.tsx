@@ -40,7 +40,7 @@ const Comment = ({ comment, onReply, onLike, onDelete, currentUserId, level = 0 
     <div className={cn("flex", level > 0 ? "mr-4 mt-4" : "mt-6")}>
       <div className="flex-1">
         <div className="flex py-2 gap-4">
-          <Avatar className="h-10 w-10 shrink-0">
+          <Avatar className="h-10  w-10 shrink-0">
             <AvatarImage src={comment.user.profile?.image} />
             <AvatarFallback className="bg-primary/10">{comment.user.name[0]}</AvatarFallback>
           </Avatar>
@@ -144,9 +144,19 @@ interface CommentsSectionProps {
 const CommentsSection = ({ mangaId }: CommentsSectionProps) => {
   const [newComment, setNewComment] = useState("")
   const { data: comments = [], isLoading } = useComments(mangaId)
-  const { mutate: createComment } = useCreateComment()
+  const { mutate: createComment, isLoading: isCreating } = useCreateComment()
   const { mutate: toggleLike } = useToggleLike()
   const { mutate: deleteComment } = useDeleteComment()
+
+  const handleCreateComment = () => {
+    if (!newComment.trim() || isCreating) return;
+    createComment(
+      { mangaId, content: newComment },
+      {
+        onSuccess: () => setNewComment("")
+      }
+    );
+  }
 
   return (
     <div className="space-y-6" dir="rtl" lang="ar">
@@ -163,11 +173,7 @@ const CommentsSection = ({ mangaId }: CommentsSectionProps) => {
           className="flex-1"
         />
         <Button
-          onClick={() => {
-            if (!newComment.trim()) return
-            createComment({ mangaId, content: newComment })
-            setNewComment("")
-          }}
+          onClick={handleCreateComment}
         >
           تعليق
         </Button>
@@ -182,12 +188,12 @@ const CommentsSection = ({ mangaId }: CommentsSectionProps) => {
               createComment({ mangaId, content, parentId })
             }}
             onLike={(commentId) => {
-              toggleLike({ commentId })
+              toggleLike({ commentId, mangaId })
             }}
             onDelete={(commentId) => {
-              deleteComment({ commentId })
+              deleteComment({ commentId, mangaId })
             }}
-            currentUserId="4ebfaa91-aceb-4176-bf1e-989bed1dba37"
+            currentUserId={comment.userId}
           />
         ))}
       </div>

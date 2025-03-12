@@ -33,13 +33,13 @@ export default function MangaDetails({ slug }: MangaDetailsProps) {
     }
 
     if (error || !manga) {
-        return <div>Error loading manga details. Please try again later.</div>;
+        return <div className="text-center text-lg py-8">عذراً، حدث خطأ أثناء تحميل تفاصيل المانجا. يرجى المحاولة مرة أخرى لاحقاً.</div>;
     }
 
     return (
         <div className="space-y-10">
             <DetailsPath
-                title={manga.otherTitles[0]}
+                title={manga.otherTitles.length > 0 ? manga.otherTitles[0] : manga.title}
             />
             <div className="mt-4 flex w-full flex-col items-start justify-start gap-10 overflow-x-hidden md:flex-row">
                 <div className="relative aspect-[2/3] w-full max-w-60 overflow-hidden rounded-lg border border-gray-400/45">

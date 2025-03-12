@@ -3,7 +3,7 @@
 import axios from 'axios'
 import { newsletterSchema } from "../validations/newsletter"
 
-const API_URL =  'http://192.168.31.181:8000'
+const API_URL =  'http://localhost:8000'
 
 export async function subscribeToNewsletter(email: string) {
     try {

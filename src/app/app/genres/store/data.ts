@@ -19,7 +19,7 @@ const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
 export function useMangaByGenreSWR(genre: string, page: number = 1, limit: number = 10) {
   const { data, error, isLoading } = useSWR<MangaResponse>(
-    genre ? `http://192.168.31.181:8000/api/manga/genre/${encodeURIComponent(genre)}?page=${page}&limit=${limit}` : null,
+    genre ? `http://localhost:8000/api/manga/genre/${encodeURIComponent(genre)}?page=${page}&limit=${limit}` : null,
     fetcher
   );
 
@@ -33,7 +33,7 @@ export function useMangaByGenreSWR(genre: string, page: number = 1, limit: numbe
 
 export function useGenresSWR() {
   const { data, error, isLoading } = useSWR<string[]>(
-    'http://192.168.31.181:8000/api/manga/genres',
+    'http://localhost:8000/api/manga/genres',
     fetcher
   );
 

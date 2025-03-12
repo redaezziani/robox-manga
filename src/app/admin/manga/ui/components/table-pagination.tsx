@@ -77,7 +77,7 @@ export function TablePagination<TData>({ table }: TablePaginationProps<TData>) {
                             variant="outline"
                             onClick={() => table.setPageIndex(0)}
                             disabled={!table.getCanPreviousPage()}
-                            className="h-9 w-9 !bg-white rounded-lg"
+                            className=" !bg-white rounded-lg"
                         >
                             <ChevronLast className="h-4 w-4" />
                         </Button>
@@ -88,7 +88,7 @@ export function TablePagination<TData>({ table }: TablePaginationProps<TData>) {
                             variant="outline"
                             onClick={() => table.previousPage()}
                             disabled={!table.getCanPreviousPage()}
-                            className="h-9 w-9 !bg-white rounded-lg"
+                            className=" !bg-white rounded-lg"
                         >
                             <ChevronRight className="h-4 w-4" />
 
@@ -100,7 +100,7 @@ export function TablePagination<TData>({ table }: TablePaginationProps<TData>) {
                             <Button
                                 variant={pageIndex === currentPage ? "default" : "outline"}
                                 onClick={() => table.setPageIndex(pageIndex)}
-                                className="h-9 w-9 rounded-lg"
+                                className=" rounded-lg"
                             >
                                 {pageIndex + 1}
                             </Button>
@@ -113,7 +113,7 @@ export function TablePagination<TData>({ table }: TablePaginationProps<TData>) {
                             variant="outline"
                             onClick={() => table.nextPage()}
                             disabled={!table.getCanNextPage()}
-                            className="h-9 w-9 !bg-white rounded-lg"
+                            className=" !bg-white rounded-lg"
                         >
                             <ChevronLeft className="h-4 w-4" />
 
@@ -123,7 +123,7 @@ export function TablePagination<TData>({ table }: TablePaginationProps<TData>) {
                         <Button
                             size="icon"
                             variant="outline"
-                            className="h-9 w-9 !bg-white rounded-lg"
+                            className=" !bg-white rounded-lg"
                             onClick={() => table.setPageIndex(table.getPageCount() - 1)}
                             disabled={!table.getCanNextPage()}
                         >

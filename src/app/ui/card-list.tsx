@@ -40,16 +40,16 @@ const MangaList = ({ title, mangas, isLoading, skeletonCount = 7 }: MangaListPro
 
   return (
     <div lang="ar" className="container relative mx-auto flex-col space-y-1 px-4">
-      {title && <h3 className="text-xl font-bold text-gray-700">{title}</h3>}
+      {title && <h3 className="text-xl font-bold ">{title}</h3>}
       <div className="flex w-full items-end justify-between pb-4">
         <Link href={'/app/all'} lang="ar" className="text-sm text-gray-500">
           عرض الكل
         </Link>
         <div className="flex gap-4">
-          <button className="prev-button rounded-full  border border-gray-400/45 p-2 text-gray-700 dark:bg-gray-400">
+          <button className="prev-button rounded-full   p-2 text-gray-700 dark:text-primary">
             <ChevronRight size={18} />
           </button>
-          <button className="next-button rounded-full  border border-gray-400/45 p-2 text-gray-700 dark:bg-gray-400">
+          <button className="next-button rounded-full   p-2 text-gray-700 dark:text-primary">
             <ChevronLeft size={18} />
           </button>
         </div>

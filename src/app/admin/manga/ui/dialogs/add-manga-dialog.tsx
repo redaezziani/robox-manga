@@ -49,7 +49,7 @@ export function AddMangaDialog() {
 
   const onSubmit = async (data: AddMangaForm) => {
     try {
-      const response = await fetch(`http://192.168.31.181:8000/api/manga?title=${data.title}&platform=${data.platform}`, {
+      const response = await fetch(`http://localhost:8000/api/manga?title=${data.title}&platform=${data.platform}`, {
         method: 'POST',
         headers: {
           'accept': '*/*',
