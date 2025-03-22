@@ -18,11 +18,11 @@ import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 const MenuSheet = async ({token} : {token: RequestCookie | undefined}) => {
 
   const navigationItems = [
-    { name: 'الرئيسية', href: '/' },
-    { name: 'جميع المانجا', href: '/all' },
-    { name: 'المفضلة', href: '/favorites' },
-    { name: 'قراءة لاحقاً', href: '/read-later' },
-{ name: 'الإعدادات', href: '/settings' },
+    { name: 'الرئيسية', href: '/app' },
+    { name: 'جميع المانجا', href: '/app/all' },
+    { name: 'المفضلة', href: '/app/favorites' },
+    { name: 'قراءة لاحقاً', href: '/app/read-later' },
+{ name: 'الإعدادات', href: '/app/settings' },
   ];
 
   return (

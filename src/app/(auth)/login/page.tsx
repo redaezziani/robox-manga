@@ -24,7 +24,7 @@ import PasswordInput from '../ui-sections/password-input';
 import { setCookies } from '@/lib/cookies';
 import Image from 'next/image';
 
-const API_URL = 'http://localhost:8000';
+const API_URL = 'https://redaezziani.com';
 
 // Define the validation schema
 const loginSchema = z.object({
@@ -70,7 +70,7 @@ const Page = () => {
         try {
             setError('');
             const response = await axios.post(
-                'http://localhost:8000/api/auth/login',
+                'https://redaezziani.com/api/auth/login',
                 {
                     email: values.email,
                     password: values.password,

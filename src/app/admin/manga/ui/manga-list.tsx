@@ -52,7 +52,7 @@ export default function MangaList() {
                 if (statusFilter) searchParams.set('status', statusFilter.value as string);
             }
 
-            const response = await fetch(`http://localhost:8000/api/manga/all?${searchParams}`);
+            const response = await fetch(`https://redaezziani.com/api/manga/all?${searchParams}`);
             return response.json();
         },
     });

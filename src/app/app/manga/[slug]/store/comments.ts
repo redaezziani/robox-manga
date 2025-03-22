@@ -4,7 +4,7 @@ import { Comment, CommentsResponse, CommentResponse, CreateCommentDto } from '@/
 import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 import { getCookies } from '@/lib/cookies';
 
-const COMMENTS_API = 'http://localhost:8000/api/comments';
+const COMMENTS_API = 'https://redaezziani.com/api/comments';
 
 // Fetch comments
 export function useComments(mangaId: string) {

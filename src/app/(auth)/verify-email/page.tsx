@@ -28,7 +28,7 @@ const VerifyEmailPage = () => {
 
       try {
         await axios.post(
-          'http://localhost:8000/api/v1/auth/verify-email',
+          'https://redaezziani.com/api/v1/auth/verify-email',
           {
             verificationToken: token,
           },

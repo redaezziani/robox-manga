@@ -74,7 +74,7 @@ const RegisterPage = () => {
       const { confirmPassword, ...registrationData } = values; // Remove confirmPassword from API request
 
       const response = await axios.post<RegisterResponse>(
-        'http://localhost:8000/api/v1/auth/register',
+        'https://redaezziani.com/api/v1/auth/register',
         registrationData,
         {
           headers: {
