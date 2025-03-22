@@ -7,18 +7,15 @@
   src: url('./assets/font/LANTX-Regular.otf') format('opentype');
 }
 
-/* Base styles with more specific font-family declaration */
 @layer base {
   html {
     font-family: 'LANTX-Regular', system-ui, sans-serif;
   }
 
-  /* Make Arabic text use LANTX-Regular */
   *:lang(ar) {
     font-family: 'LANTX-Regular', system-ui, sans-serif !important;
   }
 
-  /* Make Latin text use Roboto */
   *:not(:lang(ar)) {
     font-family: 'Roboto', system-ui, sans-serif;
   }
@@ -34,7 +31,6 @@
   }
 }
 
-/* Additional utility classes if needed */
 .font-arabic {
   font-family: 'LANTX-Regular', system-ui, sans-serif !important;
 }
@@ -44,17 +40,21 @@
 }
 
 .color {
-  color: hsl(219 78% 50%);
+  color: hsl(8, 100%, 50%);
+}
+
+.bg-dark{
+    color: hsl(0, 0%, 16%);
 }
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 0 0% 16%;
     --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
+    --card: 0 0% 16%;
     --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
+    --popover: 0 0% 16%;
     --popover-foreground: 240 10% 3.9%;
-    --primary: 219 78% 50%;
+    --primary: 8 100% 50%;
     --primary-foreground: 0 0% 98%;
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
@@ -63,11 +63,11 @@
     --accent: 240 4.8% 95.9%;
     --accent-foreground: 240 5.9% 10%;
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive-foreground: 0 0% 16%;
     --border: 240 5.9% 90%;
     --input: 240 4.9% 83.9%;
-    --ring: 219 78% 50%;
-    --radius: 0.45rem;
+    --ring: 8 100% 50%;
+    --radius: 0.3rem;
   }
   .dark {
     --background: 240 10% 3.9%;
@@ -76,7 +76,7 @@
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
-    --primary: 219 78% 50%;
+    --primary: 8 100% 50%;
     --primary-foreground: 240 5.9% 10%;
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
@@ -85,10 +85,10 @@
     --accent: 240 5.9% 10%;
     --accent-foreground: 0 0% 98%;
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive-foreground: 0 0% 16%;
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
-    --ring: 219 78% 50%;
+    --ring: 8 100% 50%;
   }
 }
 
@@ -171,4 +171,32 @@ body {
 .swiper-button-prev,
 .swiper-button-next {
   display: none !important;
+}
+
+/* all button have a ring */
+
+@layer utilities {
+    .ring-v1 {
+        @apply focus:ring-2 focus:ring-primary active:ring-2 ring-offset-2 active:ring-primary transition-all;
+    }
+}
+
+.keep-reading-slider {
+    padding: 1rem 0;
+}
+
+.keep-reading-slider .swiper-button-next,
+.keep-reading-slider .swiper-button-prev {
+    color: theme('colors.gray.600');
+    scale: 0.7;
+}
+
+.keep-reading-slider .swiper-button-disabled {
+    opacity: 0.35;
+    pointer-events: none;
+}
+
+@keyframes shimmer {
+       0% { transform: translateX(-100%); }
+       100% { transform: translateX(200%); }
 }

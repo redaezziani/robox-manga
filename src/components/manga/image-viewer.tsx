@@ -12,7 +12,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Slider } from '../ui/slider';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 interface ImageViewerProps {
   images: string[];
 }
@@ -54,7 +54,7 @@ export default function ImageViewer({ images }: ImageViewerProps) {
       style={{ height: '80vh' }} // Set height for scrolling
     >
       {images.map((image, index) => (
-        <div key={index} className="relative border-x border-border border-b w-full max-w-6xl">
+        <div key={index} className="relative border-x border-border border-b w-full max-w-7xl">
           <img
             
             src={image}
@@ -68,7 +68,7 @@ export default function ImageViewer({ images }: ImageViewerProps) {
   );
 
   const SliderMode = () => (
-    <div className="group relative mx-auto w-full max-w-3xl">
+    <div className="group relative mx-auto w-full max-w-7xl">
       <div className="absolute -top-12 flex w-full justify-between">
         <button className="bg-background/80 hover:bg-background/90 swiper-button-next z-10 rounded-lg p-2 opacity-0 transition-all duration-300 group-hover:opacity-100">
           <ChevronLeft className="size-6" />
@@ -118,7 +118,7 @@ export default function ImageViewer({ images }: ImageViewerProps) {
   return (
     <div className="w-full">
       <div className="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-20 py-2 backdrop-blur">
-        <div className="mx-auto mb-4 flex max-w-6xl justify-between items-center gap-2">
+        <div className="mx-auto mb-4 flex max-w-7xl justify-between items-center gap-2">
           <div
           className='flex gap-2'
           >

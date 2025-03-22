@@ -762,7 +762,7 @@
         return {};
     };
     const getPartytownScript = () => `<script src="${partytownLibUrl("partytown.js?v=0.10.3-dev1734732935152")}"><\/script>`;
-    const createImageConstructor = env => class HTMLImageElement {
+    const createImageConstructor = env => (class HTMLImageElement {
         constructor() {
             this.s = "";
             this.l = [];
@@ -809,7 +809,7 @@
         set onerror(cb) {
             this.e = [ cb ];
         }
-    };
+    });
     const HTMLSrcElementDescriptorMap = {
         addEventListener: {
             value(...args) {

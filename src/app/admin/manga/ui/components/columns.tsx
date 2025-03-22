@@ -3,7 +3,9 @@ import { Badge } from "@/components/ui/badge";
 import { ColumnDef } from "@tanstack/react-table";
 import { Manga } from "@/types/manga";
 import { useMangaSelectionStore } from "@/store/manga-selection-store";
-import Image from "next/image";
+import Image from "next/legacy/image";
+import Link from "next/link";
+import { Eye } from "lucide-react";
 
 export const columns: ColumnDef<Manga>[] = [
   {
@@ -44,12 +46,14 @@ export const columns: ColumnDef<Manga>[] = [
     accessorKey: "title",
     header: "العنوان",
     cell: ({ row }) => (
-      <div className="flex gap-2 items-center">
+      <Link
+      href={`/app/manga/${row.original.id}`}
+      className="flex gap-2 items-center">
         <div className="h-8 w-8 relative overflow-hidden rounded">
           <Image
             src={row.original.coverThumbnail || '/placeholder.png'}
             alt={row.original.title}
-            fill
+            layout="fill"
             className="object-cover"
           />
         </div>
@@ -59,7 +63,7 @@ export const columns: ColumnDef<Manga>[] = [
             {row.original.authors.join(', ')}
           </span>
         </div>
-      </div>
+      </Link>
     ),
   },
   {
@@ -95,8 +99,14 @@ export const columns: ColumnDef<Manga>[] = [
   {
     accessorKey: "views",
     header: "المشاهدات",
-    cell: ({ row }) => (row.original.views || 0).toLocaleString('ar-EG'),
-  },
+    cell: ({ row }) => (
+      <div className=" gap-x-1 justify-start items-end flex">
+        {(row.original.views || 0).toLocaleString('ar-EG')}
+        <Eye size={16}/>
+      </div>
+    ),
+  }
+,  
   {
     accessorKey: "genres",
     header: "التصنيفات",

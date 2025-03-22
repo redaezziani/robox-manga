@@ -7,17 +7,16 @@ import Link from 'next/link';
 import { getCookies } from '@/lib/cookies';
 import { Button } from '../ui/button';
 import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
-import Banner from './banner';
 
 const MainHeader = async () => {
     const token: RequestCookie | undefined = await getCookies();
 
     const navigationItems = [
-        { name: 'الرئيسية', href: '/' },
-        { name: 'جميع المانجا', href: '/all' },
-        { name: 'المفضلة', href: '/favorites' },
-        { name: 'قراءة لاحقاً', href: '/read-later' },
-        { name: 'الإعدادات', href: '/settings' },
+        { name: 'الرئيسية', href: '/app/' },
+        { name: 'جميع المانجا', href: '/app/all' },
+        { name: 'المفضلة', href: '/app/favorites' },
+        { name: 'قراءة لاحقاً', href: '/app/read-later' },
+        { name: 'الإعدادات', href: '/app/settings' },
     ];
 
     return (
@@ -25,13 +24,11 @@ const MainHeader = async () => {
         aria-label='Main Header'
             className='fixed flex flex-col w-full z-50 top-0 left-0 '
         >
-            <Banner />
             <nav lang="ar" className="bg-muted  container md:max-w-full  w-full border-b border-slate-400/35 px-4 py-2">
                 <div className="container mx-auto flex w-full items-center justify-between">
                     <div className="flex items-center gap-2">
-                        <img src="/images/logo.png" alt="MangaHeaven" className="h-6 dark:invert" />
-                        <h1 className="bg-gradient-to-bl from-blue-600 to-blue-400 bg-clip-text text-lg font-bold text-transparent md:text-2xl">
-                            روبوكس
+                        <h1 className=" text-primary  bg-clip-text text-lg font-bold  md:text-2xl">
+                            <Link href="/">مانجا كافيه</Link>
                         </h1>
                     </div>
 
@@ -42,7 +39,7 @@ const MainHeader = async () => {
                                 <li key={item.href}>
                                     <Link
                                         href={item.href}
-                                        className="text-sm text-gray-500 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-50"
+                                        className="text-sm text-gray-500 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-primary duration-300"
                                     >
                                         {item.name}
                                     </Link>

@@ -27,10 +27,10 @@ export default function ChaptersList({ chapters, mangaId }: ChaptersListProps) {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>رقم الفصل</TableHead>
-            <TableHead>العنوان</TableHead>
-            <TableHead>تاريخ النشر</TableHead>
-            <TableHead className="text-right">قراءة</TableHead>
+            <TableHead className=' text-start'>رقم الفصل</TableHead>
+            <TableHead className=' text-start'>العنوان</TableHead>
+            <TableHead className=' text-start'>تاريخ النشر</TableHead>
+            <TableHead className=' text-start'>قراءة</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -41,7 +41,7 @@ export default function ChaptersList({ chapters, mangaId }: ChaptersListProps) {
               <TableCell>{format(new Date(chapter.releaseDate), 'PP', { locale: ar })}</TableCell>
               <TableCell className="py-1.5 text-right">
                 <Button asChild variant="ghost">
-                  <Link href={`/manga/${mangaId}/chapter/${chapter.number}`}>قراءة</Link>
+                  <Link href={`/app/manga/${mangaId}/chapter/${chapter.number}`}>قراءة</Link>
                 </Button>
               </TableCell>
             </TableRow>

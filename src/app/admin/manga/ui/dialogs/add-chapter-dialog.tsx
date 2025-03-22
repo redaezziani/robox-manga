@@ -51,7 +51,7 @@ export function AddChapterDialog({ mangaId }: AddChapterDialogProps) {
   const onSubmit = async (data: AddChapterForm) => {
     try {
       const response = await fetch(
-        `http://localhost:8000/api/manga/chapter?mangaId=${mangaId}&chapterNumber=${data.chapterNumber}`,
+        `https://redaezziani.com/api/manga/chapter?mangaId=${mangaId}&chapterNumber=${data.chapterNumber}`,
         {
           method: 'POST',
           headers: {

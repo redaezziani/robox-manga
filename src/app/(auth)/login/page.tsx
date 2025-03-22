@@ -5,9 +5,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
+import axios from 'axios';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -22,6 +22,10 @@ import { Input } from '@/components/ui/input';
 
 import PasswordInput from '../ui-sections/password-input';
 import { setCookies } from '@/lib/cookies';
+import Image from 'next/image';
+
+const API_URL = 'https://redaezziani.com';
+
 // Define the validation schema
 const loginSchema = z.object({
     email: z
@@ -65,22 +69,41 @@ const Page = () => {
     const onSubmit = async (values: LoginFormValues) => {
         try {
             setError('');
-            const response = await axios.post('http://localhost:8000/api/auth/login', values, {
-                withCredentials: true,
-                headers: {
-                    'Content-Type': 'application/json',
+            const response = await axios.post(
+                'https://redaezziani.com/api/auth/login',
+                {
+                    email: values.email,
+                    password: values.password,
                 },
-            });
+                {
+                    headers: {
+                        'accept': '*/*',
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
 
             const data = response.data as LoginResponse;
+            console.log('Login response:', data);
 
             sessionStorage.setItem('user', JSON.stringify(data.user));
-
+            
             const token = data.access_token;
-            const res = await setCookies(token);
+            await setCookies(token);
+            
             router.push('/');
-        } catch (err: any) {
-            setError(err.response?.data?.message || 'حدث خطأ أثناء تسجيل الدخول');
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                if (err.code === 'ERR_NETWORK') {
+                    setError('لا يمكن الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت الخاص بك');
+                } else if (err.response) {
+                    setError(err.response.data?.message || 'حدث خطأ أثناء تسجيل الدخول');
+                } else {
+                    setError('حدث خطأ غير متوقع. حاول مرة اخرى.');
+                }
+            } else {
+                setError('حدث خطأ غير متوقع. حاول مرة اخرى.');
+            }
             console.error('Login error:', err);
         }
     };
@@ -93,8 +116,10 @@ const Page = () => {
         >
             <div className="relative flex size-full flex-col items-center justify-between p-3 md:w-1/2">
                 <header className="flex w-full items-start justify-between">
-                    <Link href={'/'}>
-                        <img src="/logo.png" className="hue-rotate-120 w-12" alt="logo" />
+                    {/* <Link href={'/'}>
+                        <Image
+                        fill
+                        src="/logo.png" className="hue-rotate-120 w-12" alt="logo" />
                     </Link>
                     <Link className="flex items-center justify-start gap-x-1 font-medium" href={'/'}>
                         <span className="sr-only">العودة إلى الصفحة الرئيسية</span>
@@ -113,7 +138,7 @@ const Page = () => {
                                 strokeLinejoin="round"
                             />
                         </svg>
-                    </Link>
+                    </Link> */}
                 </header>
 
                 <Form {...form}>
