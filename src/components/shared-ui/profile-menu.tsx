@@ -1,9 +1,8 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-
-import axios from 'axios';
-import { Bolt, BookOpen, ChevronDown, Layers2, LogOut, Pin, UserPen } from 'lucide-react';
+import Link from 'next/link';
+import { Book, BookMarked, Settings, UserCircle, LogOut, ChevronDown } from 'lucide-react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -16,12 +15,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { removeCookies } from '@/lib/cookies';
 
 interface UserData {
   name: string;
   email: string;
   profile: string;
 }
+
 
 export default function ProfileMenu() {
   const [user, setUser] = useState<UserData | null>(null);
@@ -35,15 +36,14 @@ export default function ProfileMenu() {
   }, []);
 
   const handleLogout = async () => {
-    const res = await axios.delete('http://localhost:8000/api/v1/auth/logout');
-    if (res.status === 200) {
-      const userData = sessionStorage.getItem('user');
-      if (userData) {
-        sessionStorage.removeItem('user');
-        setUser(null);
-      }
-      document.cookie = 'user-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-      router.push('/login');
+    try {
+     const remove = await removeCookies();
+            sessionStorage.removeItem('user');
+            setUser(null);
+            router.push('/login');
+
+    } catch (error) {
+      console.error('Failed to logout', error);
     }
   };
 
@@ -55,7 +55,7 @@ export default function ProfileMenu() {
             <AvatarImage
               src={
                 user?.profile ||
-                'https://i.pinimg.com/236x/74/f1/ce/74f1ce7c4ad30541384ffb6415ea2745.jpg'
+                ''
               }
               alt="صورة الملف الشخصي"
             />
@@ -74,41 +74,40 @@ export default function ProfileMenu() {
           </span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuGroup className=" !flex !w-full  flex-col items-end justify-start gap-2 ">
-          <DropdownMenuItem className=" ">
-            <span>الخيار 1</span>
-            <Bolt size={16} strokeWidth={2} className="opacity-60" aria-hidden="true" />
+        <DropdownMenuGroup className="!flex !w-full flex-col items-end justify-start gap-2">
+          <DropdownMenuItem asChild>
+            <Link href="/profile" className="flex w-full items-center justify-end gap-2">
+              <span>الملف الشخصي</span>
+              <UserCircle size={16} strokeWidth={2} className="opacity-60" />
+            </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem>
-            <span>الخيار 2</span>
-
-            <Layers2 size={16} strokeWidth={2} className="opacity-60" aria-hidden="true" />
+          <DropdownMenuItem asChild>
+            <Link href="/favorites" className="flex w-full items-center justify-end gap-2">
+              <span>المفضلة</span>
+              <BookMarked size={16} strokeWidth={2} className="opacity-60" />
+            </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem>
-            <span>الخيار 3</span>
-
-            <BookOpen size={16} strokeWidth={2} className="opacity-60" aria-hidden="true" />
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup className="!flex !w-full  flex-col items-end justify-start gap-2">
-          <DropdownMenuItem>
-            <span>الخيار 4</span>
-
-            <Pin size={16} strokeWidth={2} className="opacity-60" aria-hidden="true" />
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <span>الخيار 5</span>
-
-            <UserPen size={16} strokeWidth={2} className="opacity-60" aria-hidden="true" />
+          <DropdownMenuItem asChild>
+            <Link href="/library" className="flex w-full items-center justify-end gap-2">
+              <span>المكتبة</span>
+              <Book size={16} strokeWidth={2} className="opacity-60" />
+            </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuGroup className="!flex !w-full  flex-col items-end justify-start gap-2">
-          <DropdownMenuItem onClick={handleLogout}>
+        <DropdownMenuGroup className="!flex !w-full flex-col items-end justify-start gap-2">
+          <DropdownMenuItem asChild>
+            <Link href="/settings" className="flex w-full items-center justify-end gap-2">
+              <span>الإعدادات</span>
+              <Settings size={16} strokeWidth={2} className="opacity-60" />
+            </Link>
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuGroup className="!flex !w-full flex-col items-end justify-start gap-2">
+          <DropdownMenuItem onClick={handleLogout} className="flex items-center justify-end gap-2">
             <span>تسجيل الخروج</span>
-
-            <LogOut size={16} strokeWidth={2} className="opacity-60" aria-hidden="true" />
+            <LogOut size={16} strokeWidth={2} className="opacity-60" />
           </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>

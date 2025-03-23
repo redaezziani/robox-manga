@@ -1,107 +1,101 @@
 'use client';
+
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-
-import { motion } from 'framer-motion';
-import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
-
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronDown } from 'lucide-react';
+import type { MenuItem } from '@/lib/route-pages';
 import { cn } from '@/lib/utils';
 
-import { FolderCloseIcon, FolderOpenIcon } from '../icons/Folder';
-
-interface MenuItem {
-  title: string;
-  icon?: React.ReactNode;
-  href?: string;
-  items?: MenuItem[];
+interface Props {
+  item: MenuItem;
 }
 
-const CollapsibleMenuItem = ({ item, depth = 0 }: { item: MenuItem; depth?: number }) => {
-  const router = usePathname();
+const CollapsibleMenuItem = ({ item }: Props) => {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const Icon = item.icon;
 
-  const isActive = item.href && router.startsWith(item.href);
-  const hasActiveChild = item.items?.some(
-    (subItem) => subItem.href && router.startsWith(subItem.href)
-  );
-
+  // Auto expand if current route matches
   useEffect(() => {
-    if (isActive || hasActiveChild) {
+    if (item.items?.some(subItem => pathname === subItem.href)) {
       setIsOpen(true);
     }
-  }, [router, isActive, hasActiveChild]);
+  }, [pathname, item.items]);
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+  const isActive = (href?: string) => href ? pathname === href : false;
 
-  const paddingValues = [4, 0, 0, 0];
-  const currentDepth = depth + 1;
-  const paddingClass = `pl-${paddingValues[currentDepth - 1] || 4}`;
-
-  // Determine which icon to show based on depth and folder state
-  const getIcon = () => {
-    if (currentDepth > 1 && item.items) {
-      return isOpen ? (
-        <FolderOpenIcon className="size-[1.15rem]" />
-      ) : (
-        <FolderCloseIcon className="size-[1.15rem]" />
-      );
-    }
-    return item.icon;
-  };
-
-  const content = (
-    <div
-      className={cn(
-        `flex cursor-pointer select-none items-center justify-between rounded-md py-2`,
-        paddingClass,
-        isActive ? 'text-primary' : ' text-gray-700'
-      )}
-      onClick={toggleMenu}
-    >
-      <span
-        className={`flex items-center gap-x-2 text-sm capitalize ${currentDepth === 1 ? 'font-semibold' : ''}`}
+  // Single item link
+  if (!item.items) {
+    return (
+      <Link
+        href={item.href || '#'}
+        className={cn(
+          "flex items-center gap-2 rounded-lg px-3 py-2 transition-colors",
+          isActive(item.href) ? "bg-accent text-accent-foreground" : "hover:bg-accent/50"
+        )}
       >
-        {getIcon()}
-        {item.title}
-      </span>
-      {item.items &&
-        depth === 0 &&
-        (isOpen ? (
-          <ChevronUpIcon className="size-4" />
-        ) : (
-          <ChevronDownIcon className="size-4 text-stone-600" />
-        ))}
-    </div>
-  );
+        {Icon && <Icon className="h-4 w-4" />}
+        <span>{item.title}</span>
+      </Link>
+    );
+  }
 
+  // Collapsible menu item with subitems
   return (
     <div>
-      {item.href ? (
-        <Link className="" href={item.href}>
-          {content}
-        </Link>
-      ) : (
-        content
-      )}
-
-      {item.items && (
-        <motion.ul
-          className={`px-6   ${currentDepth > 1 ? 'ml-6 ' : ''}`}
-          initial={{ height: 0, opacity: 0 }}
-          animate={{ height: isOpen ? 'auto' : 0, opacity: isOpen ? 1 : 0 }}
-          transition={{ duration: 0.3, ease: 'easeInOut' }}
-          style={{ overflow: 'hidden' }}
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className={cn(
+          "flex w-full items-center justify-between rounded-lg px-3 py-2 transition-colors",
+          isOpen ? "bg-accent/50" : "hover:bg-accent/50"
+        )}
+      >
+        <div className="flex items-center gap-2">
+          {Icon && <Icon className="h-4 w-4" />}
+          <span>{item.title}</span>
+        </div>
+        <motion.div
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: 0.2 }}
         >
-          {item.items.map((subItem, index) => (
-            <li key={index}>
-              <CollapsibleMenuItem item={subItem} depth={currentDepth} />
-            </li>
-          ))}
-        </motion.ul>
-      )}
+          <ChevronDown className="h-4 w-4" />
+        </motion.div>
+      </button>
+
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
+            className="relative mr-4 overflow-hidden"
+          >
+            <div className="absolute bottom-4 left-0 top-0 border-l-2 border-dashed border-accent/50" />
+            <div className="space-y-1 pt-2">
+              {item.items.map((subItem) => {
+                const SubIcon = subItem.icon;
+                return (
+                  <Link
+                    key={subItem.href}
+                    href={subItem.href}
+                    className={cn(
+                      "flex items-center gap-2 rounded-lg pl-6 pr-3 py-2 relative transition-colors group",
+                      isActive(subItem.href) ? "bg-accent text-accent-foreground" : "hover:bg-accent/50"
+                    )}
+                  >
+                   
+                    {SubIcon && <SubIcon className="h-4 w-4" />}
+                    <span>{subItem.title}</span>
+                  </Link>
+                );
+              })}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

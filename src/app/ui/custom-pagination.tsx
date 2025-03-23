@@ -33,8 +33,8 @@ export function CustomPagination({
   if (totalPages <= 1) return null;
 
   return (
-    <div className=" flex w-full  items-end justify-end  ">
-      <Pagination className=" flex w-full items-end justify-end" dir="rtl">
+    <div className=" flex w-full items-center md:items-end justify-center md:justify-end  ">
+      <Pagination className=" flex w-full items-end justify-center md:justify-end" dir="rtl">
         <PaginationContent className="flex flex-row-reverse gap-2">
           {/* Last Page */}
           <PaginationItem className="inline-block">
@@ -65,9 +65,10 @@ export function CustomPagination({
           )}
 
           {pages.toReversed().map((page) => (
-            <PaginationItem key={page}>
+            <PaginationItem
+            key={page}>
               <PaginationLink
-                className={`hover:bg-accent flex h-[35px] min-w-[35px] cursor-pointer items-center justify-center rounded-md ${
+                className={`hover:bg-accent flex h-[35px] min-w-[35px] cursor-pointer items-center justify-center rounded-lg ${
                   page === currentPage ? 'bg-accent text-accent-foreground' : ''
                 }`}
                 onClick={() => onPageChange(page)}

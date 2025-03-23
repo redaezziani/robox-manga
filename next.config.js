@@ -13,7 +13,21 @@ const nextConfig = {
   eslint: {
     // Disable ESLint during build
     ignoreDuringBuilds: true,
-  }
+  },
+  webpack: (config) => {
+    config.ignoreWarnings = [
+      { module: /node_modules/, message: /Critical dependency/ },
+    ];
+    return config;
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'https://www.redaezziani.com/api/:path*',
+      },
+    ];
+  },
 }
 
 module.exports = nextConfig

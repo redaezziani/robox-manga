@@ -74,7 +74,7 @@ const RegisterPage = () => {
       const { confirmPassword, ...registrationData } = values; // Remove confirmPassword from API request
 
       const response = await axios.post<RegisterResponse>(
-        'http://localhost:8000/api/v1/auth/register',
+        'https://redaezziani.com/api/v1/auth/register',
         registrationData,
         {
           headers: {
@@ -226,7 +226,7 @@ const RegisterPage = () => {
       </div>
 
       <div className="relative hidden h-full w-[45%] items-center justify-center overflow-hidden bg-slate-200 md:flex">
-        <img src="/auth/bg.jpg" className="size-full object-cover" alt="background" />
+        <img src="/auth/bg.png" className="size-full object-cover" alt="background" />
       </div>
     </div>
   );
