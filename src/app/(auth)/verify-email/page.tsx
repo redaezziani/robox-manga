@@ -1,18 +1,15 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-
 import axios from 'axios';
 import { Loader2 } from 'lucide-react';
-
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 
-const VerifyEmailPage = () => {
+const VerifyEmailContent = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
-
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
   const [message, setMessage] = useState('جاري التحقق من بريدك الإلكتروني...');
 
@@ -93,6 +90,20 @@ const VerifyEmailPage = () => {
         )}
       </div>
     </div>
+  );
+};
+
+const VerifyEmailPage = () => {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen w-full flex-col items-center justify-center p-4">
+          <Loader2 className="text-primary size-12 animate-spin" />
+        </div>
+      }
+    >
+      <VerifyEmailContent />
+    </Suspense>
   );
 };
 

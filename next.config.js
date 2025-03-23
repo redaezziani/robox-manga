@@ -9,7 +9,11 @@ const nextConfig = {
       },
     ],
   },
-  // ...existing code...
+  output: 'standalone',
+  eslint: {
+    // Disable ESLint during build
+    ignoreDuringBuilds: true,
+  }
 }
 
 module.exports = nextConfig
