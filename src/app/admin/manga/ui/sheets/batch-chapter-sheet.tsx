@@ -61,9 +61,11 @@ export function BatchChapterSheet() {
         try {
             const promises = Object.values(mangaConfigs).map(config => {
                 if (config.isRange && config.startChapter && config.endChapter) {
+                    const start = config.startChapter ?? 1;
+                    const end = config.endChapter ?? start;
                     return Array.from(
-                        { length: config.endChapter - config.startChapter + 1 },
-                        (_, i) => i + config.startChapter
+                        { length: end - start + 1 },
+                        (_, i) => i + start
                     ).map(chapterNumber =>
                         fetch(
                             `https://redaezziani.com/api/manga/chapter?mangaId=${config.mangaId}&chapterNumber=${chapterNumber}`,

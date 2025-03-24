@@ -12,10 +12,9 @@ const nextConfig: NextConfig = {
     },
     output: 'standalone',
     eslint: {
-        // Disable ESLint during build
         ignoreDuringBuilds: true,
     },
-    webpack: (config: any) => {  // Explicitly typing the config parameter
+    webpack: (config: any) => { 
         config.ignoreWarnings = [
             { module: /node_modules/, message: /Critical dependency/ },
         ];
