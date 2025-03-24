@@ -12,6 +12,8 @@ pipeline {
             steps {
                 script {
                     dir(DOCKER_COMPOSE_DIR) {
+                        // Stash any local changes before pulling the latest
+                        sh 'git stash --include-untracked'
                         sh "git checkout ${GIT_BRANCH}" 
                         sh 'git pull origin reda'  
                     }
