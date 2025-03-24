@@ -12,10 +12,11 @@ pipeline {
             steps {
                 script {
                     dir(DOCKER_COMPOSE_DIR) {
-                        // Stash any local changes before pulling the latest
-                        sh 'git stash --include-untracked'
+                        // Ensure no local changes or untracked files interfere with the pull
+                        sh 'git reset --hard'  // Discards any local changes, resetting the working directory
+                        sh 'git clean -fd'  // Removes untracked files and directories
                         sh "git checkout ${GIT_BRANCH}" 
-                        sh 'git pull origin reda'  
+                        sh 'git pull origin reda'  // Pull the latest changes from the remote repository
                     }
                 }
             }
@@ -25,7 +26,7 @@ pipeline {
             steps {
                 script {
                     dir(DOCKER_COMPOSE_DIR) {
-                        sh 'docker-compose down'  
+                        sh 'docker-compose down'  // Stop and remove old containers
                     }
                 }
             }
