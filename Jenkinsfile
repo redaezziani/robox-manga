@@ -12,8 +12,8 @@ pipeline {
             steps {
                 script {
                     dir(DOCKER_COMPOSE_DIR) {
-                        sh "git checkout ${GIT_BRANCH}"  // Ensure we're on the correct branch
-                        sh 'git pull origin reda'  // Pull the latest changes from the "reda" branch
+                        sh "git checkout ${GIT_BRANCH}" 
+                        sh 'git pull origin reda'  
                     }
                 }
             }
