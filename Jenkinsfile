@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_COMPOSE_DIR = '/root/robox-manga'  // Update this if the location of docker-compose.yml is different
+        DOCKER_COMPOSE_DIR = '/var/lib/jenkins/robox-manga'  // Updated to the new location
         GIT_REPO_URL = 'https://github.com/redaezziani/robox-manga.git'  // Your GitHub repo URL
         GIT_BRANCH = 'reda'  
     }
