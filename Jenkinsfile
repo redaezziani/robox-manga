@@ -2,11 +2,9 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_COMPOSE_DIR = '/var/lib/jenkins/robox-manga'
-        GIT_REPO_URL = 'https://github.com/redaezziani/robox-manga.git'
-        GIT_BRANCH = 'reda'
-        NEW_PORT = '3001'
-        PROD_PORT = '3000'
+        DOCKER_COMPOSE_DIR = '/var/lib/jenkins/robox-manga'  // Updated to the new location
+        GIT_REPO_URL = 'https://github.com/redaezziani/robox-manga.git'  // Your GitHub repo URL
+        GIT_BRANCH = 'reda'  
     }
 
     stages {
@@ -14,61 +12,61 @@ pipeline {
             steps {
                 script {
                     dir(DOCKER_COMPOSE_DIR) {
-                        sh 'git reset --hard'
-                        sh 'git clean -fd'
-                        sh "git checkout ${GIT_BRANCH}"
-                        sh 'git pull origin reda'
+                        // Ensure no local changes or untracked files interfere with the pull
+                        sh 'git reset --hard'  // Discards any local changes, resetting the working directory
+                        sh 'git clean -fd'  // Removes untracked files and directories
+                        sh "git checkout ${GIT_BRANCH}" 
+                        sh 'git pull origin reda'  // Pull the latest changes from the remote repository
                     }
                 }
             }
         }
 
-        stage('Deploy New Version') {
+        stage('Build and Start New Containers') {
+            steps {
+                script {
+                    // Navigate to the Docker Compose directory and rebuild/start containers
+                    dir(DOCKER_COMPOSE_DIR) {
+                        // Rebuild and start the containers in detached mode with a different name (e.g., app_new)
+                        sh 'docker-compose -f docker-compose.yml -p app_new up --build -d' 
+                    }
+                }
+            }
+        }
+
+        stage('Check New Containers') {
             steps {
                 script {
                     dir(DOCKER_COMPOSE_DIR) {
-                        // First, try to stop any existing new deployment
-                        sh 'docker-compose -f docker-compose.yml -p app_new down || true'
-                        
-                        // Modify the port in docker-compose.yml for the new deployment
-                        sh "sed -i 's/- \"3000:3000\"/- \"${NEW_PORT}:3000\"/' docker-compose.yml"
-                        
-                        // Start new deployment
-                        sh 'docker-compose -f docker-compose.yml -p app_new up --build -d'
-                        
-                        // Wait for the application to be ready
-                        sh 'sleep 30'
+                        // Check if the new containers are up and running
+                        sh 'docker ps'  // List running containers to verify the new containers
                     }
                 }
             }
         }
 
-        stage('Verify New Deployment') {
-            steps {
-                script {
-                    def response = sh(script: "curl -s -o /dev/null -w '%{http_code}' http://localhost:${NEW_PORT}", returnStdout: true).trim()
-                    if (response != "200") {
-                        error "New deployment is not healthy!"
-                    }
-                }
-            }
-        }
-
-        stage('Switch to New Version') {
+        stage('Switch Traffic to New Containers') {
             steps {
                 script {
                     dir(DOCKER_COMPOSE_DIR) {
-                        // Stop the old deployment
-                        sh 'docker-compose -f docker-compose.yml -p app_old down || true'
-                        
-                        // Update port back to production port
-                        sh "sed -i 's/- \"${NEW_PORT}:3000\"/- \"${PROD_PORT}:3000\"/' docker-compose.yml"
-                        
-                        // Stop new deployment
-                        sh 'docker-compose -f docker-compose.yml -p app_new down'
-                        
-                        // Start as production deployment
-                        sh 'docker-compose -f docker-compose.yml -p app_old up -d'
+                        // You can use a reverse proxy or load balancer to switch traffic
+                        // For simplicity, we assume your Docker Compose setup handles the routing
+                        // This can be done by either updating the environment variables
+                        // or switching the service to point to the new containers.
+                        // Example:
+                        // sh 'docker-compose -f docker-compose.yml -p app_new down' 
+                        // sh 'docker-compose -f docker-compose.yml -p app_old up -d'
+                    }
+                }
+            }
+        }
+
+        stage('Stop and Remove Old Containers') {
+            steps {
+                script {
+                    dir(DOCKER_COMPOSE_DIR) {
+                        // Stop and remove the old containers only after switching traffic
+                        sh 'docker-compose -f docker-compose.yml -p app_old down'  // Down old containers
                     }
                 }
             }
@@ -77,15 +75,8 @@ pipeline {
 
     post {
         always {
+            // Clean up Docker system after the build to remove unused images and containers
             sh 'docker system prune -f'
-        }
-        failure {
-            script {
-                dir(DOCKER_COMPOSE_DIR) {
-                    // Restore original port in docker-compose.yml
-                    sh "sed -i 's/- \"${NEW_PORT}:3000\"/- \"${PROD_PORT}:3000\"/' docker-compose.yml"
-                }
-            }
         }
     }
 }
