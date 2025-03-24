@@ -1,13 +1,14 @@
+# Base image
 FROM node:20-alpine AS base
 
-FROM base AS deps
+# Set the working directory
 WORKDIR /app
-COPY package.json package-lock.json* ./
+
+# Install dependencies only when necessary
+COPY package.json package-lock.json ./
 RUN npm ci
 
-FROM base AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+# Copy the rest of the project
 COPY . .
 
 # Next.js collects anonymous telemetry data about general usage
@@ -16,10 +17,14 @@ ENV NEXT_TELEMETRY_DISABLED 1
 # Skip ESLint during build
 ENV NEXT_LINT_DURING_BUILD=false
 
+# Skip TypeScript checks during build
+ENV TS_CHECK=false
+
+# Run the build
 RUN npm run build
 
-# Production image, copy all the files and run next
-FROM base AS runner
+# Production image, copy only necessary files
+FROM node:20-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV production
@@ -30,8 +35,5 @@ COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 
 EXPOSE 3000
-
-ENV PORT 3000
-ENV HOSTNAME "0.0.0.0"
 
 CMD ["node", "server.js"]

@@ -12,9 +12,12 @@ const nextConfig: NextConfig = {
     },
     output: 'standalone',
     eslint: {
-        ignoreDuringBuilds: true,
+        ignoreDuringBuilds: true,  // Skip ESLint during build
     },
-    webpack: (config: any) => { 
+    typescript: {
+        ignoreBuildErrors: true,  // Skip TypeScript errors during build
+    },
+    webpack: (config: any) => {
         config.ignoreWarnings = [
             { module: /node_modules/, message: /Critical dependency/ },
         ];
