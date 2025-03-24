@@ -24,9 +24,8 @@ pipeline {
         stage('Stop and Remove Old Containers') {
             steps {
                 script {
-                    // Navigate to the Docker Compose directory and stop/remove old containers
                     dir(DOCKER_COMPOSE_DIR) {
-                        sh 'docker-compose down'  // Stops and removes old containers
+                        sh 'docker-compose down'  
                     }
                 }
             }

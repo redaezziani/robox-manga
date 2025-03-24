@@ -1,34 +1,34 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+import { NextConfig } from 'next';
+
+const nextConfig: NextConfig = {
     images: {
-      remotePatterns: [
-        {
-          protocol: 'https',
-          hostname: 'res.cloudinary.com',
-          pathname: '/dk4wxo8wc/**',
-        },
-      ],
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'res.cloudinary.com',
+                pathname: '/dk4wxo8wc/**',
+            },
+        ],
     },
     output: 'standalone',
     eslint: {
-      // Disable ESLint during build
-      ignoreDuringBuilds: true,
+        // Disable ESLint during build
+        ignoreDuringBuilds: true,
     },
-    webpack: (config) => {
-      config.ignoreWarnings = [
-        { module: /node_modules/, message: /Critical dependency/ },
-      ];
-      return config;
+    webpack: (config: any) => {  // Explicitly typing the config parameter
+        config.ignoreWarnings = [
+            { module: /node_modules/, message: /Critical dependency/ },
+        ];
+        return config;
     },
     async rewrites() {
-      return [
-        {
-          source: '/api/:path*',
-          destination: 'https://www.redaezziani.com/api/:path*',
-        },
-      ];
+        return [
+            {
+                source: '/api/:path*',
+                destination: 'https://www.redaezziani.com/api/:path*',
+            },
+        ];
     },
-  }
-  
-  module.exports = nextConfig
-  
+}
+
+export default nextConfig;
