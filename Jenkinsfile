@@ -2,10 +2,9 @@ pipeline {
     agent any
 
     environment {
-        // Define your Docker Compose project directory
         DOCKER_COMPOSE_DIR = '/root/robox-manga'  // Update this if the location of docker-compose.yml is different
         GIT_REPO_URL = 'https://github.com/redaezziani/robox-manga.git'  // Your GitHub repo URL
-        GIT_BRANCH = 'reda'  // Correct branch you're working with
+        GIT_BRANCH = 'reda'  
     }
 
     stages {
