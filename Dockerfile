@@ -1,39 +1,38 @@
-# Base image
+# First stage: dependencies
 FROM node:20-alpine AS base
 
-# Set the working directory
+# Install dependencies
 WORKDIR /app
-
-# Install dependencies only when necessary
-COPY package.json package-lock.json ./
+COPY package.json package-lock.json* ./
 RUN npm ci
 
-# Copy the rest of the project
+# Second stage: build the project
+FROM base AS builder
+WORKDIR /app
+COPY --from=base /app/node_modules ./node_modules
 COPY . .
 
-# Next.js collects anonymous telemetry data about general usage
+# Set environment variables
 ENV NEXT_TELEMETRY_DISABLED 1
-
-# Skip ESLint during build
 ENV NEXT_LINT_DURING_BUILD=false
 
-# Skip TypeScript checks during build
-ENV TS_CHECK=false
-
-# Run the build
+# Run the Next.js build
 RUN npm run build
 
-# Production image, copy only necessary files
+# Third stage: production image
 FROM node:20-alpine AS runner
 WORKDIR /app
 
+# Set environment variables
 ENV NODE_ENV production
 ENV NEXT_TELEMETRY_DISABLED 1
 
+# Copy the build files from the builder stage
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 
 EXPOSE 3000
 
+# Run the production server
 CMD ["node", "server.js"]
