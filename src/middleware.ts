@@ -15,5 +15,9 @@ export default async function middleware(request: NextRequest) {
     if (token && isAuthPath(request.nextUrl.pathname)) {
         return NextResponse.redirect(new URL('/', request.url));
     }
+    // check if the req is to / send to /app
+    if (request.nextUrl.pathname === '/') {
+        return NextResponse.redirect(new URL('/app', request.url));
+    }
     return NextResponse.next();
 }
