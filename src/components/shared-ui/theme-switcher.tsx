@@ -21,7 +21,7 @@ export default function ThemeSwitcher() {
           onChange={() => setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))}
         />
         <label
-          className="border-input bg-background text-foreground hover:bg-accent hover:text-accent-foreground peer-focus-visible:outline-ring/70 group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-lg border shadow-sm shadow-black/5 transition-colors peer-focus-visible:outline peer-focus-visible:outline-2"
+          className="border-input  text-foreground hover:bg-accent hover:text-accent-foreground peer-focus-visible:outline-ring/70 group relative inline-flex size-9 cursor-pointer items-center justify-center   transition-colors peer-focus-visible:outline peer-focus-visible:outline-2"
           htmlFor={id}
           aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
         >

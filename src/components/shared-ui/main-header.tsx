@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { getCookies } from '@/lib/cookies';
 import { Button } from '../ui/button';
 import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
+import ThemeSwitcher from './theme-switcher';
 
 const MainHeader = async () => {
     const token: RequestCookie | undefined = await getCookies();
@@ -51,6 +52,7 @@ const MainHeader = async () => {
                         <div className="flex items-center gap-4">
                             {token ? (
                                 <>
+                                    <ThemeSwitcher />
                                     <NotificationSheet />
                                     <div className="hidden md:block">
                                         <SearchManga />
