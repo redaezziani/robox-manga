@@ -12,9 +12,7 @@ pipeline {
         stage('Checkout Code from GitHub') {
             steps {
                 script {
-                    // Pull the latest changes from GitHub into the local repository
                     dir(DOCKER_COMPOSE_DIR) {
-                        // Pull the latest changes from the "reda" branch
                         sh "git checkout ${GIT_BRANCH}"  // Ensure we're on the correct branch
                         sh 'git pull origin reda'  // Pull the latest changes from the "reda" branch
                     }
