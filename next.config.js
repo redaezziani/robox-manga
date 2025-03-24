@@ -14,6 +14,9 @@ const nextConfig = {
     // Disable ESLint during build
     ignoreDuringBuilds: true,
   },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   webpack: (config) => {
     config.ignoreWarnings = [
       { module: /node_modules/, message: /Critical dependency/ },

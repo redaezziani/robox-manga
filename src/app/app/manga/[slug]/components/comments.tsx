@@ -144,7 +144,7 @@ interface CommentsSectionProps {
 const CommentsSection = ({ mangaId }: CommentsSectionProps) => {
   const [newComment, setNewComment] = useState("")
   const { data: comments = [], isLoading } = useComments(mangaId)
-  const { mutate: createComment, isLoading: isCreating } = useCreateComment()
+  const { mutate: createComment, isPending: isCreating } = useCreateComment()
   const { mutate: toggleLike } = useToggleLike()
   const { mutate: deleteComment } = useDeleteComment()
 
