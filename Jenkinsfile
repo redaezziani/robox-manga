@@ -22,51 +22,22 @@ pipeline {
             }
         }
 
+        stage('Stop and Remove Old Containers') {
+            steps {
+                script {
+                    dir(DOCKER_COMPOSE_DIR) {
+                        sh 'docker-compose down'  // Stop and remove old containers
+                    }
+                }
+            }
+        }
+
         stage('Build and Start New Containers') {
             steps {
                 script {
                     // Navigate to the Docker Compose directory and rebuild/start containers
                     dir(DOCKER_COMPOSE_DIR) {
-                        // Rebuild and start the containers in detached mode with a different name (e.g., app_new)
-                        sh 'docker-compose -f docker-compose.yml -p app_new up --build -d' 
-                    }
-                }
-            }
-        }
-
-        stage('Check New Containers') {
-            steps {
-                script {
-                    dir(DOCKER_COMPOSE_DIR) {
-                        // Check if the new containers are up and running
-                        sh 'docker ps'  // List running containers to verify the new containers
-                    }
-                }
-            }
-        }
-
-        stage('Switch Traffic to New Containers') {
-            steps {
-                script {
-                    dir(DOCKER_COMPOSE_DIR) {
-                        // You can use a reverse proxy or load balancer to switch traffic
-                        // For simplicity, we assume your Docker Compose setup handles the routing
-                        // This can be done by either updating the environment variables
-                        // or switching the service to point to the new containers.
-                        // Example:
-                        // sh 'docker-compose -f docker-compose.yml -p app_new down' 
-                        // sh 'docker-compose -f docker-compose.yml -p app_old up -d'
-                    }
-                }
-            }
-        }
-
-        stage('Stop and Remove Old Containers') {
-            steps {
-                script {
-                    dir(DOCKER_COMPOSE_DIR) {
-                        // Stop and remove the old containers only after switching traffic
-                        sh 'docker-compose -f docker-compose.yml -p app_old down'  // Down old containers
+                        sh 'docker-compose up --build -d'  // Rebuild and start the containers in detached mode
                     }
                 }
             }
