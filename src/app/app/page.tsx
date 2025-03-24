@@ -26,7 +26,7 @@ const HomePage = () => {
     return (
         <MainPageLayout>
             <div className="container relative mx-auto mt-24 flex w-full flex-col gap-2 px-4">
-                <section className="my-6 flex flex-col items-start justify-start">
+                <section className="my-3 flex flex-col items-start justify-start">
                     <h3 lang="ar" className="mt-2 text-lg font-semibold text-gray-600">
                         عالمك المفضل للمانجا العربية
                     </h3>
@@ -38,7 +38,7 @@ const HomePage = () => {
 
             </div>
 
-            <div className="flex w-full flex-col gap-y-4">
+            <div className="flex w-full flex-col gap-y-2">
                 {keepReading &&   (
                     <KeepReadingSlider
                         items={keepReading}
