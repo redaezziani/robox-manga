@@ -44,7 +44,7 @@ export function TableFilters({
             onChange={(e) => table.getColumn("title")?.setFilterValue(e.target.value)}
             placeholder="ابحث عن مانجا..."
           />
-          <SearchIcon className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+          <SearchIcon className="pointer-events-none absolute right-3 top-1/2 -trangray-y-1/2 text-muted-foreground" />
         </div>
         <Button
         variant={"outline"}

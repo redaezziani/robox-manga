@@ -55,7 +55,7 @@ export default function ProfileMenu() {
             <AvatarImage
               src={
                 user?.profile ||
-                ''
+                '/img.jpg'
               }
               alt="صورة الملف الشخصي"
             />

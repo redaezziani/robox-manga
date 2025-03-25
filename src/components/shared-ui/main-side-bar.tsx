@@ -22,13 +22,13 @@ const MainSideBar = () => {
         duration: 0.3,
         ease: 'easeInOut',
       }}
-      className="bg-muted sticky left-0 top-0 hidden h-screen flex-col border-l border-slate-400/35 lg:flex"
+      className="bg-muted sticky left-0 top-0 hidden h-screen flex-col border-l border-gray-400/35 lg:flex"
     >
       <Button
         size="icon"
         variant="outline"
         onClick={handleOpen}
-        className="absolute -left-3 top-4 flex size-6 items-center justify-center rounded-full border border-slate-400/45"
+        className="absolute -left-3 top-4 flex size-6 items-center justify-center rounded-full border border-gray-400/45"
       >
         <motion.div animate={{ rotate: open ? 0 : 180 }} transition={{ duration: 0.3 }}>
           <ArrowsIcon />
@@ -42,7 +42,7 @@ const MainSideBar = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="flex w-full items-center justify-start gap-x-2 border-b border-slate-400/35 py-3"
+            className="flex w-full items-center justify-start gap-x-2 border-b border-gray-400/35 py-3"
           >
             <img src="/logo.png" className="w-[3.2rem]" alt="Logo" />
             <h2 className="text-primary text-lg font-semibold">إدارة المخزون</h2>

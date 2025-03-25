@@ -25,7 +25,7 @@ export function MangaTable({ table }: MangaTableProps) {
       <Table className="table-fixed">
         <TableHeader className="bg-muted">
           {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id} className="hover:bg-transparent text-slate-500">
+            <TableRow key={headerGroup.id} className="hover:bg-transparent text-gray-500">
               {headerGroup.headers.map((header) => (
                 <TableHead
                   key={header.id}

@@ -37,7 +37,7 @@ const Comment = ({ comment, onReply, onLike, onDelete, currentUserId, level = 0 
   const [replyContent, setReplyContent] = useState("")
 
   return (
-    <div className={cn("flex", level > 0 ? "mr-4 mt-4" : "mt-6")}>
+    <div className={cn("flex", level > 0 ? "mr-4  mt-4" : "mt-6")}>
       <div className="flex-1">
         <div className="flex py-2 gap-4">
           <Avatar className="h-10  w-10 shrink-0">
@@ -54,7 +54,7 @@ const Comment = ({ comment, onReply, onLike, onDelete, currentUserId, level = 0 
               </span>
             </div>
 
-            <div className="rounded-2xl bg-muted/30 p-3">
+            <div className="rounded-2xl  p-3">
               <p className="text-sm">{comment.content}</p>
             </div>
 
@@ -144,7 +144,7 @@ interface CommentsSectionProps {
 const CommentsSection = ({ mangaId }: CommentsSectionProps) => {
   const [newComment, setNewComment] = useState("")
   const { data: comments = [], isLoading } = useComments(mangaId)
-  const { mutate: createComment, isPending: isCreating } = useCreateComment()
+  const { mutate: createComment, isLoading: isCreating } = useCreateComment()
   const { mutate: toggleLike } = useToggleLike()
   const { mutate: deleteComment } = useDeleteComment()
 

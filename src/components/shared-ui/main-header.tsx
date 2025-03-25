@@ -8,24 +8,18 @@ import { getCookies } from '@/lib/cookies';
 import { Button } from '../ui/button';
 import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 import ThemeSwitcher from './theme-switcher';
+import HeaderLinks from './header-links';
 
 const MainHeader = async () => {
     const token: RequestCookie | undefined = await getCookies();
-
-    const navigationItems = [
-        { name: 'الرئيسية', href: '/app/' },
-        { name: 'جميع المانجا', href: '/app/all' },
-        { name: 'المفضلة', href: '/app/favorites' },
-        { name: 'قراءة لاحقاً', href: '/app/read-later' },
-        { name: 'الإعدادات', href: '/app/settings' },
-    ];
+   
 
     return (
         <header
         aria-label='Main Header'
             className='fixed flex flex-col w-full z-50 top-0 left-0 '
         >
-            <nav lang="ar" className="bg-muted  container md:max-w-full  w-full border-b border-slate-400/35 px-4 py-2">
+            <nav lang="ar" className="bg-muted  container md:max-w-full  w-full border-b-[0.5px] border-gray-400/45 px-4 py-2">
                 <div className="container mx-auto flex w-full items-center justify-between">
                     <div className="flex items-center gap-2">
                         <h1 className=" text-primary  bg-clip-text text-lg font-bold  md:text-2xl">
@@ -35,19 +29,7 @@ const MainHeader = async () => {
 
                     <div className="flex items-center gap-6">
                         {/* Navigation Links */}
-                        <ul className="hidden items-center gap-6 md:flex">
-                            {navigationItems.map((item) => (
-                                <li key={item.href}>
-                                    <Link
-                                        href={item.href}
-                                        className="text-sm text-gray-500 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-primary duration-300"
-                                    >
-                                        {item.name}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-
+                        <HeaderLinks />
                         {/* Right Side Items */}
                         <div className="flex items-center gap-4">
                             {token ? (

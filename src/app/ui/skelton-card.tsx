@@ -18,7 +18,7 @@ const Skeleton = ({
 
       {/* Shine effect */}
       <div
-        className="absolute inset-0 -translate-x-full"
+        className="absolute inset-0 -trangray-x-full"
         style={{
           background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent)',
           animation: 'shine 2s infinite linear',

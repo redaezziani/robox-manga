@@ -158,12 +158,12 @@ export function DataTable<T extends RowData>({
       <div className="bg-muted flex flex-wrap items-center justify-between gap-3 p-2 md:py-4">
         {enableSearch && (
           <div className="relative flex w-full max-w-xs items-start justify-center">
-            <SearchIcon className="absolute left-3 top-1/2 size-5 -translate-y-1/2 text-slate-400 dark:text-slate-50" />
+            <SearchIcon className="absolute left-3 top-1/2 size-5 -trangray-y-1/2 text-gray-400 dark:text-gray-50" />
             <Input
               placeholder={searchPlaceholder}
               value={globalFilter}
               onChange={(e) => setGlobalFilter(e.target.value)}
-              className="bg-background w-full border-slate-400/35"
+              className="bg-background w-full border-gray-400/35"
             />
           </div>
         )}

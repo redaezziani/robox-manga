@@ -179,7 +179,7 @@ const Page = () => {
                                         <PasswordInput {...field} />
                                     </FormControl>
                                     <Link
-                                        className="mt-3 flex items-center justify-start gap-x-2 text-sm text-slate-400"
+                                        className="mt-3 flex items-center justify-start gap-x-2 text-sm text-gray-400"
                                         href="/password-reset"
                                     >
                                         نسيت كلمة المرور{' '}
@@ -204,7 +204,7 @@ const Page = () => {
 
                 <div className="flex w-full items-center justify-center gap-3">
                     <Link
-                        className="mt-3 flex items-center justify-center gap-x-2 text-sm text-slate-400"
+                        className="mt-3 flex items-center justify-center gap-x-2 text-sm text-gray-400"
                         href="/register"
                     >
                         ليس لديك حساب؟{' '}
@@ -213,7 +213,7 @@ const Page = () => {
                 </div>
             </div>
 
-            <div className="relative hidden h-full w-[45%] items-center justify-center overflow-hidden bg-slate-200 md:flex">
+            <div className="relative hidden h-full w-[45%] items-center justify-center overflow-hidden bg-gray-200 md:flex">
                 <img src="/auth/bg.png" className="size-full object-cover" alt="background" />
             </div>
         </div>

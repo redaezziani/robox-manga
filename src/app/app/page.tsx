@@ -25,7 +25,12 @@ const HomePage = () => {
 
     return (
         <MainPageLayout>
-            <div className="container relative mx-auto mt-24 flex w-full flex-col gap-2 px-4">
+            <div className="container relative mx-auto  flex w-full flex-col gap-2 px-4">
+                <div
+                className=' h-72 w-full rounded mt-20 bg-muted bg-center bg-no-repeat'
+                >
+
+                </div>
                 <section className="my-3 flex flex-col items-start justify-start">
                     <h3 lang="ar" className="mt-2 text-lg font-semibold text-gray-600">
                         عالمك المفضل للمانجا العربية

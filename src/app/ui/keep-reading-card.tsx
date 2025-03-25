@@ -30,7 +30,7 @@ const KeepReadingCard = ({ data }: KeepReadingCardProps) => {
     return (
         <Link
             prefetch={true}
-            href={`/app/manga/${data.manga.id}/chapter/${data.chapter.id}?page=${data.page}`}
+            href={`/app/manga/${data.manga.id}/chapter/${data.chapter.number}`}
             className="block"
         >
             <Card className="group overflow-hidden bg-transparent dark:bg-transparent border-none shadow-none">
