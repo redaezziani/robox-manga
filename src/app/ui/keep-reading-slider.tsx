@@ -33,7 +33,7 @@ const KeepReadingSlider = ({ items, isLoading }: KeepReadingSliderProps) => {
 
     return (
         <div className="container mx-auto px-4">
-            <h2 lang="ar" className="mb-4 text-xl font-bold">متابعة القراءة</h2>
+            <h2 lang="ar" className="mb-2 text-xl font-bold">متابعة القراءة</h2>
             <Swiper
                 modules={[Navigation]}
                 navigation
@@ -44,7 +44,7 @@ const KeepReadingSlider = ({ items, isLoading }: KeepReadingSliderProps) => {
                     480: { slidesPerView: 2, spaceBetween: 15 },
                     768: { slidesPerView: 2, spaceBetween: 15 },
                     1024: { slidesPerView: 3, spaceBetween: 20 },
-                    1280: { slidesPerView: 8, spaceBetween: 20 },
+                    1280: { slidesPerView: 9, spaceBetween: 20 },
                   }}
                 className="px-8"
             >

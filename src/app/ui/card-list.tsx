@@ -1,6 +1,6 @@
 // MangaList.tsx
 'use client';
-import React from 'react';
+import React, { useId } from 'react';
 import Link from 'next/link';
 
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -20,6 +20,11 @@ interface MangaListProps {
 }
 
 const MangaList = ({ title, mangas, isLoading, skeletonCount = 7 }: MangaListProps) => {
+  // Create a sanitized ID by removing colons and replacing with a safe character
+  const id = useId().replace(/:/g, '');
+  const prevButtonClass = `prev-button-${id}`;
+  const nextButtonClass = `next-button-${id}`;
+
   const renderContent = () => {
     if (isLoading) {
       return Array(skeletonCount)
@@ -41,15 +46,15 @@ const MangaList = ({ title, mangas, isLoading, skeletonCount = 7 }: MangaListPro
   return (
     <div lang="ar" className="container relative mx-auto flex-col space-y-1 px-4">
       {title && <h3 className="text-xl font-bold ">{title}</h3>}
-      <div className="flex w-full items-end justify-between pb-4">
+      <div className="flex w-full items-end justify-between pb-2">
         <Link href={'/app/all'} lang="ar" className="text-sm text-gray-500">
           عرض الكل
         </Link>
         <div className="flex gap-4">
-          <button className="prev-button rounded-full   p-2 text-gray-700 dark:text-primary">
+          <button className={`${prevButtonClass} rounded-full p-2 text-gray-700 dark:text-primary`}>
             <ChevronRight size={18} />
           </button>
-          <button className="next-button rounded-full   p-2 text-gray-700 dark:text-primary">
+          <button className={`${nextButtonClass} rounded-full p-2 text-gray-700 dark:text-primary`}>
             <ChevronLeft size={18} />
           </button>
         </div>
@@ -57,10 +62,10 @@ const MangaList = ({ title, mangas, isLoading, skeletonCount = 7 }: MangaListPro
 
       <Swiper
         modules={[Navigation, Pagination, A11y]}
-        spaceBetween={20}
+        spaceBetween={15}
         navigation={{
-          prevEl: '.prev-button',
-          nextEl: '.next-button',
+          prevEl: `.${prevButtonClass}`,
+          nextEl: `.${nextButtonClass}`,
         }}
         pagination={false}
         breakpoints={{
@@ -68,7 +73,7 @@ const MangaList = ({ title, mangas, isLoading, skeletonCount = 7 }: MangaListPro
           480: { slidesPerView: 2, spaceBetween: 15 },
           768: { slidesPerView: 2, spaceBetween: 15 },
           1024: { slidesPerView: 3, spaceBetween: 20 },
-          1280: { slidesPerView: 8, spaceBetween: 20 },
+          1280: { slidesPerView: 9, spaceBetween: 20 },
         }}
         className="py-8"
       >
