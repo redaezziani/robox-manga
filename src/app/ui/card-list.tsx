@@ -20,7 +20,6 @@ interface MangaListProps {
 }
 
 const MangaList = ({ title, mangas, isLoading, skeletonCount = 7 }: MangaListProps) => {
-  // Create a sanitized ID by removing colons and replacing with a safe character
   const id = useId().replace(/:/g, '');
   const prevButtonClass = `prev-button-${id}`;
   const nextButtonClass = `next-button-${id}`;

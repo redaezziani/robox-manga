@@ -69,18 +69,20 @@ const HomePage = () => {
                     mangas={latestMangas}
                     isLoading={latestLoading}
                 />
+               <div className="w-full relative ">
                <GenreSwiper 
                     genres={genres ?? []} 
                     selectedGenres={selectedGenres}
                     onGenreSelect={handleGenreSelect}
                 />
+               </div>
 
                 {selectedGenres.length > 0 && (
                     <MangaList
                         title={`مانجا ${selectedGenres.join(' و ')}`}
                         mangas={mangasByGenre}
                         isLoading={genreMangaLoading}
-                        meta={meta}
+                        
                     />
                 )}
             </div>
