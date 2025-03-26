@@ -50,7 +50,6 @@ const MangaClientWrapper = () => {
     const { data: types, error: typesError, isLoading: typesLoading } = useTypesSWR();
 
     useEffect(() => {
-        console.log("Starting initial fetch...");
         fetchAllMangas({
             page: 1,
             limit: ITEMS_PER_PAGE,

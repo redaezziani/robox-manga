@@ -27,7 +27,7 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: 'https://www.redaezziani.com/api/:path*',
+        destination: 'https://redaezziani.com/api/:path*',
       },
     ];
   },

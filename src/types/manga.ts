@@ -96,3 +96,39 @@ export interface SimilarManga {
   createdAt: string
   updatedAt: string
 }
+
+export interface GenreFilterResponse {
+  success: boolean;
+  data: {
+    items: MangaItem[];
+    meta: MetaData;
+  };
+}
+
+export interface MangaItem {
+  id: string;
+  title: string;
+  slug: string;
+  rating: number;
+  coverThumbnail: string;
+  otherTitles: string[];
+  description: string;
+  cover: string;
+  authors: string[];
+  artists: any[];
+  platform: string;
+  type: string;
+  releaseDate: string;
+  status: string;
+  genres: string[];
+  views: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface MetaData {
+  currentPage: number;
+  itemsPerPage: number;
+  totalItems: number;
+  totalPages: number;
+}

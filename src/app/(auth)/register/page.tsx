@@ -84,12 +84,9 @@ const RegisterPage = () => {
         }
       );
 
-      // Handle successful registration
-      console.log('Registration successful:', response.data);
-      // You can store the token in localStorage or use a state management solution
+    
       localStorage.setItem('token', response.data.token);
 
-      // Redirect or update UI as needed
     } catch (err: any) {
       setError(err.response?.data?.message || 'حدث خطأ أثناء إنشاء الحساب');
       console.error('Registration error:', err);

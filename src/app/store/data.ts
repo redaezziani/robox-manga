@@ -2,6 +2,7 @@ import { axiosInstance } from '@/lib/axios';
 import { useQuery } from '@tanstack/react-query';
 import { Manga, MangaResponse } from '@/types/manga';
 import { getCookies } from '@/lib/cookies';
+import useSWR from 'swr';
 
 const fetcher = (url: string) => axiosInstance.get(url).then((res) => res.data);
 
@@ -59,6 +60,26 @@ export function useMangaByGenreSWR(genre: string, page: number = 1, limit: numbe
   };
 }
 
+export const useMangaByGenresFilterSWR = (selectedGenres: string[]) => {
+  const { data, error, isLoading } = useQuery({
+    queryKey: ['mangaByGenres', selectedGenres],
+    queryFn: async () => {
+      const response = await axiosInstance.post<GenreFilterResponse>(
+        '/manga/genres/filter',
+        { genres: selectedGenres }
+      );
+      return response.data;
+    },
+    enabled: selectedGenres.length > 0
+  });
+
+  return {
+    mangasByGenre: data?.data.items || [],
+    meta: data?.data.meta,
+    isLoading,
+    error,
+  };
+};
 
 interface KeepReadingResponse {
     data: {
@@ -91,8 +112,6 @@ interface KeepReadingResponse {
       queryFn: async () => {
         const token = await getCookies();
         if (!token?.value) return [];
-        console.log('Fetching keep reading...');
-        console.log(token.value);
         const response = await axiosInstance.get<KeepReadingResponse>('/manga/keep-reading', {
           headers: {
             Authorization: `Bearer ${token.value}`

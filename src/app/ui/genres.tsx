@@ -1,30 +1,30 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-const GenreSwiper = ({ genres }) => {
-  return (
-    <div className="container mx-auto px-4">
-      <Swiper
-        slidesPerView="auto"
-        spaceBetween={12}
-        className="w-full"
-      >
-        {genres?.map((genre) => (
-          <SwiperSlide 
-            key={genre}
-            className="!w-auto"
-          >
-            <span
-              className="inline-block px-2 rounded-full border border-gray-400/45 p-0.5 text-xs text-gray-500"
-              value={genre}
-            >
-              {genre}
-            </span>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </div>
-  );
+interface GenreSwiperProps {
+    genres: string[];
+    selectedGenres: string[];
+    onGenreSelect: (genre: string) => void;
+}
+
+const GenreSwiper = ({ genres, selectedGenres, onGenreSelect }: GenreSwiperProps) => {
+    return (
+        <div className="flex gap-2 overflow-x-auto py-2">
+            {genres.map((genre) => (
+                <button
+                    key={genre}
+                    onClick={() => onGenreSelect(genre)}
+                    className={`whitespace-nowrap rounded-full px-4 py-2 text-sm ${
+                        selectedGenres.includes(genre)
+                            ? 'bg-primary text-primary-foreground'
+                            : 'bg-muted text-muted-foreground'
+                    }`}
+                >
+                    {genre}
+                </button>
+            ))}
+        </div>
+    );
 };
 
 export default GenreSwiper;

@@ -84,14 +84,13 @@ const Page = () => {
             );
 
             const data = response.data as LoginResponse;
-            console.log('Login response:', data);
 
             sessionStorage.setItem('user', JSON.stringify(data.user));
             
             const token = data.access_token;
             await setCookies(token);
             
-            router.push('/');
+            router.push('/app');
         } catch (err) {
             if (axios.isAxiosError(err)) {
                 if (err.code === 'ERR_NETWORK') {
@@ -214,7 +213,7 @@ const Page = () => {
             </div>
 
             <div className="relative hidden h-full w-[45%] items-center justify-center overflow-hidden bg-gray-200 md:flex">
-                <img src="/auth/bg.png" className="size-full object-cover" alt="background" />
+            <svg className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" fill="none"><defs><pattern id=":r2:" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M-3 13 15-5M-5 5l18-18M-1 21 17 3"></path></pattern></defs><rect stroke="none" fill="url(#:r2:)" width="100%" height="100%"></rect></svg>
             </div>
         </div>
     );

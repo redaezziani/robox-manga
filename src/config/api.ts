@@ -1,5 +1,5 @@
 export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://redaezziani.com';
-export const WS_BASE_URL = process.env.NEXT_PUBLIC_WS_BASE_URL || 'ws://localhost:8000';
+export const WS_BASE_URL = process.env.NEXT_PUBLIC_WS_BASE_URL || 'ws://https://redaezziani.com';
 
 export const API_ENDPOINTS = {
   notifications: `${API_BASE_URL}/api/notifications`,
